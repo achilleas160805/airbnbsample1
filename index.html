@@ -1,75 +1,42 @@
 <!DOCTYPE html>
-<html lang="el" class="scroll-smooth">
+<html lang="el">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#1C2321">
+    <meta name="description" content="Aetheria Luxury Residence - Αποκλειστική ιδιωτική βίλα με πισίνα infinity και θέα στο Αιγαίο.">
     <title>Aetheria Luxury Residence | Αποκλειστική Ιδιωτική Βίλα</title>
-    
-    <!-- Google Fonts -->
+
+    <!-- Preconnect for speed -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 
-    <!-- Leaflet Map -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <!-- Fonts (display=swap για να μη μπλοκάρει το render) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        cream: {
-                            50: '#FBF9F5',
-                            100: '#F6F2EA',
-                            200: '#EFECE6',
-                            300: '#E2DDD3',
-                            400: '#CFC8BA',
-                        },
-                        charcoal: {
-                            700: '#3A4340',
-                            800: '#2A3230',
-                            900: '#1C2321',
-                            950: '#0F1413',
-                        },
-                        terracotta: {
-                            400: '#D17C62',
-                            500: '#C26D53',
-                            600: '#A6563E',
-                        },
-                        gold: {
-                            400: '#E5C158',
-                            500: '#D4AF37',
-                            600: '#B89326',
-                        }
-                    },
-                    fontFamily: {
-                        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
-                        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
-                    },
-                    letterSpacing: {
-                        'ultra-wide': '0.32em',
-                    },
-                    boxShadow: {
-                        'luxe': '0 20px 50px -20px rgba(28, 35, 33, 0.25), 0 8px 20px -12px rgba(28, 35, 33, 0.15)',
-                        'luxe-lg': '0 30px 80px -25px rgba(28, 35, 33, 0.35), 0 12px 30px -15px rgba(28, 35, 33, 0.2)',
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
 
     <style>
+        /* ============ RESET & BASE ============ */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
         :root {
-            --ease-lux: cubic-bezier(0.16, 1, 0.3, 1);
-            --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+            --cream-50: #FBF9F5;
+            --cream-100: #F6F2EA;
+            --cream-200: #EFECE6;
+            --cream-300: #E2DDD3;
+            --charcoal-700: #3A4340;
+            --charcoal-800: #2A3230;
+            --charcoal-900: #1C2321;
+            --charcoal-950: #0F1413;
+            --terra-400: #D17C62;
+            --terra-500: #C26D53;
+            --terra-600: #A6563E;
+            --gold-400: #E5C158;
+            --gold-500: #D4AF37;
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         html {
@@ -77,1159 +44,1783 @@
             -webkit-text-size-adjust: 100%;
         }
 
-        body {
-            background-color: #FBF9F5;
-            color: #1C2321;
-            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-            font-feature-settings: 'ss01', 'cv11';
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            line-height: 1.6;
-        }
-
-        /* Fluid Typography Helper */
-        .text-fluid-hero { font-size: clamp(2.25rem, 6vw + 0.5rem, 5.5rem); line-height: 1.02; }
-        .text-fluid-h2 { font-size: clamp(1.875rem, 3.5vw + 0.5rem, 3.5rem); line-height: 1.1; }
-        .text-fluid-h3 { font-size: clamp(1.25rem, 1.2vw + 0.75rem, 1.75rem); }
-
-        /* Font Optical Sizing for Serif */
-        .font-serif { font-optical-sizing: auto; font-variation-settings: "opsz" 60; }
-
-        /* Custom Cursor */
-        #custom-cursor, #custom-cursor-dot {
-            pointer-events: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 9999;
-            transform: translate3d(-50%, -50%, 0);
-            will-change: transform;
-        }
-        #custom-cursor {
-            width: 32px;
-            height: 32px;
-            border: 1px solid rgba(194, 109, 83, 0.7);
-            border-radius: 50%;
-            transition: width 0.5s var(--ease-lux), height 0.5s var(--ease-lux),
-                        background-color 0.4s var(--ease-smooth), border-color 0.4s var(--ease-smooth);
-            mix-blend-mode: difference;
-        }
-        #custom-cursor.is-hover {
-            width: 64px;
-            height: 64px;
-            background-color: rgba(194, 109, 83, 0.15);
-            border-color: rgba(194, 109, 83, 0);
-        }
-        #custom-cursor-dot {
-            width: 5px;
-            height: 5px;
-            background-color: #C26D53;
-            border-radius: 50%;
-        }
-        @media (hover: none), (pointer: coarse) {
-            #custom-cursor, #custom-cursor-dot { display: none !important; }
-        }
-
-        /* Scroll Progress */
-        #scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #C26D53 0%, #D4AF37 100%);
-            z-index: 200;
-            width: 0%;
-            transition: width 0.15s linear;
-            will-change: width;
-        }
-
-        /* Reveal Animations */
-        .reveal-up {
-            opacity: 0;
-            transform: translate3d(0, 48px, 0);
-            transition: opacity 1.2s var(--ease-lux), transform 1.2s var(--ease-lux);
-            will-change: opacity, transform;
-        }
-        .reveal-up.is-visible {
-            opacity: 1;
-            transform: translate3d(0, 0, 0);
-            will-change: auto;
-        }
-        .delay-100 { transition-delay: 120ms; }
-        .delay-200 { transition-delay: 240ms; }
-        .delay-300 { transition-delay: 360ms; }
-        .delay-400 { transition-delay: 480ms; }
-
-        /* Premium Button — Shimmer + Fill */
-        .btn-luxury {
-            position: relative;
-            overflow: hidden;
-            isolation: isolate;
-            transition: transform 0.5s var(--ease-lux), box-shadow 0.5s var(--ease-lux), color 0.4s var(--ease-smooth);
-            z-index: 1;
-        }
-        .btn-luxury::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.28) 45%, transparent 70%);
-            transform: translateX(-120%);
-            transition: transform 0.9s var(--ease-lux);
-            z-index: 2;
-            pointer-events: none;
-        }
-        .btn-luxury::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-color: #C26D53;
-            transform: scaleX(0);
-            transform-origin: right center;
-            transition: transform 0.6s var(--ease-lux);
-            z-index: -1;
-        }
-        .btn-luxury:hover::before { transform: translateX(120%); }
-        .btn-luxury:hover::after { transform: scaleX(1); transform-origin: left center; }
-        .btn-luxury:active { transform: translateY(1px) scale(0.99); }
-
-        /* WhatsApp Button Shimmer */
-        .btn-whatsapp {
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.5s var(--ease-lux), box-shadow 0.5s var(--ease-lux), filter 0.4s var(--ease-smooth);
-        }
-        .btn-whatsapp::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.35) 50%, transparent 70%);
-            transform: translateX(-120%);
-            transition: transform 0.9s var(--ease-lux);
-            pointer-events: none;
-        }
-        .btn-whatsapp:hover::before { transform: translateX(120%); }
-        .btn-whatsapp:hover { filter: brightness(1.05); }
-
-        /* Gold Outline Button */
-        .btn-gold-outline {
-            position: relative;
-            border: 1px solid rgba(212, 175, 55, 0.55);
-            color: #1C2321;
-            overflow: hidden;
-            transition: color 0.5s var(--ease-lux), border-color 0.5s var(--ease-lux);
-            z-index: 1;
-        }
-        .btn-gold-outline::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-color: #1C2321;
-            transform: scaleY(0);
-            transform-origin: bottom center;
-            transition: transform 0.5s var(--ease-lux);
-            z-index: -1;
-        }
-        .btn-gold-outline:hover {
-            color: #FBF9F5;
-            border-color: #D4AF37;
-        }
-        .btn-gold-outline:hover::before {
-            transform: scaleY(1);
-            transform-origin: top center;
-        }
-
-        /* Image Reveal */
-        .img-reveal-box {
-            overflow: hidden;
-            position: relative;
-        }
-        .img-reveal-box img {
-            transition: transform 1.6s var(--ease-lux), filter 1.2s var(--ease-lux);
-            will-change: transform;
-        }
-        .img-reveal-box:hover img {
-            transform: scale(1.08);
-            filter: brightness(0.95);
-        }
-
-        /* Header */
-        .nav-hidden { transform: translateY(-100%); transition: transform 0.5s var(--ease-lux); }
-        .nav-visible { transform: translateY(0); transition: transform 0.5s var(--ease-lux); }
-        .glass-header {
-            background: rgba(251, 249, 245, 0.82);
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
-            border-bottom: 1px solid rgba(226, 221, 211, 0.5);
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #F6F2EA; }
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #C26D53, #A6563E);
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover { background: #A6563E; }
-
-        /* Accordion */
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.55s var(--ease-lux), padding 0.55s var(--ease-lux);
-        }
-
-        /* Ambient Glow */
-        .ambient-glow {
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(194, 109, 83, 0.18) 0%, rgba(251, 249, 245, 0) 70%);
-            pointer-events: none;
-            border-radius: 50%;
-            filter: blur(40px);
-        }
-
-        /* Section Divider */
-        .divider-gold {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.5), transparent);
-        }
-
-        /* Mobile Drawer Links */
-        .mobile-link {
-            opacity: 0;
-            transform: translateX(-16px);
-            transition: opacity 0.5s var(--ease-lux), transform 0.5s var(--ease-lux), color 0.3s;
-        }
-        #mobile-menu:not(.hidden) .mobile-link {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        #mobile-menu:not(.hidden) .mobile-link:nth-child(1) { transition-delay: 80ms; }
-        #mobile-menu:not(.hidden) .mobile-link:nth-child(2) { transition-delay: 130ms; }
-        #mobile-menu:not(.hidden) .mobile-link:nth-child(3) { transition-delay: 180ms; }
-        #mobile-menu:not(.hidden) .mobile-link:nth-child(4) { transition-delay: 230ms; }
-        #mobile-menu:not(.hidden) .mobile-link:nth-child(5) { transition-delay: 280ms; }
-        #mobile-menu:not(.hidden) .mobile-link:nth-child(6) { transition-delay: 330ms; }
-
-        /* Link underline animation */
-        .nav-link {
-            position: relative;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -6px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: linear-gradient(90deg, #C26D53, #D4AF37);
-            transition: width 0.5s var(--ease-lux);
-        }
-        .nav-link:hover::after { width: 100%; }
-
-        /* Feature Card Hover */
-        .feature-card {
-            transition: transform 0.6s var(--ease-lux), border-color 0.4s var(--ease-smooth), box-shadow 0.6s var(--ease-lux);
-        }
-        .feature-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 25px 50px -20px rgba(28, 35, 33, 0.18);
-        }
-
-        /* Reduced motion */
         @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
                 transition-duration: 0.01ms !important;
-                scroll-behavior: auto !important;
             }
-            .reveal-up { opacity: 1 !important; transform: none !important; }
         }
 
-        /* Focus ring */
-        a:focus-visible, button:focus-visible {
-            outline: 2px solid #C26D53;
-            outline-offset: 4px;
-            border-radius: 2px;
+        body {
+            background: var(--cream-50);
+            color: var(--charcoal-900);
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            font-weight: 400;
+            line-height: 1.65;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
+
+        img, video { max-width: 100%; display: block; height: auto; }
+        a { color: inherit; text-decoration: none; }
+        button { font: inherit; background: none; border: none; cursor: pointer; color: inherit; }
+
+        .serif { font-family: 'Cormorant Garamond', Georgia, serif; font-optical-sizing: auto; }
+
+        /* ============ PERFORMANCE HELPERS ============ */
+        .section { padding: 6rem 1.5rem; }
+        @media (min-width: 768px) { .section { padding: 8rem 3rem; } }
+
+        .container { max-width: 1280px; margin: 0 auto; }
+
+        /* content-visibility: skip render για off-screen sections = ΤΕΡΑΣΤΙΟ boost */
+        .cv-auto {
+            content-visibility: auto;
+            contain-intrinsic-size: 1px 800px;
+        }
+
+        /* ============ SCROLL PROGRESS ============ */
+        #progress {
+            position: fixed;
+            top: 0; left: 0;
+            height: 2px;
+            width: 0%;
+            background: linear-gradient(90deg, var(--terra-500), var(--gold-500));
+            z-index: 200;
+            transition: width 0.1s linear;
+        }
+
+        /* ============ HEADER ============ */
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 1.25rem 1.5rem;
+            transition: background-color 0.3s var(--ease), padding 0.3s var(--ease), box-shadow 0.3s var(--ease);
+        }
+        @media (min-width: 768px) { header { padding: 1.5rem 3rem; } }
+
+        header.scrolled {
+            background: rgba(251, 249, 245, 0.96);
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+            box-shadow: 0 1px 0 rgba(226, 221, 211, 0.8), 0 4px 20px -8px rgba(28, 35, 33, 0.08);
+        }
+
+        .header-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+            transition: color 0.3s var(--ease);
+        }
+        header.scrolled .logo { color: var(--charcoal-900); }
+
+        .logo-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            letter-spacing: 0.18em;
+            font-weight: 500;
+            line-height: 1;
+        }
+        @media (min-width: 768px) { .logo-title { font-size: 1.75rem; } }
+
+        .logo-sub {
+            font-size: 9px;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            opacity: 0.75;
+            margin-top: 4px;
+            font-weight: 300;
+        }
+
+        .nav-desktop { display: none; gap: 2.25rem; }
+        @media (min-width: 1024px) { .nav-desktop { display: flex; } }
+
+        .nav-desktop a {
+            font-size: 11px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            font-weight: 500;
+            color: rgba(255,255,255,0.95);
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.3s var(--ease);
+        }
+        header.scrolled .nav-desktop a { color: rgba(28, 35, 33, 0.85); }
+
+        .nav-desktop a::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--terra-500);
+            transition: width 0.35s var(--ease);
+        }
+        .nav-desktop a:hover { color: var(--terra-400); }
+        .nav-desktop a:hover::after { width: 100%; }
+
+        .header-cta {
+            display: none;
+            padding: 0.75rem 1.5rem;
+            background: var(--charcoal-900);
+            color: #fff;
+            font-size: 11px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            font-weight: 600;
+            align-items: center;
+            gap: 0.6rem;
+            transition: background-color 0.3s var(--ease);
+        }
+        @media (min-width: 768px) { .header-cta { display: inline-flex; } }
+        .header-cta:hover { background: var(--terra-500); }
+        .header-cta i { color: var(--terra-400); font-size: 11px; }
+        .header-cta:hover i { color: #fff; }
+
+        .menu-btn {
+            color: #fff;
+            padding: 0.6rem;
+            font-size: 1.25rem;
+            transition: color 0.3s;
+        }
+        header.scrolled .menu-btn { color: var(--charcoal-900); }
+        @media (min-width: 1024px) { .menu-btn { display: none; } }
+
+        /* Mobile menu */
+        #mobile-menu {
+            position: fixed;
+            inset: 0;
+            background: var(--cream-50);
+            z-index: 150;
+            padding: 5rem 2rem 2rem;
+            display: none;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        #mobile-menu.open { display: flex; }
+
+        #mobile-menu a.m-link {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--charcoal-900);
+            padding: 1.1rem 0;
+            border-bottom: 1px solid var(--cream-300);
+            transition: color 0.3s;
+        }
+        #mobile-menu a.m-link:hover { color: var(--terra-500); }
+
+        .m-close {
+            position: absolute;
+            top: 1.5rem; right: 1.5rem;
+            font-size: 1.5rem;
+            padding: 0.5rem;
+            color: var(--charcoal-900);
+        }
+
+        .m-actions { margin-top: auto; padding-top: 2rem; display: flex; flex-direction: column; gap: 0.75rem; }
+
+        /* ============ BUTTONS ============ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem 1.75rem;
+            font-size: 11px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            transition: transform 0.4s var(--ease), color 0.3s, background-color 0.3s, box-shadow 0.4s var(--ease);
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: var(--charcoal-900);
+            color: #fff;
+        }
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--terra-500);
+            transform: scaleX(0);
+            transform-origin: right center;
+            transition: transform 0.55s var(--ease);
+            z-index: -1;
+        }
+        .btn-primary:hover::after {
+            transform: scaleX(1);
+            transform-origin: left center;
+        }
+        .btn-primary i { color: var(--terra-400); transition: color 0.3s; }
+        .btn-primary:hover i { color: #fff; }
+
+        .btn-cream {
+            background: var(--cream-50);
+            color: var(--charcoal-900);
+            border: 1px solid rgba(255,255,255,0.6);
+            box-shadow: 0 15px 40px -15px rgba(0,0,0,0.4);
+        }
+        .btn-cream::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--terra-500);
+            transform: scaleX(0);
+            transform-origin: right center;
+            transition: transform 0.55s var(--ease);
+            z-index: -1;
+        }
+        .btn-cream:hover { color: #fff; border-color: transparent; }
+        .btn-cream:hover::after {
+            transform: scaleX(1);
+            transform-origin: left center;
+        }
+        .btn-cream i { color: var(--terra-500); transition: color 0.3s; }
+        .btn-cream:hover i { color: #fff; }
+
+        .btn-wa {
+            background: #25D366;
+            color: #fff;
+            box-shadow: 0 15px 40px -15px rgba(37, 211, 102, 0.4);
+        }
+        .btn-wa:hover { background: #1eab52; }
+
+        .btn-outline {
+            background: rgba(0,0,0,0.25);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+        .btn-outline:hover { background: #fff; color: var(--charcoal-900); }
+
+        .btn-gold {
+            border: 1px solid rgba(212, 175, 55, 0.55);
+            color: var(--charcoal-900);
+            background: transparent;
+        }
+        .btn-gold::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--charcoal-900);
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.5s var(--ease);
+            z-index: -1;
+        }
+        .btn-gold:hover { color: var(--cream-50); border-color: var(--gold-500); }
+        .btn-gold:hover::after { transform: scaleY(1); transform-origin: top; }
+
+        .btn-block { width: 100%; }
+        .btn:active { transform: scale(0.98); }
+
+        /* ============ HERO with VIDEO ============ */
+        .hero {
+            position: relative;
+            min-height: 100svh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 8rem 1.5rem 5rem;
+        }
+
+        .hero-video-wrap {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background: #0F1413;
+        }
+
+        .hero-video-wrap video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            inset: 0;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg,
+                rgba(15, 20, 19, 0.55) 0%,
+                rgba(15, 20, 19, 0.35) 40%,
+                rgba(15, 20, 19, 0.75) 100%);
+        }
+
+        .hero-overlay-bottom {
+            position: absolute;
+            inset: auto 0 0 0;
+            height: 40%;
+            background: linear-gradient(180deg, transparent 0%, var(--cream-50) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            text-align: center;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.75rem;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            font-size: 10px;
+            letter-spacing: 0.32em;
+            text-transform: uppercase;
+            color: var(--cream-100);
+            padding: 0.6rem 1.25rem;
+            border: 1px solid rgba(255,255,255,0.25);
+            background: rgba(0,0,0,0.28);
+            border-radius: 999px;
+            font-weight: 500;
+        }
+        @media (min-width: 640px) { .hero-badge { font-size: 11px; } }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+            font-size: clamp(2.25rem, 6vw, 5.25rem);
+            line-height: 1.03;
+            letter-spacing: -0.01em;
+            text-shadow: 0 2px 30px rgba(0,0,0,0.35);
+        }
+        .hero h1 em {
+            font-style: italic;
+            font-weight: 300;
+            color: var(--cream-100);
+        }
+
+        .hero p.lead {
+            max-width: 640px;
+            font-size: clamp(0.875rem, 1.1vw, 1.0625rem);
+            color: rgba(251, 249, 245, 0.92);
+            font-weight: 300;
+            line-height: 1.75;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+            padding-top: 0.75rem;
+        }
+
+        @media (max-width: 480px) {
+            .hero-actions { flex-direction: column; width: 100%; }
+            .hero-actions .btn { width: 100%; }
+        }
+
+        .scroll-arrow {
+            position: absolute;
+            bottom: 1.75rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            color: rgba(255,255,255,0.75);
+            font-size: 1.15rem;
+            animation: bounce 2.4s ease-in-out infinite;
+        }
+        .scroll-arrow:hover { color: #fff; }
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        /* ============ SECTION HEADERS ============ */
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 11px;
+            letter-spacing: 0.32em;
+            text-transform: uppercase;
+            color: var(--terra-500);
+            font-weight: 600;
+        }
+        .eyebrow::before {
+            content: '';
+            width: 2.5rem;
+            height: 1px;
+            background: var(--terra-500);
+        }
+        .eyebrow.center::after {
+            content: '';
+            width: 2.5rem;
+            height: 1px;
+            background: var(--terra-500);
+        }
+        .eyebrow.center::before { display: none; }
+
+        h2.section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+            font-size: clamp(1.875rem, 3.5vw, 3.25rem);
+            line-height: 1.12;
+            color: var(--charcoal-900);
+            letter-spacing: -0.005em;
+        }
+
+        /* ============ REVEAL (CSS-only, super light) ============ */
+        .fade {
+            opacity: 0;
+            transform: translate3d(0, 30px, 0);
+            transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+        }
+        .fade.in { opacity: 1; transform: translate3d(0, 0, 0); }
+        .fade.d1 { transition-delay: 0.1s; }
+        .fade.d2 { transition-delay: 0.2s; }
+        .fade.d3 { transition-delay: 0.3s; }
+
+        /* ============ ABOUT ============ */
+        .about-grid {
+            display: grid;
+            gap: 3rem;
+            align-items: center;
+        }
+        @media (min-width: 1024px) {
+            .about-grid { grid-template-columns: 1fr 1fr; gap: 4rem; }
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--cream-300);
+        }
+        .stat-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            color: var(--terra-500);
+            font-weight: 400;
+            display: block;
+            line-height: 1;
+        }
+        .stat-lbl {
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--charcoal-900);
+            font-weight: 500;
+            margin-top: 0.6rem;
+            display: block;
+        }
+
+        .about-images {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1rem;
+            align-items: end;
+        }
+        .about-images .img-1 { height: 400px; }
+        .about-images .img-2 { height: 240px; }
+        @media (max-width: 640px) {
+            .about-images .img-1 { height: 300px; }
+            .about-images .img-2 { height: 180px; }
+        }
+
+        .img-box {
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 30px 60px -25px rgba(28, 35, 33, 0.3), 0 10px 25px -15px rgba(28, 35, 33, 0.15);
+        }
+        .img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s var(--ease);
+        }
+        @media (hover: hover) {
+            .img-box:hover img { transform: scale(1.05); }
+        }
+
+        /* ============ AMENITIES ============ */
+        .amenities-bg {
+            background: var(--cream-100);
+            border-top: 1px solid var(--cream-300);
+            border-bottom: 1px solid var(--cream-300);
+        }
+
+        .amenity-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+        }
+        @media (min-width: 640px) { .amenity-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1024px) { .amenity-grid { grid-template-columns: repeat(4, 1fr); } }
+
+        .amenity-card {
+            background: var(--cream-50);
+            padding: 2rem;
+            border: 1px solid var(--cream-300);
+            transition: border-color 0.4s var(--ease), transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+        }
+        @media (hover: hover) {
+            .amenity-card:hover {
+                border-color: rgba(194, 109, 83, 0.5);
+                transform: translateY(-4px);
+                box-shadow: 0 20px 40px -20px rgba(28, 35, 33, 0.18);
+            }
+            .amenity-card:hover .amenity-icon {
+                background: var(--terra-500);
+                color: #fff;
+            }
+        }
+
+        .amenity-icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 999px;
+            background: var(--cream-200);
+            color: var(--charcoal-900);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            transition: background-color 0.4s var(--ease), color 0.4s var(--ease);
+        }
+
+        .amenity-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 500;
+            font-size: 1.5rem;
+            color: var(--charcoal-900);
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .amenity-card p {
+            font-size: 12.5px;
+            color: rgba(28, 35, 33, 0.72);
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        /* ============ GALLERY ============ */
+        .gallery-header {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        @media (min-width: 768px) {
+            .gallery-header {
+                flex-direction: row;
+                align-items: flex-end;
+                justify-content: space-between;
+            }
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .filter-btn {
+            padding: 0.65rem 1.1rem;
+            font-size: 10.5px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            font-weight: 500;
+            background: var(--cream-200);
+            color: var(--charcoal-900);
+            transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
+        }
+        .filter-btn.active {
+            background: var(--charcoal-900);
+            color: var(--cream-50);
+        }
+        .filter-btn:not(.active):hover {
+            background: var(--charcoal-900);
+            color: var(--cream-50);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+        }
+        @media (min-width: 640px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1024px) { .gallery-grid { grid-template-columns: repeat(3, 1fr); } }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            height: 320px;
+            box-shadow: 0 15px 40px -20px rgba(28, 35, 33, 0.25);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s var(--ease);
+        }
+        @media (hover: hover) {
+            .gallery-item:hover img { transform: scale(1.06); }
+            .gallery-item:hover .gallery-overlay { opacity: 1; }
+        }
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 20, 19, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s var(--ease);
+        }
+        .gallery-overlay span {
+            font-size: 11px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #fff;
+            padding: 0.6rem 1.25rem;
+            border: 1px solid rgba(255,255,255,0.5);
+            background: rgba(0,0,0,0.3);
+        }
+        @media (hover: none) {
+            .gallery-overlay { opacity: 1; background: linear-gradient(180deg, transparent 60%, rgba(15,20,19,0.6) 100%); align-items: flex-end; justify-content: flex-end; padding: 1rem; }
+        }
+
+        /* Lightbox */
+        #lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 300;
+            background: rgba(15, 20, 19, 0.96);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        #lightbox.open { display: flex; }
+        #lightbox img {
+            max-width: 100%;
+            max-height: 85vh;
+            object-fit: contain;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 1.5rem; right: 1.5rem;
+            color: #fff;
+            font-size: 1.75rem;
+            padding: 0.5rem;
+            transition: color 0.3s;
+        }
+        .lightbox-close:hover { color: var(--terra-400); }
+
+        /* ============ RATES ============ */
+        .rates-bg {
+            background: var(--charcoal-900);
+            color: var(--cream-50);
+        }
+
+        .rates-grid {
+            display: grid;
+            gap: 3rem;
+            align-items: center;
+        }
+        @media (min-width: 1024px) {
+            .rates-grid { grid-template-columns: 1fr 1fr; gap: 4rem; }
+        }
+
+        .rates-list {
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .rates-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 13.5px;
+            color: rgba(251, 249, 245, 0.85);
+            font-weight: 300;
+        }
+        .rates-list li i { color: var(--terra-400); font-size: 13px; }
+
+        .contact-card {
+            background: var(--cream-50);
+            color: var(--charcoal-900);
+            padding: 2.5rem;
+            box-shadow: 0 40px 80px -30px rgba(0,0,0,0.5);
+        }
+        @media (min-width: 640px) { .contact-card { padding: 3rem; } }
+
+        .contact-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+            font-size: 1.875rem;
+            margin: 0.5rem 0 0.75rem;
+        }
+        .contact-card .stack { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem; }
+
+        /* ============ REVIEWS ============ */
+        .reviews-grid {
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: 1fr;
+        }
+        @media (min-width: 768px) { .reviews-grid { grid-template-columns: repeat(3, 1fr); } }
+
+        .review-card {
+            background: var(--cream-100);
+            padding: 2rem;
+            border: 1px solid var(--cream-300);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: border-color 0.4s var(--ease), transform 0.4s var(--ease);
+        }
+        @media (hover: hover) {
+            .review-card:hover {
+                border-color: rgba(194, 109, 83, 0.5);
+                transform: translateY(-4px);
+            }
+        }
+
+        .stars { display: flex; gap: 3px; color: var(--gold-500); font-size: 11px; }
+
+        .review-card blockquote {
+            font-size: 13.5px;
+            color: rgba(28, 35, 33, 0.88);
+            font-weight: 300;
+            line-height: 1.75;
+            font-style: italic;
+            margin: 1rem 0 1.75rem;
+        }
+
+        .review-footer {
+            padding-top: 1rem;
+            border-top: 1px solid var(--cream-300);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .review-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: var(--charcoal-900);
+        }
+        .review-loc { font-size: 11px; color: rgba(28, 35, 33, 0.6); }
+        .review-footer i.quote { font-size: 1.15rem; color: rgba(194, 109, 83, 0.25); }
+
+        /* ============ FAQ ============ */
+        .faq-bg {
+            background: var(--cream-100);
+            border-top: 1px solid var(--cream-300);
+        }
+        .faq-wrap { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
+        .faq-item {
+            background: var(--cream-50);
+            border: 1px solid var(--cream-300);
+        }
+        .faq-q {
+            width: 100%;
+            padding: 1.5rem;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--charcoal-900);
+            gap: 1rem;
+        }
+        .faq-q i {
+            color: var(--terra-500);
+            font-size: 12px;
+            transition: transform 0.4s var(--ease);
+            flex-shrink: 0;
+        }
+        .faq-q.open i { transform: rotate(45deg); }
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s var(--ease);
+        }
+        .faq-a-inner {
+            padding: 0 1.5rem 1.5rem;
+            font-size: 13.5px;
+            color: rgba(28, 35, 33, 0.78);
+            font-weight: 300;
+            line-height: 1.75;
+        }
+
+        /* ============ LOCATION / MAP ============ */
+        .location-grid {
+            display: grid;
+            gap: 3rem;
+            align-items: center;
+        }
+        @media (min-width: 1024px) {
+            .location-grid { grid-template-columns: 5fr 7fr; gap: 4rem; }
+        }
+
+        .poi-list { display: flex; flex-direction: column; gap: 0; }
+        .poi {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--cream-300);
+            font-size: 13.5px;
+            color: var(--charcoal-900);
+            gap: 1rem;
+        }
+        .poi:last-child { border-bottom: none; }
+        .poi-label { display: flex; align-items: center; gap: 0.75rem; }
+        .poi-label i { color: var(--terra-500); width: 16px; text-align: center; }
+        .poi-value { font-weight: 600; white-space: nowrap; }
+
+        /* Google Maps container */
+        .map-wrap {
+            position: relative;
+            height: 420px;
+            box-shadow: 0 40px 80px -30px rgba(28, 35, 33, 0.3);
+            border: 1px solid var(--cream-300);
+            background: var(--cream-100);
+            overflow: hidden;
+        }
+        @media (min-width: 640px) { .map-wrap { height: 500px; } }
+
+        .map-wrap iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
+        /* Overlay label — κέντρο του πλαισίου */
+        .map-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+            background: rgba(15, 20, 19, 0.92);
+            color: #fff;
+            padding: 1rem 1.5rem;
+            font-size: 11.5px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            pointer-events: none;
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.15);
+            white-space: nowrap;
+            animation: pulse 2.4s ease-in-out infinite;
+        }
+        @media (max-width: 480px) {
+            .map-overlay {
+                font-size: 9.5px;
+                padding: 0.75rem 1rem;
+                letter-spacing: 0.12em;
+            }
+        }
+        .map-overlay i {
+            color: var(--terra-400);
+            font-size: 13px;
+            animation: ping 1.8s ease-in-out infinite;
+        }
+        .map-overlay::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border: 1px solid rgba(194, 109, 83, 0.35);
+            animation: pulseRing 2.4s ease-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.02); }
+        }
+        @keyframes pulseRing {
+            0% { opacity: 0.9; transform: scale(1); }
+            100% { opacity: 0; transform: scale(1.15); }
+        }
+        @keyframes ping {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            background: var(--charcoal-950);
+            color: var(--cream-200);
+            padding: 5rem 1.5rem 2.5rem;
+        }
+        @media (min-width: 768px) { footer { padding: 5rem 3rem 2.5rem; } }
+
+        .footer-grid {
+            max-width: 1280px;
+            margin: 0 auto 4rem;
+            display: grid;
+            gap: 3rem;
+            grid-template-columns: 1fr;
+        }
+        @media (min-width: 640px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1024px) { .footer-grid { grid-template-columns: 1.5fr 1fr 1fr 1fr; } }
+
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.875rem;
+            letter-spacing: 0.18em;
+            color: #fff;
+            font-weight: 400;
+        }
+
+        .footer-title {
+            font-size: 11px;
+            letter-spacing: 0.32em;
+            text-transform: uppercase;
+            color: var(--terra-400);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .footer-list a, .footer-list span {
+            font-size: 12.5px;
+            color: rgba(251, 249, 245, 0.7);
+            transition: color 0.3s;
+            font-weight: 300;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .footer-list a:hover { color: #fff; }
+        .footer-list i { color: var(--terra-400); }
+
+        .socials { display: flex; gap: 0.75rem; }
+        .socials a {
+            width: 40px;
+            height: 40px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 14px;
+            transition: background-color 0.3s var(--ease);
+        }
+        .socials a:hover { background: var(--terra-500); }
+
+        .footer-bottom {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 11px;
+            color: rgba(251, 249, 245, 0.5);
+            font-weight: 300;
+        }
+        @media (min-width: 640px) { .footer-bottom { flex-direction: row; } }
+
+        /* ============ FLOATING CTA ============ */
+        .floating {
+            position: fixed;
+            bottom: 1.25rem;
+            right: 1.25rem;
+            z-index: 90;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        @media (min-width: 640px) { .floating { bottom: 1.5rem; right: 1.5rem; } }
+
+        .floating-phone {
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--charcoal-900);
+            color: var(--cream-50);
+            padding: 0.9rem 1.25rem;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 600;
+            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.4);
+            transition: background-color 0.3s;
+        }
+        @media (min-width: 640px) { .floating-phone { display: inline-flex; } }
+        .floating-phone:hover { background: var(--terra-500); }
+        .floating-phone i { color: var(--terra-400); font-size: 11px; }
+
+        .floating-wa {
+            width: 56px;
+            height: 56px;
+            border-radius: 999px;
+            background: #25D366;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 20px 40px -15px rgba(37, 211, 102, 0.5);
+            transition: transform 0.3s var(--ease), background-color 0.3s;
+        }
+        @media (hover: hover) {
+            .floating-wa:hover { transform: scale(1.08); background: #1eab52; }
+        }
+
+        /* ============ UTILITIES ============ */
+        .text-center { text-align: center; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .max-w-2xl { max-width: 42rem; }
+        .lead { font-size: 15px; color: rgba(28, 35, 33, 0.78); font-weight: 300; line-height: 1.75; }
+        @media (min-width: 768px) { .lead { font-size: 16px; } }
+
+        .dark-section .lead { color: rgba(251, 249, 245, 0.8); }
     </style>
 </head>
-<body class="antialiased selection:bg-terracotta-500 selection:text-white">
+<body>
 
-    <div id="scroll-progress"></div>
-    <div id="custom-cursor"></div>
-    <div id="custom-cursor-dot"></div>
+<!-- Progress bar -->
+<div id="progress"></div>
 
-    <!-- Header -->
-    <header id="main-header" class="fixed top-0 left-0 right-0 z-40 py-5 transition-all duration-500 nav-visible">
-        <div class="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
-            
-            <a href="#" class="group flex flex-col" aria-label="Aetheria Home">
-                <span class="font-serif text-2xl md:text-3xl tracking-[0.18em] text-charcoal-900 font-medium group-hover:text-terracotta-500 transition-colors duration-500">
-                    AETHERIA
-                </span>
-                <span class="text-[9px] tracking-[0.4em] text-charcoal-800/55 uppercase font-light mt-0.5">Luxury Residence</span>
-            </a>
-
-            <nav class="hidden md:flex items-center space-x-9 text-[11px] tracking-[0.22em] uppercase font-medium text-charcoal-900/85">
-                <a href="#about" class="nav-link hover:text-terracotta-500 transition-colors py-2">Σχετικά</a>
-                <a href="#amenities" class="nav-link hover:text-terracotta-500 transition-colors py-2">Παροχές</a>
-                <a href="#gallery" class="nav-link hover:text-terracotta-500 transition-colors py-2">Συλλογή</a>
-                <a href="#rates" class="nav-link hover:text-terracotta-500 transition-colors py-2">Πληροφορίες</a>
-                <a href="#reviews" class="nav-link hover:text-terracotta-500 transition-colors py-2">Αξιολογήσεις</a>
-                <a href="#location" class="nav-link hover:text-terracotta-500 transition-colors py-2">Τοποθεσία</a>
-            </nav>
-
-            <div class="hidden md:flex items-center">
-                <a href="tel:2310000000" class="btn-luxury bg-charcoal-900 text-cream-50 px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] inline-flex items-center gap-2.5 shadow-luxe hover:text-white">
-                    <i class="fa-solid fa-phone text-terracotta-400 text-xs relative z-10"></i>
-                    <span class="relative z-10">2310 000000</span>
-                </a>
-            </div>
-
-            <button id="mobile-menu-btn" class="md:hidden text-charcoal-900 focus:outline-none p-3 -mr-2" aria-label="Μενού">
-                <i class="fa-solid fa-bars text-xl"></i>
-            </button>
-        </div>
-
-        <!-- Mobile Drawer -->
-        <div id="mobile-menu" class="hidden md:hidden fixed inset-0 top-0 pt-24 bg-cream-50/98 backdrop-blur-2xl z-50 flex flex-col px-8 py-10 space-y-1 text-lg font-serif">
-            <button id="mobile-menu-close" class="absolute top-6 right-6 text-charcoal-900 text-2xl p-2" aria-label="Κλείσιμο">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <a href="#about" class="mobile-link text-charcoal-900 hover:text-terracotta-500 border-b border-cream-300 py-4">Σχετικά με τη Βίλα</a>
-            <a href="#amenities" class="mobile-link text-charcoal-900 hover:text-terracotta-500 border-b border-cream-300 py-4">Πολυτελείς Παροχές</a>
-            <a href="#gallery" class="mobile-link text-charcoal-900 hover:text-terracotta-500 border-b border-cream-300 py-4">Συλλογή Φωτογραφιών</a>
-            <a href="#rates" class="mobile-link text-charcoal-900 hover:text-terracotta-500 border-b border-cream-300 py-4">Πληροφορίες & Τιμές</a>
-            <a href="#reviews" class="mobile-link text-charcoal-900 hover:text-terracotta-500 border-b border-cream-300 py-4">Εμπειρίες Επισκεπτών</a>
-            <a href="#location" class="mobile-link text-charcoal-900 hover:text-terracotta-500 border-b border-cream-300 py-4">Τοποθεσία & Χάρτης</a>
-            
-            <div class="pt-8 space-y-3 mt-auto">
-                <a href="tel:2310000000" class="w-full bg-charcoal-900 text-cream-50 text-center py-4 text-xs font-sans font-semibold uppercase tracking-widest flex items-center justify-center gap-3 shadow-luxe">
-                    <i class="fa-solid fa-phone text-terracotta-400"></i>
-                    <span>Κλήση 2310 000000</span>
-                </a>
-                <a href="https://wa.me/302310000000" target="_blank" rel="noopener" class="w-full bg-[#25D366] text-white text-center py-4 text-xs font-sans font-semibold uppercase tracking-widest flex items-center justify-center gap-3 shadow-luxe">
-                    <i class="fa-brands fa-whatsapp text-lg"></i>
-                    <span>WhatsApp Chat</span>
-                </a>
-            </div>
-        </div>
-    </header>
-
-    <!-- Hero -->
-    <section class="relative min-h-[100svh] flex items-center justify-center pt-32 pb-20 px-6 overflow-hidden">
-        
-        <div id="hero-bg" class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=2000&q=90" 
-                 alt="Aetheria Luxury Villa Aegean View" 
-                 class="w-full h-full object-cover object-center filter brightness-[0.78] scale-105"
-                 onerror="this.src='https://placehold.co/1920x1080/EFECE6/1C2321?text=Aetheria+Villa'">
-            <div class="absolute inset-0 bg-gradient-to-t from-cream-50 via-charcoal-950/15 to-charcoal-950/55"></div>
-            <div class="absolute inset-0 bg-gradient-to-b from-charcoal-950/40 via-transparent to-transparent"></div>
-        </div>
-
-        <div class="ambient-glow top-1/4 left-1/2 -translate-x-1/2"></div>
-
-        <div class="relative z-10 max-w-5xl mx-auto text-center text-white mt-10 space-y-8">
-            
-            <div class="reveal-up">
-                <span class="inline-block text-[10px] sm:text-xs uppercase tracking-ultra-wide text-cream-100 font-medium px-5 py-2.5 border border-white/25 bg-black/25 backdrop-blur-md rounded-full">
-                    Ιδιωτική Βίλα Υψηλής Αρχιτεκτονικής
-                </span>
-            </div>
-
-            <h1 class="reveal-up delay-100 font-serif text-fluid-hero font-normal tracking-tight drop-shadow-md">
-                Αυθεντική πολυτέλεια <br class="hidden sm:inline"><span class="italic font-light text-cream-100">με θέα το απέραντο γαλάζιο</span>
-            </h1>
-
-            <p class="reveal-up delay-200 max-w-2xl mx-auto text-sm sm:text-base md:text-lg text-cream-100/90 font-light leading-relaxed">
-                Μια απομονωμένη όαση με ιδιωτική πισίνα infinity, μεσογειακούς κήπους και απαράμιλλη αισθητική, σχεδιασμένη για απόλυτη ηρεμία και διακριτικότητα.
-            </p>
-
-            <div class="reveal-up delay-300 pt-4 flex flex-wrap items-center justify-center gap-3 sm:gap-4 max-w-3xl mx-auto">
-                
-                <a href="tel:2310000000" class="btn-luxury bg-cream-50 text-charcoal-900 border border-white/60 px-7 py-4 text-xs font-semibold uppercase tracking-[0.22em] flex items-center gap-3 shadow-luxe-lg hover:text-white">
-                    <i class="fa-solid fa-phone text-terracotta-500 text-sm relative z-10"></i>
-                    <span class="relative z-10">Κλήση: 2310 000000</span>
-                </a>
-
-                <a href="https://wa.me/302310000000?text=%CE%93%CE%B5%CE%B9%CE%B1%20%CF%83%CE%B1%CF%82,%20%CE%B8%CE%B1%20%CE%B7%CE%B8%CE%B5%CE%BB%CE%B1%20%CF%80%CE%BB%CE%B7%CF%81%CE%BF%CF%86%CE%BF%CF%81%CE%B9%CE%B5%CF%82%20%CE%B3%CE%B9%CE%B1%20%CF%84%CE%B7%20%CE%92%CE%B9%CE%BB%CE%B1%20Aetheria" target="_blank" rel="noopener" class="btn-whatsapp bg-[#25D366] text-white px-7 py-4 text-xs font-semibold uppercase tracking-[0.22em] flex items-center gap-3 shadow-luxe-lg">
-                    <i class="fa-brands fa-whatsapp text-lg"></i>
-                    <span>WhatsApp Direct</span>
-                </a>
-
-                <a href="mailto:reservations@aetheria-residence.gr" class="border border-white/40 bg-black/20 backdrop-blur-md text-white px-7 py-4 text-xs font-semibold uppercase tracking-[0.22em] flex items-center gap-3 hover:bg-white hover:text-charcoal-900 transition-all duration-500">
-                    <i class="fa-regular fa-envelope text-sm"></i>
-                    <span>Email Us</span>
-                </a>
-
-            </div>
-
-        </div>
-
-        <a href="#about" class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 text-white/70 hover:text-white transition-colors animate-bounce" aria-label="Scroll down">
-            <i class="fa-solid fa-chevron-down text-lg"></i>
+<!-- ============ HEADER ============ -->
+<header id="header">
+    <div class="header-inner">
+        <a href="#" class="logo" aria-label="Aetheria Home">
+            <span class="logo-title">AETHERIA</span>
+            <span class="logo-sub">Luxury Residence</span>
         </a>
-    </section>
 
-    <!-- About -->
-    <section id="about" class="py-24 sm:py-32 px-6 md:px-12 max-w-7xl mx-auto relative">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            
-            <div class="lg:col-span-6 space-y-8">
-                <div class="reveal-up space-y-4">
-                    <div class="flex items-center space-x-3">
-                        <span class="h-[1px] w-12 bg-terracotta-500"></span>
-                        <span class="text-xs uppercase tracking-ultra-wide text-terracotta-500 font-semibold">Η Αρχιτεκτονική της Γαλήνης</span>
-                    </div>
-                    <h2 class="font-serif text-fluid-h2 text-charcoal-900 font-normal">
-                        Ένα καταφύγιο εκλεπτυσμένης αισθητικής και απόλυτης ιδιωτικότητας
-                    </h2>
-                </div>
+        <nav class="nav-desktop">
+            <a href="#about">Σχετικά</a>
+            <a href="#amenities">Παροχές</a>
+            <a href="#gallery">Συλλογή</a>
+            <a href="#rates">Πληροφορίες</a>
+            <a href="#reviews">Αξιολογήσεις</a>
+            <a href="#location">Τοποθεσία</a>
+        </nav>
 
-                <p class="reveal-up delay-100 text-charcoal-800/85 font-light text-base sm:text-lg leading-relaxed">
-                    Το <strong class="font-semibold text-charcoal-900">Aetheria Luxury Residence</strong> δημιουργήθηκε για ταξιδιώτες που αναζητούν την κομψότητα, την ηρεμία και την άμεση επαφή με το φυσικό κυκλαδίτικο τοπίο.
-                </p>
+        <a href="tel:2310000000" class="header-cta">
+            <i class="fa-solid fa-phone"></i>
+            <span>2310 000000</span>
+        </a>
 
-                <p class="reveal-up delay-200 text-charcoal-800/75 font-light text-sm sm:text-base leading-relaxed">
-                    Σχεδιασμένο με γνώμονα τη βιοκλιματική αρχιτεκτονική, ενσωματώνει φυσική πέτρα, ξύλο καστανιάς και λινά υφάσματα. Η πισίνα υπερχείλισης γίνεται ένα με τον ορίζοντα, προσφέροντας μια ανεμπόδιστη εμπειρία ηλιοβασιλέματος κάθε απόγευμα.
-                </p>
-
-                <div class="reveal-up delay-300 grid grid-cols-3 gap-4 sm:gap-6 pt-6 border-t border-cream-300">
-                    <div>
-                        <span class="font-serif text-3xl sm:text-4xl text-terracotta-500 block font-normal">240m²</span>
-                        <span class="text-[10px] sm:text-xs text-charcoal-900 uppercase tracking-widest font-medium">Χώροι Διαμονής</span>
-                    </div>
-                    <div>
-                        <span class="font-serif text-3xl sm:text-4xl text-terracotta-500 block font-normal">3</span>
-                        <span class="text-[10px] sm:text-xs text-charcoal-900 uppercase tracking-widest font-medium">Master Σουίτες</span>
-                    </div>
-                    <div>
-                        <span class="font-serif text-3xl sm:text-4xl text-terracotta-500 block font-normal">180°</span>
-                        <span class="text-[10px] sm:text-xs text-charcoal-900 uppercase tracking-widest font-medium">Θέα Αιγαίο</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="lg:col-span-6 grid grid-cols-12 gap-4 relative">
-                <div class="col-span-8 img-reveal-box shadow-luxe-lg reveal-up">
-                    <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1000&q=85" 
-                         alt="Master Bedroom Suite" 
-                         class="w-full h-[380px] sm:h-[450px] object-cover"
-                         onerror="this.src='https://placehold.co/800x1000/EFECE6/1C2321?text=Bedroom'">
-                </div>
-                <div class="col-span-4 img-reveal-box shadow-luxe self-end reveal-up delay-200">
-                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=85" 
-                         alt="Living Space Architecture" 
-                         class="w-full h-[240px] sm:h-[280px] object-cover"
-                         onerror="this.src='https://placehold.co/600x800/EFECE6/1C2321?text=Interior'">
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Amenities -->
-    <section id="amenities" class="bg-cream-100 py-24 sm:py-32 px-6 md:px-12 border-y border-cream-300 relative">
-        <div class="max-w-7xl mx-auto">
-            
-            <div class="text-center max-w-2xl mx-auto mb-16 sm:mb-20 space-y-4">
-                <span class="reveal-up text-xs uppercase tracking-ultra-wide text-terracotta-500 font-semibold block">Υψηλές Παροχές</span>
-                <h2 class="reveal-up delay-100 font-serif text-fluid-h2 text-charcoal-900 font-normal">
-                    Σχεδιασμένο για να καλύπτει κάθε σας ανάγκη
-                </h2>
-                <p class="reveal-up delay-200 text-charcoal-800/70 text-sm font-light leading-relaxed">
-                    Από τη στιγμή που θα φτάσετε, κάθε λεπτομέρεια έχει προβλεφθεί για μια άνετη και πολυτελή διαμονή.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                
-                <div class="feature-card reveal-up bg-cream-50 p-8 border border-cream-300 hover:border-terracotta-500/60 group">
-                    <div class="w-12 h-12 bg-cream-200 rounded-full flex items-center justify-center text-charcoal-900 group-hover:bg-terracotta-500 group-hover:text-white transition-all duration-500 mb-6">
-                        <i class="fa-solid fa-water-ladder text-lg"></i>
-                    </div>
-                    <h3 class="font-serif text-2xl text-charcoal-900 mb-2 font-normal">Ιδιωτική Πισίνα Infinity</h3>
-                    <p class="text-xs text-charcoal-800/70 font-light leading-relaxed">
-                        Πισίνα υπερχείλισης με θαλασσινό νερό, ξαπλώστρες, ομπρέλες και πανοραμική θέα στο πέλαγος.
-                    </p>
-                </div>
-
-                <div class="feature-card reveal-up delay-100 bg-cream-50 p-8 border border-cream-300 hover:border-terracotta-500/60 group">
-                    <div class="w-12 h-12 bg-cream-200 rounded-full flex items-center justify-center text-charcoal-900 group-hover:bg-terracotta-500 group-hover:text-white transition-all duration-500 mb-6">
-                        <i class="fa-solid fa-wifi text-lg"></i>
-                    </div>
-                    <h3 class="font-serif text-2xl text-charcoal-900 mb-2 font-normal">Starlink Wi-Fi</h3>
-                    <p class="text-xs text-charcoal-800/70 font-light leading-relaxed">
-                        Δορυφορικό ίντερνετ εξαιρετικά υψηλής ταχύτητας (έως 1Gbps) σε όλους τους εσωτερικούς & εξωτερικούς χώρους.
-                    </p>
-                </div>
-
-                <div class="feature-card reveal-up delay-200 bg-cream-50 p-8 border border-cream-300 hover:border-terracotta-500/60 group">
-                    <div class="w-12 h-12 bg-cream-200 rounded-full flex items-center justify-center text-charcoal-900 group-hover:bg-terracotta-500 group-hover:text-white transition-all duration-500 mb-6">
-                        <i class="fa-solid fa-kitchen-set text-lg"></i>
-                    </div>
-                    <h3 class="font-serif text-2xl text-charcoal-900 mb-2 font-normal">Gourmet Κουζίνα</h3>
-                    <p class="text-xs text-charcoal-800/70 font-light leading-relaxed">
-                        Πλήρως εξοπλισμένη κουζίνα με συσκευές Miele, μηχανή espresso Nespresso και συντηρητή κρασιών.
-                    </p>
-                </div>
-
-                <div class="feature-card reveal-up delay-300 bg-cream-50 p-8 border border-cream-300 hover:border-terracotta-500/60 group">
-                    <div class="w-12 h-12 bg-cream-200 rounded-full flex items-center justify-center text-charcoal-900 group-hover:bg-terracotta-500 group-hover:text-white transition-all duration-500 mb-6">
-                        <i class="fa-solid fa-house-signal text-lg"></i>
-                    </div>
-                    <h3 class="font-serif text-2xl text-charcoal-900 mb-2 font-normal">Smart Home</h3>
-                    <p class="text-xs text-charcoal-800/70 font-light leading-relaxed">
-                        Έλεγχος φωτισμού, θερμοκρασίας και ηχοσυστήματος Sonos μέσω κεντρικής οθόνης touch screen.
-                    </p>
-                </div>
-
-                <div class="feature-card reveal-up bg-cream-50 p-8 border border-cream-300 hover:border-terracotta-500/60 group">
-                    <div class="w-12 h-12 bg-cream-200 rounded-full flex items-center justify-center text-charcoal-900 group-hover:bg-terracotta-500 group-hover:text-white transition-all duration-500 mb-6">
-                        <i class="fa-solid fa-charging-station text-lg"></i>
-                    </div>
-                    <h3 class="font-serif text-2xl text-charcoal-900 mb-2 font-normal">Parking & EV</h3>
-                    <p class="text-xs text-charcoal-800/70 font-light leading-relaxed">
-                        Ασφαλής περιφραγμένος χώρος στάθμευσης για 3 οχήματα με ταχυφορτιστή ηλεκτρικών αυτοκινήτων.
-                    </p>
-                </div>
-
-                <div class="feature-card reveal-up delay-100 bg-cream-50 p-8 border border-cream-300 hover:border-terracotta-500/60 group">
-                    <div class="w-12 h-12 bg-cream-200 rounded-full flex items-center justify-center text-charcoal-900 group-hover:bg-terracotta-500 group-hover:text-white transition-all duration-500 mb-6">
-                        <i class="fa-solid fa-fire-burner text-lg"></i>
-                    </div>
-                    <h3 class="font-serif text-2xl text-charcoal-900 mb-2 font-normal">BBQ & Dining</h3>
-                    <p class="text-xs text-charcoal-800/70 font-light leading-relaxed">
-                        Στεγασμένη τραπεζαρία 10 ατόμων με ψησταριά υγραερίου για ατμοσφαιρικά δείπνα κάτω από τα αστέρια.
-                    </p>
-                </div>
-
-                <div class="feature-card reveal-up delay-200 bg-cream-50 p-8 border border-cream-300 hover:border-terracotta-500/60 group">
-                    <div class="w-12 h-12 bg-cream-200 rounded-full flex items-center justify-center text-charcoal-900 group-hover:bg-terracotta-500 group-hover:text-white transition-all duration-500 mb-6">
-                        <i class="fa-solid fa-bed text-lg"></i>
-                    </div>
-                    <h3 class="font-serif text-2xl text-charcoal-900 mb-2 font-normal">Λινά & Coco-Mat</h3>
-                    <p class="text-xs text-charcoal-800/70 font-light leading-relaxed">
-                        Οικολογικά στρώματα Coco-Mat, 100% λινά σεντόνια και επιλογή μαξιλαριών για τέλειο ύπνο.
-                    </p>
-                </div>
-
-                <div class="feature-card reveal-up delay-300 bg-cream-50 p-8 border border-cream-300 hover:border-terracotta-500/60 group">
-                    <div class="w-12 h-12 bg-cream-200 rounded-full flex items-center justify-center text-charcoal-900 group-hover:bg-terracotta-500 group-hover:text-white transition-all duration-500 mb-6">
-                        <i class="fa-solid fa-concierge-bell text-lg"></i>
-                    </div>
-                    <h3 class="font-serif text-2xl text-charcoal-900 mb-2 font-normal">Private Concierge</h3>
-                    <p class="text-xs text-charcoal-800/70 font-light leading-relaxed">
-                        Δυνατότητα κράτησης ιδιωτικού σεφ, μεταφοράς από/προς αεροδρόμιο και ιδιωτικών σκαφών.
-                    </p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery -->
-    <section id="gallery" class="py-24 sm:py-32 px-6 md:px-12 max-w-7xl mx-auto">
-        
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-6">
-            <div class="reveal-up space-y-2">
-                <span class="text-xs uppercase tracking-ultra-wide text-terracotta-500 font-semibold block">Φωτογραφικό Υλικό</span>
-                <h2 class="font-serif text-fluid-h2 text-charcoal-900 font-normal">
-                    Ανακαλύψτε τη βίλα
-                </h2>
-            </div>
-
-            <div id="gallery-filters" class="reveal-up delay-100 flex flex-wrap gap-2 text-[10px] sm:text-xs uppercase tracking-widest font-medium">
-                <button data-filter="all" class="gallery-filter-btn px-4 sm:px-5 py-2.5 bg-charcoal-900 text-cream-50 transition-all duration-500 shadow-sm">Όλοι οι χώροι</button>
-                <button data-filter="pool" class="gallery-filter-btn px-4 sm:px-5 py-2.5 bg-cream-200 text-charcoal-900 hover:bg-charcoal-900 hover:text-cream-50 transition-all duration-500">Πισίνα & Κήπος</button>
-                <button data-filter="interior" class="gallery-filter-btn px-4 sm:px-5 py-2.5 bg-cream-200 text-charcoal-900 hover:bg-charcoal-900 hover:text-cream-50 transition-all duration-500">Εσωτερικό</button>
-                <button data-filter="views" class="gallery-filter-btn px-4 sm:px-5 py-2.5 bg-cream-200 text-charcoal-900 hover:bg-charcoal-900 hover:text-cream-50 transition-all duration-500">Θέα</button>
-            </div>
-        </div>
-
-        <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            
-            <div class="gallery-item pool img-reveal-box relative cursor-pointer group shadow-luxe reveal-up" data-src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1400&q=85">
-                <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80" alt="Infinity Pool View" class="w-full h-72 sm:h-80 object-cover">
-                <div class="absolute inset-0 bg-charcoal-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center text-white">
-                    <span class="text-xs tracking-widest uppercase border border-white/40 px-4 py-2 bg-black/20 backdrop-blur-md">Μεγέθυνση</span>
-                </div>
-            </div>
-
-            <div class="gallery-item interior img-reveal-box relative cursor-pointer group shadow-luxe reveal-up delay-100" data-src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1400&q=85">
-                <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=800&q=80" alt="Master Suite Bedroom" class="w-full h-72 sm:h-80 object-cover">
-                <div class="absolute inset-0 bg-charcoal-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center text-white">
-                    <span class="text-xs tracking-widest uppercase border border-white/40 px-4 py-2 bg-black/20 backdrop-blur-md">Μεγέθυνση</span>
-                </div>
-            </div>
-
-            <div class="gallery-item views img-reveal-box relative cursor-pointer group shadow-luxe reveal-up delay-200" data-src="https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1400&q=85">
-                <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=800&q=80" alt="Panoramic Aegean Sunset" class="w-full h-72 sm:h-80 object-cover">
-                <div class="absolute inset-0 bg-charcoal-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center text-white">
-                    <span class="text-xs tracking-widest uppercase border border-white/40 px-4 py-2 bg-black/20 backdrop-blur-md">Μεγέθυνση</span>
-                </div>
-            </div>
-
-            <div class="gallery-item interior img-reveal-box relative cursor-pointer group shadow-luxe reveal-up" data-src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1400&q=85">
-                <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80" alt="Living Room Lounge" class="w-full h-72 sm:h-80 object-cover">
-                <div class="absolute inset-0 bg-charcoal-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center text-white">
-                    <span class="text-xs tracking-widest uppercase border border-white/40 px-4 py-2 bg-black/20 backdrop-blur-md">Μεγέθυνση</span>
-                </div>
-            </div>
-
-            <div class="gallery-item views img-reveal-box relative cursor-pointer group shadow-luxe reveal-up delay-100" data-src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1400&q=85">
-                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80" alt="Outdoor Patio Terrace" class="w-full h-72 sm:h-80 object-cover">
-                <div class="absolute inset-0 bg-charcoal-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center text-white">
-                    <span class="text-xs tracking-widest uppercase border border-white/40 px-4 py-2 bg-black/20 backdrop-blur-md">Μεγέθυνση</span>
-                </div>
-            </div>
-
-            <div class="gallery-item pool img-reveal-box relative cursor-pointer group shadow-luxe reveal-up delay-200" data-src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1400&q=85">
-                <img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=800&q=80" alt="Pool Sunbeds" class="w-full h-72 sm:h-80 object-cover">
-                <div class="absolute inset-0 bg-charcoal-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center text-white">
-                    <span class="text-xs tracking-widest uppercase border border-white/40 px-4 py-2 bg-black/20 backdrop-blur-md">Μεγέθυνση</span>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Lightbox -->
-    <div id="lightbox-modal" class="fixed inset-0 z-50 bg-charcoal-950/95 backdrop-blur-xl hidden items-center justify-center p-4 transition-all duration-300">
-        <button id="lightbox-close" class="absolute top-6 right-6 text-white text-3xl hover:text-terracotta-500 transition-colors p-2" aria-label="Κλείσιμο">
-            <i class="fa-solid fa-xmark"></i>
+        <button class="menu-btn" id="menuBtn" aria-label="Μενού">
+            <i class="fa-solid fa-bars"></i>
         </button>
-        <img id="lightbox-img" src="" alt="Enlarged gallery photo" class="max-w-full max-h-[85vh] object-contain shadow-2xl">
+    </div>
+</header>
+
+<!-- Mobile menu -->
+<div id="mobile-menu">
+    <button class="m-close" id="menuClose" aria-label="Κλείσιμο"><i class="fa-solid fa-xmark"></i></button>
+    <a href="#about" class="m-link">Σχετικά με τη Βίλα</a>
+    <a href="#amenities" class="m-link">Πολυτελείς Παροχές</a>
+    <a href="#gallery" class="m-link">Συλλογή Φωτογραφιών</a>
+    <a href="#rates" class="m-link">Πληροφορίες & Τιμές</a>
+    <a href="#reviews" class="m-link">Εμπειρίες Επισκεπτών</a>
+    <a href="#location" class="m-link">Τοποθεσία & Χάρτης</a>
+    <div class="m-actions">
+        <a href="tel:2310000000" class="btn btn-primary btn-block">
+            <i class="fa-solid fa-phone"></i><span>Κλήση 2310 000000</span>
+        </a>
+        <a href="https://wa.me/302310000000" target="_blank" rel="noopener" class="btn btn-wa btn-block">
+            <i class="fa-brands fa-whatsapp" style="font-size:1.15rem;color:#fff;"></i><span>WhatsApp</span>
+        </a>
+    </div>
+</div>
+
+<!-- ============ HERO with VIDEO ============ -->
+<section class="hero">
+    <div class="hero-video-wrap">
+        <!-- 
+            📹 ΒΑΛΕ ΕΔΩ ΤΟ ΔΙΚΟ ΣΟΥ ΒΙΝΤΕΟ
+            Προτεινόμενα specs:
+            - MP4 (H.264) + WebM (VP9) για fallback
+            - 1920x1080, 24-30fps
+            - Διάρκεια 15-30 sec loop
+            - Μέγεθος < 5MB ιδανικά
+        -->
+        <video
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            poster="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1920&q=80"
+            aria-hidden="true">
+            <!-- Αντικατέστησε με το δικό σου video URL -->
+            <source src="https://cdn.coverr.co/videos/coverr-a-luxury-villa-with-a-pool-5563/1080p.mp4" type="video/mp4">
+            <!-- Fallback για browsers χωρίς video support -->
+            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1920&q=80" alt="Aetheria Villa">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-overlay-bottom"></div>
     </div>
 
-    <!-- Rates -->
-    <section id="rates" class="bg-charcoal-900 text-cream-50 py-24 sm:py-32 px-6 md:px-12 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            
-            <div class="lg:col-span-6 space-y-6">
-                <span class="reveal-up text-xs uppercase tracking-ultra-wide text-terracotta-400 font-semibold block">Πληροφορίες Διαμονής</span>
-                <h2 class="reveal-up delay-100 font-serif text-fluid-h2 font-normal leading-tight">
-                    Απευθείας κρατήσεις χωρίς προμήθειες
+    <div class="hero-content">
+        <span class="hero-badge">Ιδιωτική Βίλα Υψηλής Αρχιτεκτονικής</span>
+
+        <h1>
+            Αυθεντική πολυτέλεια<br>
+            <em>με θέα το απέραντο γαλάζιο</em>
+        </h1>
+
+        <p class="lead">
+            Μια απομονωμένη όαση με ιδιωτική πισίνα infinity, μεσογειακούς κήπους και απαράμιλλη αισθητική, σχεδιασμένη για απόλυτη ηρεμία και διακριτικότητα.
+        </p>
+
+        <div class="hero-actions">
+            <a href="tel:2310000000" class="btn btn-cream">
+                <i class="fa-solid fa-phone"></i>
+                <span>Κλήση: 2310 000000</span>
+            </a>
+            <a href="https://wa.me/302310000000?text=%CE%93%CE%B5%CE%B9%CE%B1%20%CF%83%CE%B1%CF%82,%20%CE%B8%CE%B1%20%CE%B7%CE%B8%CE%B5%CE%BB%CE%B1%20%CF%80%CE%BB%CE%B7%CF%81%CE%BF%CF%86%CE%BF%CF%81%CE%B9%CE%B5%CF%82%20%CE%B3%CE%B9%CE%B1%20%CF%84%CE%B7%20%CE%92%CE%B9%CE%BB%CE%B1%20Aetheria" target="_blank" rel="noopener" class="btn btn-wa">
+                <i class="fa-brands fa-whatsapp" style="font-size:1.15rem;color:#fff;"></i>
+                <span>WhatsApp</span>
+            </a>
+            <a href="mailto:reservations@aetheria-residence.gr" class="btn btn-outline">
+                <i class="fa-regular fa-envelope"></i>
+                <span>Email</span>
+            </a>
+        </div>
+    </div>
+
+    <a href="#about" class="scroll-arrow" aria-label="Scroll down">
+        <i class="fa-solid fa-chevron-down"></i>
+    </a>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="section cv-auto">
+    <div class="container">
+        <div class="about-grid">
+            <div class="fade">
+                <div class="eyebrow" style="margin-bottom:1rem;">Η Αρχιτεκτονική της Γαλήνης</div>
+                <h2 class="section-title" style="margin-bottom:1.5rem;">
+                    Ένα καταφύγιο εκλεπτυσμένης αισθητικής και απόλυτης ιδιωτικότητας
                 </h2>
-                <p class="reveal-up delay-200 text-cream-200/80 font-light text-sm sm:text-base leading-relaxed">
-                    Επικοινωνήστε απευθείας μαζί μας για να διασφαλίσετε τις καλύτερες διαθέσιμες τιμές, ειδικά πακέτα πολυήμερης διαμονής και προσαρμοσμένες παροχές.
+                <p class="lead" style="margin-bottom:1rem;">
+                    Το <strong style="font-weight:600;">Aetheria Luxury Residence</strong> δημιουργήθηκε για ταξιδιώτες που αναζητούν την κομψότητα, την ηρεμία και την άμεση επαφή με το φυσικό κυκλαδίτικο τοπίο.
+                </p>
+                <p class="lead" style="margin-bottom:1.75rem;">
+                    Σχεδιασμένο με γνώμονα τη βιοκλιματική αρχιτεκτονική, ενσωματώνει φυσική πέτρα, ξύλο καστανιάς και λινά υφάσματα. Η πισίνα υπερχείλισης γίνεται ένα με τον ορίζοντα.
                 </p>
 
-                <div class="reveal-up delay-300 space-y-4 pt-4 border-t border-charcoal-800">
-                    <div class="flex items-center space-x-3 text-sm font-light text-cream-200">
-                        <i class="fa-solid fa-check text-terracotta-400"></i>
-                        <span>Χωρητικότητα: Έως 6 Φιλοξενούμενοι (3 Master Σουίτες)</span>
+                <div class="stats">
+                    <div>
+                        <span class="stat-num">240m²</span>
+                        <span class="stat-lbl">Χώροι Διαμονής</span>
                     </div>
-                    <div class="flex items-center space-x-3 text-sm font-light text-cream-200">
-                        <i class="fa-solid fa-check text-terracotta-400"></i>
-                        <span>Ελάχιστη διαμονή: 3 διανυκτερεύσεις (5 τη θερινή σεζόν)</span>
+                    <div>
+                        <span class="stat-num">3</span>
+                        <span class="stat-lbl">Master Σουίτες</span>
                     </div>
-                    <div class="flex items-center space-x-3 text-sm font-light text-cream-200">
-                        <i class="fa-solid fa-check text-terracotta-400"></i>
-                        <span>Ευέλικτη πολιτική ακύρωσης κατόπιν συνεννόησης</span>
+                    <div>
+                        <span class="stat-num">180°</span>
+                        <span class="stat-lbl">Θέα Αιγαίο</span>
                     </div>
                 </div>
             </div>
 
-            <div class="reveal-up delay-200 lg:col-span-6 bg-cream-50 text-charcoal-900 p-8 sm:p-12 shadow-luxe-lg border border-cream-200 space-y-6">
-                <span class="text-xs uppercase tracking-widest text-terracotta-600 font-semibold block">Άμεση Κράτηση</span>
-                <h3 class="font-serif text-3xl font-normal">Επικοινωνήστε μαζί μας</h3>
-                <p class="text-xs sm:text-sm text-charcoal-800/80 font-light leading-relaxed">
-                    Είμαστε στη διάθεσή σας τηλεφωνικά στο <strong class="font-semibold text-charcoal-900">2310 000000</strong> ή μέσω WhatsApp για άμεση επιβεβαίωση διαθεσιμότητας.
+            <div class="about-images fade d2">
+                <div class="img-box img-1">
+                    <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80" 
+                         alt="Master Bedroom Suite" loading="lazy" width="800" height="1000">
+                </div>
+                <div class="img-box img-2">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80" 
+                         alt="Living Space" loading="lazy" width="600" height="800">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ AMENITIES ============ -->
+<section id="amenities" class="section amenities-bg cv-auto">
+    <div class="container">
+        <div class="text-center max-w-2xl mx-auto" style="margin-bottom:4rem;">
+            <div class="eyebrow center" style="justify-content:center; margin-bottom:1rem;">Υψηλές Παροχές</div>
+            <h2 class="section-title" style="margin-bottom:1rem;">Σχεδιασμένο για κάθε ανάγκη</h2>
+            <p class="lead">Από τη στιγμή που θα φτάσετε, κάθε λεπτομέρεια έχει προβλεφθεί.</p>
+        </div>
+
+        <div class="amenity-grid">
+            <div class="amenity-card fade">
+                <div class="amenity-icon"><i class="fa-solid fa-water-ladder"></i></div>
+                <h3>Infinity Πισίνα</h3>
+                <p>Πισίνα υπερχείλισης με θαλασσινό νερό, ξαπλώστρες, ομπρέλες και πανοραμική θέα στο πέλαγος.</p>
+            </div>
+
+            <div class="amenity-card fade d1">
+                <div class="amenity-icon"><i class="fa-solid fa-wifi"></i></div>
+                <h3>Starlink Wi-Fi</h3>
+                <p>Δορυφορικό ίντερνετ εξαιρετικά υψηλής ταχύτητας (έως 1Gbps) σε όλους τους χώρους.</p>
+            </div>
+
+            <div class="amenity-card fade d2">
+                <div class="amenity-icon"><i class="fa-solid fa-kitchen-set"></i></div>
+                <h3>Gourmet Κουζίνα</h3>
+                <p>Πλήρως εξοπλισμένη με συσκευές Miele, Nespresso και επαγγελματικό συντηρητή κρασιών.</p>
+            </div>
+
+            <div class="amenity-card fade d3">
+                <div class="amenity-icon"><i class="fa-solid fa-house-signal"></i></div>
+                <h3>Smart Home</h3>
+                <p>Έλεγχος φωτισμού, θερμοκρασίας και Sonos ηχοσυστήματος μέσω κεντρικής οθόνης.</p>
+            </div>
+
+            <div class="amenity-card fade">
+                <div class="amenity-icon"><i class="fa-solid fa-charging-station"></i></div>
+                <h3>Parking & EV</h3>
+                <p>Ασφαλής περιφραγμένος χώρος για 3 οχήματα με ταχυφορτιστή ηλεκτρικών αυτοκινήτων.</p>
+            </div>
+
+            <div class="amenity-card fade d1">
+                <div class="amenity-icon"><i class="fa-solid fa-fire-burner"></i></div>
+                <h3>BBQ & Dining</h3>
+                <p>Στεγασμένη τραπεζαρία 10 ατόμων με ψησταριά για ατμοσφαιρικά δείπνα κάτω από τα αστέρια.</p>
+            </div>
+
+            <div class="amenity-card fade d2">
+                <div class="amenity-icon"><i class="fa-solid fa-bed"></i></div>
+                <h3>Coco-Mat & Λινά</h3>
+                <p>Οικολογικά στρώματα Coco-Mat, 100% λινά σεντόνια και επιλογή μαξιλαριών για τέλειο ύπνο.</p>
+            </div>
+
+            <div class="amenity-card fade d3">
+                <div class="amenity-icon"><i class="fa-solid fa-concierge-bell"></i></div>
+                <h3>Private Concierge</h3>
+                <p>Κρατήσεις ιδιωτικού σεφ, μεταφοράς από/προς αεροδρόμιο και ιδιωτικών σκαφών.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section id="gallery" class="section cv-auto">
+    <div class="container">
+        <div class="gallery-header">
+            <div class="fade">
+                <div class="eyebrow" style="margin-bottom:0.75rem;">Φωτογραφικό Υλικό</div>
+                <h2 class="section-title">Ανακαλύψτε τη βίλα</h2>
+            </div>
+
+            <div class="filters fade d1">
+                <button class="filter-btn active" data-filter="all">Όλοι οι χώροι</button>
+                <button class="filter-btn" data-filter="pool">Πισίνα & Κήπος</button>
+                <button class="filter-btn" data-filter="interior">Εσωτερικό</button>
+                <button class="filter-btn" data-filter="views">Θέα</button>
+            </div>
+        </div>
+
+        <div class="gallery-grid" id="galleryGrid">
+            <div class="gallery-item fade" data-cat="pool" data-src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1600&q=85">
+                <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=75" alt="Infinity Pool View" loading="lazy" width="800" height="600">
+                <div class="gallery-overlay"><span>Μεγέθυνση</span></div>
+            </div>
+
+            <div class="gallery-item fade d1" data-cat="interior" data-src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1600&q=85">
+                <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=800&q=75" alt="Master Suite" loading="lazy" width="800" height="600">
+                <div class="gallery-overlay"><span>Μεγέθυνση</span></div>
+            </div>
+
+            <div class="gallery-item fade d2" data-cat="views" data-src="https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1600&q=85">
+                <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=800&q=75" alt="Aegean Sunset" loading="lazy" width="800" height="600">
+                <div class="gallery-overlay"><span>Μεγέθυνση</span></div>
+            </div>
+
+            <div class="gallery-item fade" data-cat="interior" data-src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=85">
+                <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=75" alt="Living Room" loading="lazy" width="800" height="600">
+                <div class="gallery-overlay"><span>Μεγέθυνση</span></div>
+            </div>
+
+            <div class="gallery-item fade d1" data-cat="views" data-src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1600&q=85">
+                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=75" alt="Terrace View" loading="lazy" width="800" height="600">
+                <div class="gallery-overlay"><span>Μεγέθυνση</span></div>
+            </div>
+
+            <div class="gallery-item fade d2" data-cat="pool" data-src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1600&q=85">
+                <img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=800&q=75" alt="Pool Sunbeds" loading="lazy" width="800" height="600">
+                <div class="gallery-overlay"><span>Μεγέθυνση</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Lightbox -->
+<div id="lightbox">
+    <button class="lightbox-close" id="lbClose" aria-label="Κλείσιμο"><i class="fa-solid fa-xmark"></i></button>
+    <img id="lbImg" src="" alt="">
+</div>
+
+<!-- ============ RATES ============ -->
+<section id="rates" class="section rates-bg dark-section cv-auto">
+    <div class="container">
+        <div class="rates-grid">
+            <div class="fade">
+                <div class="eyebrow" style="margin-bottom:1rem; color:var(--terra-400);">Πληροφορίες Διαμονής</div>
+                <h2 class="section-title" style="color:var(--cream-50); margin-bottom:1.25rem;">
+                    Απευθείας κρατήσεις χωρίς προμήθειες
+                </h2>
+                <p class="lead" style="margin-bottom:2rem;">
+                    Επικοινωνήστε απευθείας μαζί μας για τις καλύτερες διαθέσιμες τιμές, ειδικά πακέτα πολυήμερης διαμονής και προσαρμοσμένες παροχές.
                 </p>
 
-                <div class="space-y-3 pt-2">
-                    <a href="tel:2310000000" class="btn-luxury w-full bg-charcoal-900 text-cream-50 py-4 px-6 text-xs font-semibold tracking-widest uppercase flex items-center justify-center gap-3 hover:text-white">
-                        <i class="fa-solid fa-phone text-terracotta-400 text-sm relative z-10"></i>
-                        <span class="relative z-10">Τηλεφωνήστε στο 2310 000000</span>
-                    </a>
+                <ul class="rates-list">
+                    <li><i class="fa-solid fa-check"></i><span>Χωρητικότητα: Έως 6 φιλοξενούμενοι (3 Master Σουίτες)</span></li>
+                    <li><i class="fa-solid fa-check"></i><span>Ελάχιστη διαμονή: 3 διανυκτερεύσεις (5 τη θερινή σεζόν)</span></li>
+                    <li><i class="fa-solid fa-check"></i><span>Ευέλικτη πολιτική ακύρωσης κατόπιν συνεννόησης</span></li>
+                </ul>
+            </div>
 
-                    <a href="https://wa.me/302310000000" target="_blank" rel="noopener" class="btn-whatsapp w-full bg-[#25D366] text-white py-4 px-6 text-xs font-semibold tracking-widest uppercase flex items-center justify-center gap-3 shadow-md">
-                        <i class="fa-brands fa-whatsapp text-xl"></i>
+            <div class="contact-card fade d2">
+                <div class="eyebrow" style="color:var(--terra-600);">Άμεση Κράτηση</div>
+                <h3>Επικοινωνήστε μαζί μας</h3>
+                <p style="font-size:13.5px; color:rgba(28,35,33,0.75); font-weight:300; line-height:1.7;">
+                    Είμαστε στη διάθεσή σας τηλεφωνικά στο <strong style="font-weight:600; color:var(--charcoal-900);">2310 000000</strong> ή μέσω WhatsApp για άμεση επιβεβαίωση.
+                </p>
+
+                <div class="stack">
+                    <a href="tel:2310000000" class="btn btn-primary btn-block">
+                        <i class="fa-solid fa-phone"></i>
+                        <span>Τηλεφωνήστε στο 2310 000000</span>
+                    </a>
+                    <a href="https://wa.me/302310000000" target="_blank" rel="noopener" class="btn btn-wa btn-block">
+                        <i class="fa-brands fa-whatsapp" style="font-size:1.15rem;color:#fff;"></i>
                         <span>WhatsApp Μήνυμα</span>
                     </a>
-
-                    <a href="mailto:reservations@aetheria-residence.gr" class="btn-gold-outline w-full py-4 px-6 text-xs font-semibold tracking-widest uppercase flex items-center justify-center gap-3">
-                        <i class="fa-regular fa-envelope text-sm"></i>
+                    <a href="mailto:reservations@aetheria-residence.gr" class="btn btn-gold btn-block">
+                        <i class="fa-regular fa-envelope"></i>
                         <span>Αποστολή Email</span>
                     </a>
                 </div>
             </div>
-
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Reviews -->
-    <section id="reviews" class="py-24 sm:py-32 px-6 md:px-12 max-w-7xl mx-auto">
-        
-        <div class="text-center max-w-2xl mx-auto mb-16 sm:mb-20 space-y-3">
-            <span class="reveal-up text-xs uppercase tracking-ultra-wide text-terracotta-500 font-semibold block">Αξιολογήσεις 5 Αστέρων</span>
-            <h2 class="reveal-up delay-100 font-serif text-fluid-h2 text-charcoal-900 font-normal">
-                Εμπειρίες των φιλοξενουμένων μας
-            </h2>
-            <div class="reveal-up delay-200 flex items-center justify-center space-x-1 text-gold-500 text-xs pt-1">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <span class="text-charcoal-900 font-sans font-medium text-xs ml-2">4.99 / 5.00 (52 Κριτικές)</span>
+<!-- ============ REVIEWS ============ -->
+<section id="reviews" class="section cv-auto">
+    <div class="container">
+        <div class="text-center max-w-2xl mx-auto" style="margin-bottom:4rem;">
+            <div class="eyebrow center" style="justify-content:center; margin-bottom:1rem;">Αξιολογήσεις 5 Αστέρων</div>
+            <h2 class="section-title" style="margin-bottom:1rem;">Εμπειρίες φιλοξενουμένων</h2>
+            <div style="display:flex; align-items:center; justify-content:center; gap:0.5rem; color:var(--gold-500); font-size:12px;">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                <span style="color:var(--charcoal-900); font-weight:500; margin-left:0.5rem;">4.99 / 5.00 (52 Κριτικές)</span>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            
-            <div class="feature-card reveal-up bg-cream-100 p-8 border border-cream-300 shadow-luxe flex flex-col justify-between hover:border-terracotta-500/60">
-                <div class="space-y-4">
-                    <div class="flex text-gold-500 text-xs space-x-1">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                    </div>
-                    <p class="text-xs sm:text-sm text-charcoal-800/90 font-light leading-relaxed italic">
-                        «Η διαμονή μας στο Aetheria ήταν απλά μαγευτική. Η θέα από την πισίνα την ώρα που δύει ο ήλιος δεν περιγράφεται με λόγια. Όλα ήταν καθαρά στην εντέλεια και οι οικοδεσπότες εξαιρετικά ευγενικοί.»
-                    </p>
+        <div class="reviews-grid">
+            <div class="review-card fade">
+                <div>
+                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <blockquote>«Η διαμονή μας στο Aetheria ήταν απλά μαγευτική. Η θέα από την πισίνα την ώρα που δύει ο ήλιος δεν περιγράφεται με λόγια.»</blockquote>
                 </div>
-                <div class="mt-8 pt-4 border-t border-cream-300 flex items-center justify-between">
+                <div class="review-footer">
                     <div>
-                        <h4 class="font-serif text-lg text-charcoal-900 font-semibold">Ελένη Μ.</h4>
-                        <span class="text-[11px] text-charcoal-800/60">Αθήνα, Ελλάδα</span>
+                        <div class="review-name">Ελένη Μ.</div>
+                        <div class="review-loc">Αθήνα, Ελλάδα</div>
                     </div>
-                    <i class="fa-solid fa-quote-right text-xl text-terracotta-500/30"></i>
+                    <i class="fa-solid fa-quote-right quote"></i>
                 </div>
             </div>
 
-            <div class="feature-card reveal-up delay-100 bg-cream-100 p-8 border border-cream-300 shadow-luxe flex flex-col justify-between hover:border-terracotta-500/60">
-                <div class="space-y-4">
-                    <div class="flex text-gold-500 text-xs space-x-1">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                    </div>
-                    <p class="text-xs sm:text-sm text-charcoal-800/90 font-light leading-relaxed italic">
-                        «Absolute perfection! The villa is even better than the photos. Premium finishes, ultra-fast Starlink internet for remote work, and complete privacy. We will definitely return next summer!»
-                    </p>
+            <div class="review-card fade d1">
+                <div>
+                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <blockquote>«Absolute perfection! The villa is even better than the photos. Premium finishes, ultra-fast Starlink internet for remote work, and complete privacy.»</blockquote>
                 </div>
-                <div class="mt-8 pt-4 border-t border-cream-300 flex items-center justify-between">
+                <div class="review-footer">
                     <div>
-                        <h4 class="font-serif text-lg text-charcoal-900 font-semibold">David & Sarah</h4>
-                        <span class="text-[11px] text-charcoal-800/60">Λονδίνο, UK</span>
+                        <div class="review-name">David & Sarah</div>
+                        <div class="review-loc">Λονδίνο, UK</div>
                     </div>
-                    <i class="fa-solid fa-quote-right text-xl text-terracotta-500/30"></i>
+                    <i class="fa-solid fa-quote-right quote"></i>
                 </div>
             </div>
 
-            <div class="feature-card reveal-up delay-200 bg-cream-100 p-8 border border-cream-300 shadow-luxe flex flex-col justify-between hover:border-terracotta-500/60">
-                <div class="space-y-4">
-                    <div class="flex text-gold-500 text-xs space-x-1">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                    </div>
-                    <p class="text-xs sm:text-sm text-charcoal-800/90 font-light leading-relaxed italic">
-                        «Εξαιρετική φιλοξενία! Το σπίτι προσφέρει όλες τις ανέσεις ενός πολυτελούς ξενοδοχείου αλλά με την άνεση της δικής σου ιδιωτικής βίλας. Η επικοινωνία στο 2310 000000 ήταν άμεση.»
-                    </p>
+            <div class="review-card fade d2">
+                <div>
+                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <blockquote>«Εξαιρετική φιλοξενία! Όλες οι ανέσεις ενός πολυτελούς ξενοδοχείου αλλά με την άνεση της δικής σου ιδιωτικής βίλας.»</blockquote>
                 </div>
-                <div class="mt-8 pt-4 border-t border-cream-300 flex items-center justify-between">
+                <div class="review-footer">
                     <div>
-                        <h4 class="font-serif text-lg text-charcoal-900 font-semibold">Γιώργος & Μαρία</h4>
-                        <span class="text-[11px] text-charcoal-800/60">Θεσσαλονίκη, Ελλάδα</span>
+                        <div class="review-name">Γιώργος & Μαρία</div>
+                        <div class="review-loc">Θεσσαλονίκη, Ελλάδα</div>
                     </div>
-                    <i class="fa-solid fa-quote-right text-xl text-terracotta-500/30"></i>
+                    <i class="fa-solid fa-quote-right quote"></i>
                 </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="py-20 bg-cream-100 border-t border-cream-300 px-6 md:px-12">
-        <div class="max-w-4xl mx-auto space-y-8">
-            <div class="text-center space-y-2">
-                <span class="text-xs uppercase tracking-ultra-wide text-terracotta-500 font-semibold block">Συχνές Ερωτήσεις</span>
-                <h2 class="font-serif text-3xl sm:text-4xl text-charcoal-900 font-normal">Χρήσιμες Πληροφορίες</h2>
-            </div>
-
-            <div class="space-y-4">
-                
-                <div class="bg-cream-50 border border-cream-300 overflow-hidden">
-                    <button class="accordion-btn w-full p-6 text-left flex justify-between items-center text-charcoal-900 font-serif text-lg sm:text-xl focus:outline-none">
-                        <span>Ποια είναι η διαδικασία κράτησης;</span>
-                        <i class="fa-solid fa-plus text-xs text-terracotta-500 transition-transform duration-500"></i>
-                    </button>
-                    <div class="accordion-content px-6 text-xs sm:text-sm text-charcoal-800/80 font-light leading-relaxed">
-                        <p class="pb-6">Μπορείτε να επικοινωνήσετε απευθείας μαζί μας στο τηλέφωνο 2310 000000 ή μέσω WhatsApp. Σας ενημερώνουμε αμέσως για τη διαθεσιμότητα και τις τιμές της περιόδου που σας ενδιαφέρει χωρίς μεσίτες.</p>
-                    </div>
-                </div>
-
-                <div class="bg-cream-50 border border-cream-300 overflow-hidden">
-                    <button class="accordion-btn w-full p-6 text-left flex justify-between items-center text-charcoal-900 font-serif text-lg sm:text-xl focus:outline-none">
-                        <span>Ποιο είναι το ωράριο Check-in και Check-out;</span>
-                        <i class="fa-solid fa-plus text-xs text-terracotta-500 transition-transform duration-500"></i>
-                    </button>
-                    <div class="accordion-content px-6 text-xs sm:text-sm text-charcoal-800/80 font-light leading-relaxed">
-                        <p class="pb-6">Το Check-in πραγματοποιείται από τις 15:00 και μετά, ενώ το Check-out είναι έως τις 11:00. Κατόπιν συνεννόησης, παρέχεται δυνατότητα ευέλικτου ωραρίου.</p>
-                    </div>
-                </div>
-
-                <div class="bg-cream-50 border border-cream-300 overflow-hidden">
-                    <button class="accordion-btn w-full p-6 text-left flex justify-between items-center text-charcoal-900 font-serif text-lg sm:text-xl focus:outline-none">
-                        <span>Επιτρέπονται κατοικίδια;</span>
-                        <i class="fa-solid fa-plus text-xs text-terracotta-500 transition-transform duration-500"></i>
-                    </button>
-                    <div class="accordion-content px-6 text-xs sm:text-sm text-charcoal-800/80 font-light leading-relaxed">
-                        <p class="pb-6">Τα κατοικίδια είναι ευπρόσδεκτα κατόπιν προηγούμενης ενημέρωσης και επιβεβαίωσης κατά την κράτηση.</p>
-                    </div>
-                </div>
-
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Location -->
-    <section id="location" class="py-24 sm:py-32 px-6 md:px-12 max-w-7xl mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-12 items-center">
-            
-            <div class="lg:col-span-5 space-y-6">
-                <span class="reveal-up text-xs uppercase tracking-ultra-wide text-terracotta-500 font-semibold block">Τοποθεσία & Πρόσβαση</span>
-                <h2 class="reveal-up delay-100 font-serif text-fluid-h2 text-charcoal-900 font-normal">
-                    Στο πιο προνομιακό σημείο
-                </h2>
-                <p class="reveal-up delay-200 text-charcoal-800/80 font-light text-sm sm:text-base leading-relaxed">
-                    Τοποθετημένη σε μια ήσυχη πλαγιά, η βίλα προσφέρει απόλυτη ιδιωτικότητα, ενώ παράλληλα βρίσκεται σε κοντινή απόσταση από τις καλύτερες παραλίες.
+<!-- ============ FAQ ============ -->
+<section class="section faq-bg cv-auto">
+    <div class="container">
+        <div class="text-center" style="margin-bottom:3rem;">
+            <div class="eyebrow center" style="justify-content:center; margin-bottom:0.75rem;">Συχνές Ερωτήσεις</div>
+            <h2 class="section-title">Χρήσιμες Πληροφορίες</h2>
+        </div>
+
+        <div class="faq-wrap">
+            <div class="faq-item">
+                <button class="faq-q">
+                    <span>Ποια είναι η διαδικασία κράτησης;</span>
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+                <div class="faq-a">
+                    <div class="faq-a-inner">
+                        Επικοινωνήστε απευθείας στο 2310 000000 ή μέσω WhatsApp. Σας ενημερώνουμε αμέσως για τη διαθεσιμότητα και τις τιμές χωρίς μεσίτες.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q">
+                    <span>Ποιο είναι το ωράριο Check-in / Check-out;</span>
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+                <div class="faq-a">
+                    <div class="faq-a-inner">
+                        Check-in από τις 15:00, Check-out έως τις 11:00. Κατόπιν συνεννόησης, παρέχεται ευέλικτο ωράριο.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q">
+                    <span>Επιτρέπονται κατοικίδια;</span>
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+                <div class="faq-a">
+                    <div class="faq-a-inner">
+                        Ναι, κατόπιν προηγούμενης ενημέρωσης και επιβεβαίωσης κατά την κράτηση.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ LOCATION / GOOGLE MAPS ============ -->
+<section id="location" class="section cv-auto">
+    <div class="container">
+        <div class="location-grid">
+            <div class="fade">
+                <div class="eyebrow" style="margin-bottom:1rem;">Τοποθεσία & Πρόσβαση</div>
+                <h2 class="section-title" style="margin-bottom:1.25rem;">Στο πιο προνομιακό σημείο</h2>
+                <p class="lead" style="margin-bottom:1.5rem;">
+                    Τοποθετημένη σε μια ήσυχη πλαγιά, η βίλα προσφέρει απόλυτη ιδιωτικότητα, ενώ βρίσκεται σε κοντινή απόσταση από τις καλύτερες παραλίες.
                 </p>
 
-                <div class="reveal-up delay-300 space-y-3 pt-2 text-xs sm:text-sm text-charcoal-900">
-                    <div class="flex items-center justify-between py-3 border-b border-cream-300">
-                        <span class="flex items-center gap-2.5"><i class="fa-solid fa-umbrella-beach text-terracotta-500"></i> Παραλία Άγιος Ιωάννης</span>
-                        <span class="font-semibold">3 λεπτά (1.2 χλμ)</span>
+                <div class="poi-list">
+                    <div class="poi">
+                        <span class="poi-label"><i class="fa-solid fa-umbrella-beach"></i> Παραλία Άγιος Ιωάννης</span>
+                        <span class="poi-value">3 λεπτά</span>
                     </div>
-                    <div class="flex items-center justify-between py-3 border-b border-cream-300">
-                        <span class="flex items-center gap-2.5"><i class="fa-solid fa-utensils text-terracotta-500"></i> Παραδοσιακές Ταβέρνες</span>
-                        <span class="font-semibold">5 λεπτά (2.0 χλμ)</span>
+                    <div class="poi">
+                        <span class="poi-label"><i class="fa-solid fa-utensils"></i> Παραδοσιακές Ταβέρνες</span>
+                        <span class="poi-value">5 λεπτά</span>
                     </div>
-                    <div class="flex items-center justify-between py-3 border-b border-cream-300">
-                        <span class="flex items-center gap-2.5"><i class="fa-solid fa-plane text-terracotta-500"></i> Διεθνές Αεροδρόμιο</span>
-                        <span class="font-semibold">20 λεπτά (14 χλμ)</span>
+                    <div class="poi">
+                        <span class="poi-label"><i class="fa-solid fa-plane"></i> Διεθνές Αεροδρόμιο</span>
+                        <span class="poi-value">20 λεπτά</span>
                     </div>
                 </div>
             </div>
 
-            <div class="reveal-up delay-200 lg:col-span-7 h-[400px] sm:h-[440px] shadow-luxe-lg relative border border-cream-300">
-                <div id="villa-map" class="w-full h-full z-10"></div>
-            </div>
+            <div class="map-wrap fade d2">
+                <!-- 
+                    📍 GOOGLE MAPS EMBED
+                    
+                    Για να βάλεις τη ΔΙΚΗ ΣΟΥ τοποθεσία:
+                    1. Πήγαινε στο https://maps.google.com
+                    2. Αναζήτησε τη διεύθυνση
+                    3. Κλικ "Share" → "Embed a map"
+                    4. Αντέγραψε το src="..." του iframe
+                    5. Αντικατέστησε το src παρακάτω
+                    
+                    Το παρακάτω δείχνει τη Μύκονο ως placeholder.
+                -->
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3220.4656!2d25.3289!3d37.4467!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzfCsDI2JzQ4LjEiTiAyNcKwMTknNDQuMCJF!5e0!3m2!1sen!2sgr!4v1700000000000"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    allowfullscreen
+                    title="Aetheria Luxury Residence Location"></iframe>
 
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-charcoal-950 text-cream-200 py-20 px-6 md:px-12 border-t border-charcoal-900">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-            
-            <div class="space-y-4 md:col-span-1">
-                <span class="font-serif text-3xl tracking-[0.18em] text-white font-normal block">AETHERIA</span>
-                <p class="text-xs text-cream-200/60 font-light leading-relaxed">
-                    Πολυτελής ιδιωτική residencia με πισίνα infinity και ανεμπόδιστη θέα στο Αιγαίο.
-                </p>
-            </div>
-
-            <div>
-                <h5 class="text-xs uppercase tracking-ultra-wide text-terracotta-400 font-semibold mb-6">Πλοήγηση</h5>
-                <ul class="space-y-3 text-xs font-light text-cream-200/80">
-                    <li><a href="#about" class="hover:text-white transition-colors">Σχετικά</a></li>
-                    <li><a href="#amenities" class="hover:text-white transition-colors">Παροχές</a></li>
-                    <li><a href="#gallery" class="hover:text-white transition-colors">Συλλογή</a></li>
-                    <li><a href="#rates" class="hover:text-white transition-colors">Πληροφορίες</a></li>
-                    <li><a href="#reviews" class="hover:text-white transition-colors">Αξιολογήσεις</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h5 class="text-xs uppercase tracking-ultra-wide text-terracotta-400 font-semibold mb-6">Επικοινωνία</h5>
-                <ul class="space-y-3 text-xs font-light text-cream-200/80">
-                    <li>
-                        <a href="tel:2310000000" class="hover:text-white transition-colors flex items-center gap-2">
-                            <i class="fa-solid fa-phone text-terracotta-400"></i>
-                            <span>2310 000000</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="mailto:reservations@aetheria-residence.gr" class="hover:text-white transition-colors flex items-center gap-2">
-                            <i class="fa-regular fa-envelope text-terracotta-400"></i>
-                            <span>reservations@aetheria-residence.gr</span>
-                        </a>
-                    </li>
-                    <li>
-                        <span class="flex items-center gap-2 text-cream-200/70">
-                            <i class="fa-solid fa-location-dot text-terracotta-400"></i>
-                            <span>Κυκλάδες, Ελλάδα</span>
-                        </span>
-                    </li>
-                </ul>
-            </div>
-
-            <div>
-                <h5 class="text-xs uppercase tracking-ultra-wide text-terracotta-400 font-semibold mb-6">Social</h5>
-                <div class="flex space-x-4 text-sm">
-                    <a href="#" class="w-10 h-10 rounded-full bg-charcoal-900 flex items-center justify-center hover:bg-terracotta-500 transition-colors duration-500 text-white" aria-label="Instagram">
-                        <i class="fa-brands fa-instagram"></i>
-                    </a>
-                    <a href="#" class="w-10 h-10 rounded-full bg-charcoal-900 flex items-center justify-center hover:bg-terracotta-500 transition-colors duration-500 text-white" aria-label="Facebook">
-                        <i class="fa-brands fa-facebook-f"></i>
-                    </a>
+                <!-- Overlay label κέντρο -->
+                <div class="map-overlay">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Εδώ εμφανίζεται η τοποθεσία live στο Google Maps</span>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
 
+<!-- ============ FOOTER ============ -->
+<footer>
+    <div class="footer-grid">
+        <div>
+            <div class="footer-logo">AETHERIA</div>
+            <p style="font-size:12.5px; color:rgba(251,249,245,0.6); font-weight:300; line-height:1.7; margin-top:1rem; max-width:280px;">
+                Πολυτελής ιδιωτική residencia με πισίνα infinity και ανεμπόδιστη θέα στο Αιγαίο.
+            </p>
         </div>
 
-        <div class="max-w-7xl mx-auto pt-8 border-t border-charcoal-900 flex flex-col sm:flex-row items-center justify-between text-[11px] font-light text-cream-200/50 gap-4">
-            <p>© 2026 Aetheria Luxury Residence. All Rights Reserved.</p>
-            <div class="flex space-x-6">
-                <a href="#" class="hover:text-white transition-colors">Πολιτική Απορρήτου</a>
-                <a href="#" class="hover:text-white transition-colors">Όροι Χρήσης</a>
+        <div>
+            <div class="footer-title">Πλοήγηση</div>
+            <ul class="footer-list">
+                <li><a href="#about">Σχετικά</a></li>
+                <li><a href="#amenities">Παροχές</a></li>
+                <li><a href="#gallery">Συλλογή</a></li>
+                <li><a href="#rates">Πληροφορίες</a></li>
+                <li><a href="#reviews">Αξιολογήσεις</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <div class="footer-title">Επικοινωνία</div>
+            <ul class="footer-list">
+                <li><a href="tel:2310000000"><i class="fa-solid fa-phone"></i><span>2310 000000</span></a></li>
+                <li><a href="mailto:reservations@aetheria-residence.gr"><i class="fa-regular fa-envelope"></i><span>reservations@aetheria-residence.gr</span></a></li>
+                <li><span><i class="fa-solid fa-location-dot"></i><span>Κυκλάδες, Ελλάδα</span></span></li>
+            </ul>
+        </div>
+
+        <div>
+            <div class="footer-title">Social</div>
+            <div class="socials">
+                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
             </div>
         </div>
-    </footer>
-
-    <!-- Floating CTA -->
-    <div class="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-40 flex items-center gap-3">
-        
-        <a href="tel:2310000000" class="hidden sm:flex items-center gap-2 bg-charcoal-900 text-cream-50 px-5 py-3.5 shadow-luxe-lg text-xs font-semibold uppercase tracking-wider hover:bg-terracotta-500 transition-all duration-500 border border-cream-300/20">
-            <i class="fa-solid fa-phone text-terracotta-400 text-xs"></i>
-            <span>2310 000000</span>
-        </a>
-
-        <a href="https://wa.me/302310000000?text=%CE%93%CE%B5%CE%B9%CE%B1%20%CF%83%CE%B1%CF%82,%20%CE%B8%CE%B1%20%CE%B7%CE%B8%CE%B5%CE%BB%CE%B1%20%CF%80%CE%BB%CE%B7%CF%81%CE%BF%CF%86%CE%BF%CF%81%CE%B9%CE%B5%CF%82%20%CE%B3%CE%B9%CE%B1%20%CF%84%CE%B7%20%CE%92%CE%B9%CE%BB%CE%B1%20Aetheria" 
-           target="_blank" 
-           rel="noopener"
-           class="bg-[#25D366] text-white p-4 rounded-full shadow-luxe-lg hover:scale-110 transition-transform duration-500 flex items-center justify-center"
-           aria-label="WhatsApp Chat">
-            <i class="fa-brands fa-whatsapp text-2xl"></i>
-        </a>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
+    <div class="footer-bottom">
+        <p>© 2026 Aetheria Luxury Residence. All Rights Reserved.</p>
+        <div style="display:flex; gap:1.5rem;">
+            <a href="#" style="transition:color 0.3s;">Πολιτική Απορρήτου</a>
+            <a href="#" style="transition:color 0.3s;">Όροι Χρήσης</a>
+        </div>
+    </div>
+</footer>
 
-            const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
-            const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+<!-- ============ FLOATING CTA ============ -->
+<div class="floating">
+    <a href="tel:2310000000" class="floating-phone">
+        <i class="fa-solid fa-phone"></i>
+        <span>2310 000000</span>
+    </a>
+    <a href="https://wa.me/302310000000?text=%CE%93%CE%B5%CE%B9%CE%B1%20%CF%83%CE%B1%CF%82,%20%CE%B8%CE%B1%20%CE%B7%CE%B8%CE%B5%CE%BB%CE%B1%20%CF%80%CE%BB%CE%B7%CF%81%CE%BF%CF%86%CE%BF%CF%81%CE%B9%CE%B5%CF%82%20%CE%B3%CE%B9%CE%B1%20%CF%84%CE%B7%20%CE%92%CE%B9%CE%BB%CE%B1%20Aetheria"
+       target="_blank" rel="noopener"
+       class="floating-wa"
+       aria-label="WhatsApp Chat">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+</div>
 
-            /* ============ 1. CUSTOM CURSOR with LERP ============ */
-            if (!isTouch && !prefersReduced) {
-                const cursor = document.getElementById('custom-cursor');
-                const cursorDot = document.getElementById('custom-cursor-dot');
-                let mouseX = 0, mouseY = 0;
-                let cursorX = 0, cursorY = 0;
+<script>
+(function() {
+    'use strict';
 
-                document.addEventListener('mousemove', (e) => {
-                    mouseX = e.clientX;
-                    mouseY = e.clientY;
-                    cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
-                });
+    /* ============ 1. HEADER SCROLL ============ */
+    const header = document.getElementById('header');
+    let headerTick = false;
+    function onScrollHeader() {
+        if (window.scrollY > 60) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+        headerTick = false;
+    }
+    window.addEventListener('scroll', function() {
+        if (!headerTick) {
+            requestAnimationFrame(onScrollHeader);
+            headerTick = true;
+        }
+    }, { passive: true });
 
-                function animateCursor() {
-                    cursorX += (mouseX - cursorX) * 0.18;
-                    cursorY += (mouseY - cursorY) * 0.18;
-                    cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
-                    requestAnimationFrame(animateCursor);
+    /* ============ 2. SCROLL PROGRESS (rAF throttled) ============ */
+    const progress = document.getElementById('progress');
+    let progTick = false;
+    function updateProgress() {
+        const total = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = total > 0 ? (window.scrollY / total) * 100 : 0;
+        progress.style.width = pct + '%';
+        progTick = false;
+    }
+    window.addEventListener('scroll', function() {
+        if (!progTick) {
+            requestAnimationFrame(updateProgress);
+            progTick = true;
+        }
+    }, { passive: true });
+
+    /* ============ 3. REVEAL ANIMATIONS (lightweight observer) ============ */
+    // Ένας ΜΟΝΟ observer για όλα — πολύ πιο ελαφρύ
+    if ('IntersectionObserver' in window) {
+        const fadeObs = new IntersectionObserver(function(entries) {
+            for (let i = 0; i < entries.length; i++) {
+                if (entries[i].isIntersecting) {
+                    entries[i].target.classList.add('in');
+                    fadeObs.unobserve(entries[i].target);
                 }
-                animateCursor();
-
-                const interactiveEls = document.querySelectorAll('a, button, .gallery-item, input, .feature-card');
-                interactiveEls.forEach(el => {
-                    el.addEventListener('mouseenter', () => cursor.classList.add('is-hover'));
-                    el.addEventListener('mouseleave', () => cursor.classList.remove('is-hover'));
-                });
             }
+        }, {
+            rootMargin: '0px 0px -80px 0px',
+            threshold: 0.05
+        });
 
-            /* ============ 2. SCROLL PROGRESS ============ */
-            const scrollProgress = document.getElementById('scroll-progress');
-            let ticking = false;
-            window.addEventListener('scroll', () => {
-                if (!ticking) {
-                    requestAnimationFrame(() => {
-                        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-                        const progress = (window.scrollY / totalHeight) * 100;
-                        scrollProgress.style.width = progress + '%';
-                        ticking = false;
-                    });
-                    ticking = true;
+        document.querySelectorAll('.fade').forEach(function(el) {
+            fadeObs.observe(el);
+        });
+    } else {
+        // Fallback
+        document.querySelectorAll('.fade').forEach(function(el) {
+            el.classList.add('in');
+        });
+    }
+
+    /* ============ 4. MOBILE MENU ============ */
+    const menuBtn = document.getElementById('menuBtn');
+    const menuClose = document.getElementById('menuClose');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    function openMenu() {
+        mobileMenu.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+    menuBtn.addEventListener('click', openMenu);
+    menuClose.addEventListener('click', closeMenu);
+    mobileMenu.querySelectorAll('.m-link').forEach(function(link) {
+        link.addEventListener('click', closeMenu);
+    });
+
+    /* ============ 5. GALLERY FILTER ============ */
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+
+    filterBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            filterBtns.forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+
+            const filter = btn.getAttribute('data-filter');
+            galleryItems.forEach(function(item) {
+                const cat = item.getAttribute('data-cat');
+                if (filter === 'all' || cat === filter) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
                 }
             });
+        });
+    });
 
-            /* ============ 3. HEADER HIDE/SHOW + GLASS ============ */
-            const header = document.getElementById('main-header');
-            let lastScrollY = window.scrollY;
-            let headerTicking = false;
+    /* ============ 6. LIGHTBOX ============ */
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lbImg');
+    const lbClose = document.getElementById('lbClose');
 
-            window.addEventListener('scroll', () => {
-                if (!headerTicking) {
-                    requestAnimationFrame(() => {
-                        const y = window.scrollY;
-                        if (y > 80) {
-                            header.classList.add('glass-header', 'py-3');
-                            header.classList.remove('py-5');
-                        } else {
-                            header.classList.remove('glass-header', 'py-3');
-                            header.classList.add('py-5');
-                        }
-                        if (y > lastScrollY && y > 200) {
-                            header.classList.remove('nav-visible');
-                            header.classList.add('nav-hidden');
-                        } else {
-                            header.classList.remove('nav-hidden');
-                            header.classList.add('nav-visible');
-                        }
-                        lastScrollY = y;
-                        headerTicking = false;
-                    });
-                    headerTicking = true;
-                }
-            });
-
-            /* ============ 4. HERO PARALLAX ============ */
-            const heroBg = document.getElementById('hero-bg');
-            if (!isTouch && !prefersReduced && heroBg) {
-                let heroTicking = false;
-                window.addEventListener('scroll', () => {
-                    if (!heroTicking) {
-                        requestAnimationFrame(() => {
-                            const y = window.scrollY;
-                            if (y < window.innerHeight) {
-                                heroBg.style.transform = `translate3d(0, ${y * 0.35}px, 0)`;
-                            }
-                            heroTicking = false;
-                        });
-                        heroTicking = true;
-                    }
-                });
-            }
-
-            /* ============ 5. REVEAL ON SCROLL ============ */
-            const revealElements = document.querySelectorAll('.reveal-up');
-            const revealObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, {
-                threshold: 0.1,
-                rootMargin: "0px 0px -60px 0px"
-            });
-            revealElements.forEach(el => revealObserver.observe(el));
-
-            /* ============ 6. MOBILE MENU ============ */
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            const mobileMenuClose = document.getElementById('mobile-menu-close');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const mobileLinks = document.querySelectorAll('.mobile-link');
-
-            function openMenu() {
-                mobileMenu.classList.remove('hidden');
+    galleryItems.forEach(function(item) {
+        item.addEventListener('click', function() {
+            const src = item.getAttribute('data-src');
+            if (src) {
+                lbImg.src = src;
+                lightbox.classList.add('open');
                 document.body.style.overflow = 'hidden';
             }
-            function closeMenu() {
-                mobileMenu.classList.add('hidden');
-                document.body.style.overflow = '';
-            }
-            mobileMenuBtn.addEventListener('click', openMenu);
-            mobileMenuClose.addEventListener('click', closeMenu);
-            mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
-
-            /* ============ 7. LIGHTBOX ============ */
-            const galleryItems = document.querySelectorAll('.gallery-item');
-            const lightboxModal = document.getElementById('lightbox-modal');
-            const lightboxImg = document.getElementById('lightbox-img');
-            const lightboxClose = document.getElementById('lightbox-close');
-
-            galleryItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    lightboxImg.src = item.getAttribute('data-src');
-                    lightboxModal.classList.remove('hidden');
-                    lightboxModal.classList.add('flex');
-                    document.body.style.overflow = 'hidden';
-                });
-            });
-            function closeLightbox() {
-                lightboxModal.classList.add('hidden');
-                lightboxModal.classList.remove('flex');
-                document.body.style.overflow = '';
-            }
-            lightboxClose.addEventListener('click', closeLightbox);
-            lightboxModal.addEventListener('click', (e) => {
-                if (e.target === lightboxModal) closeLightbox();
-            });
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && !lightboxModal.classList.contains('hidden')) closeLightbox();
-            });
-
-            /* ============ 8. GALLERY FILTER ============ */
-            const filterBtns = document.querySelectorAll('.gallery-filter-btn');
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    filterBtns.forEach(b => {
-                        b.classList.remove('bg-charcoal-900', 'text-cream-50');
-                        b.classList.add('bg-cream-200', 'text-charcoal-900');
-                    });
-                    btn.classList.add('bg-charcoal-900', 'text-cream-50');
-                    btn.classList.remove('bg-cream-200');
-
-                    const filter = btn.getAttribute('data-filter');
-                    galleryItems.forEach(item => {
-                        const match = filter === 'all' || item.classList.contains(filter);
-                        item.style.display = match ? 'block' : 'none';
-                    });
-                });
-            });
-
-            /* ============ 9. ACCORDION ============ */
-            const accordionBtns = document.querySelectorAll('.accordion-btn');
-            accordionBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const content = btn.nextElementSibling;
-                    const icon = btn.querySelector('i');
-                    const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
-
-                    document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = '0px');
-                    document.querySelectorAll('.accordion-btn i').forEach(i => i.style.transform = 'rotate(0deg)');
-
-                    if (!isOpen) {
-                        content.style.maxHeight = content.scrollHeight + 40 + 'px';
-                        icon.style.transform = 'rotate(45deg)';
-                    }
-                });
-            });
-
-            /* ============ 10. MAP ============ */
-            if (document.getElementById('villa-map')) {
-                const map = L.map('villa-map', {
-                    scrollWheelZoom: false,
-                    zoomControl: true,
-                    attributionControl: true
-                }).setView([37.4467, 25.3289], 13);
-
-                L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-                    attribution: '&copy; OpenStreetMap &copy; CARTO',
-                    subdomains: 'abcd',
-                    maxZoom: 19
-                }).addTo(map);
-
-                const customDivIcon = L.divIcon({
-                    className: 'custom-map-icon',
-                    html: `<div style="background-color: #1C2321; color: #C26D53; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 12px 30px rgba(28,35,33,0.35); border: 2px solid #FBF9F5;">
-                            <i class="fa-solid fa-house-chimney" style="font-size: 17px;"></i>
-                           </div>`,
-                    iconSize: [44, 44],
-                    iconAnchor: [22, 22]
-                });
-
-                L.marker([37.4467, 25.3289], { icon: customDivIcon })
-                    .addTo(map)
-                    .bindPopup('<strong style="font-family: \'Cormorant Garamond\', serif; font-size: 17px; color:#1C2321;">Aetheria Luxury Residence</strong><br><span style="font-size:12px; color:#3A4340;">Τηλ: 2310 000000</span>')
-                    .openPopup();
-            }
-
         });
-    </script>
+    });
+
+    function closeLB() {
+        lightbox.classList.remove('open');
+        lbImg.src = '';
+        document.body.style.overflow = '';
+    }
+    lbClose.addEventListener('click', closeLB);
+    lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) closeLB();
+    });
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLB();
+    });
+
+    /* ============ 7. FAQ ACCORDION ============ */
+    const faqQs = document.querySelectorAll('.faq-q');
+    faqQs.forEach(function(q) {
+        q.addEventListener('click', function() {
+            const answer = q.nextElementSibling;
+            const isOpen = q.classList.contains('open');
+
+            // Κλείσε όλα
+            faqQs.forEach(function(otherQ) {
+                otherQ.classList.remove('open');
+                otherQ.nextElementSibling.style.maxHeight = '0px';
+            });
+
+            // Άνοιξε το τρέχον
+            if (!isOpen) {
+                q.classList.add('open');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+            }
+        });
+    });
+
+})();
+</script>
+
 </body>
 </html>
