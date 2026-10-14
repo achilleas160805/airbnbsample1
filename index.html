@@ -8,7 +8,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Work+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=GFS+Didot&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
@@ -25,7 +25,6 @@
     --bronze-light: #C2A169;
     --champagne: #DFCFA6;
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
-    /* Cinematic sine-in-out — smooth χωρίς jitter */
     --ease-cine: cubic-bezier(0.45, 0, 0.55, 1);
 }
 
@@ -65,20 +64,40 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 ul { list-style: none; }
 
 /* ============================================================
-   TYPOGRAPHY
+   TYPOGRAPHY — GFS Didot (Greek-perfect serif)
    ============================================================ */
 .serif {
-    font-family: 'Playfair Display', Georgia, serif;
+    font-family: 'GFS Didot', 'Cormorant Garamond', Garamond, Georgia, serif;
     font-weight: 400;
     letter-spacing: -0.02em;
     line-height: 1.05;
 }
 
-.display { font-size: clamp(2.75rem, 6.5vw, 5.75rem); line-height: 0.98; letter-spacing: -0.03em; }
-.h1 { font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.02; letter-spacing: -0.025em; }
-.h2 { font-size: clamp(1.5rem, 2vw, 2rem); line-height: 1.15; letter-spacing: -0.015em; }
+.display {
+    font-size: clamp(2.75rem, 6.5vw, 5.75rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+}
 
-.em { font-style: italic; font-weight: 400; color: var(--bronze); }
+.h1 {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+}
+
+.h2 {
+    font-size: clamp(1.5rem, 2vw, 2rem);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+}
+
+.em {
+    font-family: 'Cormorant Garamond', Garamond, Georgia, serif;
+    font-style: italic;
+    font-weight: 500;
+    color: var(--bronze);
+    letter-spacing: 0;
+}
 
 .eyebrow {
     display: block;
@@ -106,37 +125,30 @@ ul { list-style: none; }
     line-height: 1.75;
     color: rgba(14, 19, 16, 0.72);
     font-weight: 400;
-    letter-spacing: -0.005em;
+    letter-spacing: 0;
 }
 @media (min-width: 768px) { .lead { font-size: 16px; } }
-.lead em { font-style: italic; color: var(--ink); font-weight: 500; }
+.lead em {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--ink);
+    font-weight: 500;
+    font-size: 1.05em;
+}
 
 /* ============================================================
-   CINEMATIC ZOOM ANIMATIONS
+   CINEMATIC ZOOM
    ============================================================ */
-
-/* Zoom IN — απαλό, εναλλαγή κάθε 18s */
 @keyframes cineZoomIn {
     0%   { transform: scale(1.00) translate3d(0, 0, 0); }
     50%  { transform: scale(1.08) translate3d(0, -1%, 0); }
     100% { transform: scale(1.00) translate3d(0, 0, 0); }
 }
-
-/* Zoom OUT — ανάποδο */
 @keyframes cineZoomOut {
     0%   { transform: scale(1.08) translate3d(0, 0, 0); }
     50%  { transform: scale(1.00) translate3d(0, -1%, 0); }
     100% { transform: scale(1.08) translate3d(0, 0, 0); }
 }
-
-/* Breathing — πολύ subtle, για hero */
-@keyframes cineBreathe {
-    0%   { transform: scale(1.00); }
-    50%  { transform: scale(1.05); }
-    100% { transform: scale(1.00); }
-}
-
-/* Pan + zoom — για gallery cards (κινείται διαγώνια) */
 @keyframes cinePanZoom {
     0%   { transform: scale(1.02) translate3d(0, 0, 0); }
     50%  { transform: scale(1.10) translate3d(-1.5%, -1.5%, 0); }
@@ -153,18 +165,12 @@ ul { list-style: none; }
     will-change: transform;
     transform-origin: center center;
 }
-.cine-breathe {
-    animation: cineBreathe 24s var(--ease-cine) infinite;
-    will-change: transform;
-    transform-origin: center center;
-}
 .cine-pan {
     animation: cinePanZoom 22s var(--ease-cine) infinite;
     will-change: transform;
     transform-origin: center center;
 }
 
-/* Stagger delays για να μη zoomaρουν όλα ταυτόχρονα */
 .cine-d1 { animation-delay: -3s; }
 .cine-d2 { animation-delay: -6s; }
 .cine-d3 { animation-delay: -9s; }
@@ -172,7 +178,6 @@ ul { list-style: none; }
 .cine-d5 { animation-delay: -15s; }
 .cine-d6 { animation-delay: -18s; }
 
-/* Mobile override — πιο αργό, λιγότερο zoom */
 @media (max-width: 767px) {
     .cine-zoom, .cine-zoom-reverse { animation-duration: 24s; }
     .cine-pan { animation-duration: 28s; }
@@ -253,10 +258,10 @@ header.scrolled {
 header.scrolled .brand { color: var(--ink); text-shadow: none; }
 
 .brand-mark {
-    font-family: 'Playfair Display', serif;
+    font-family: 'GFS Didot', 'Cormorant Garamond', Garamond, serif;
     font-size: 1.5rem;
-    letter-spacing: 0.06em;
-    font-weight: 500;
+    letter-spacing: 0.08em;
+    font-weight: 400;
     line-height: 1;
 }
 @media (min-width: 768px) { .brand-mark { font-size: 1.625rem; } }
@@ -302,12 +307,13 @@ header.scrolled .nav-desk a:hover { color: var(--bronze); }
     display: none;
     align-items: center;
     gap: 0.625rem;
-    padding: 0.75rem 1.375rem;
-    font-size: 12px;
-    letter-spacing: 0.04em;
+    padding: 0.875rem 1.5rem;
+    font-size: 13.5px;
+    letter-spacing: 0.01em;
     font-weight: 500;
     color: #fff;
     border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 999px;
     transition: all 0.4s var(--ease);
     text-shadow: 0 1px 12px rgba(0,0,0,0.3);
 }
@@ -318,8 +324,6 @@ header.scrolled .nav-desk a:hover { color: var(--bronze); }
     border-color: var(--bronze);
     text-shadow: none;
 }
-.cta-reserve i { color: var(--champagne); font-size: 10px; transition: color 0.3s; }
-.cta-reserve:hover i { color: #fff; }
 header.scrolled .cta-reserve {
     color: var(--ink);
     border-color: rgba(14, 19, 16, 0.18);
@@ -362,17 +366,17 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 
 .m-brand {
-    font-family: 'Playfair Display', serif;
+    font-family: 'GFS Didot', 'Cormorant Garamond', serif;
     font-size: 15px;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     color: var(--champagne);
     margin-bottom: 3rem;
-    font-weight: 500;
+    font-weight: 400;
 }
 
 #mmenu nav { display: flex; flex-direction: column; }
 #mmenu nav a {
-    font-family: 'Playfair Display', serif;
+    font-family: 'GFS Didot', 'Cormorant Garamond', serif;
     font-size: 1.875rem;
     font-weight: 400;
     color: var(--ivory);
@@ -402,47 +406,145 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 
 /* ============================================================
-   BUTTONS
+   BUTTONS — Luxury variants
    ============================================================ */
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.75rem;
-    padding: 1rem 1.75rem;
-    font-size: 12px;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
+    gap: 0.875rem;
+    padding: 1.125rem 2rem;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.005em;
     font-weight: 500;
     color: var(--ivory);
     background: var(--ink);
-    transition: all 0.4s var(--ease);
+    border: none;
+    transition: all 0.5s var(--ease);
     cursor: pointer;
-    border: 1px solid transparent;
+    position: relative;
+    text-transform: none;
+    border-radius: 2px;
 }
-.btn i { font-size: 11px; opacity: 0.9; }
-.btn:hover { background: var(--bronze); color: var(--ivory); }
+
 .btn:active { transform: translateY(1px); }
 
-.btn-ivory { background: var(--ivory); color: var(--ink); }
-.btn-ivory:hover { background: var(--bronze); color: var(--ivory); }
-.btn-ivory i { color: var(--bronze); transition: color 0.3s; }
-.btn-ivory:hover i { color: var(--ivory); }
+.btn .arrow {
+    display: inline-block;
+    transition: transform 0.5s var(--ease);
+    font-size: 0.9em;
+    opacity: 0.85;
+}
+.btn:hover .arrow { transform: translateX(6px); opacity: 1; }
+
+.btn-primary {
+    background: var(--ink);
+    color: var(--ivory);
+}
+.btn-primary:hover {
+    background: var(--bronze);
+    color: var(--ivory);
+}
+
+.btn-ivory {
+    background: var(--ivory);
+    color: var(--ink);
+}
+.btn-ivory:hover {
+    background: var(--bronze);
+    color: var(--ivory);
+}
 
 .btn-outline {
-    background: rgba(14, 19, 16, 0.2);
+    background: rgba(14, 19, 16, 0.15);
     color: var(--ivory);
-    border-color: rgba(248, 245, 239, 0.4);
+    border: 1px solid rgba(248, 245, 239, 0.4);
+    position: relative;
+    overflow: hidden;
 }
-.btn-outline:hover { background: var(--ivory); color: var(--ink); border-color: var(--ivory); }
+.btn-outline::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--ivory);
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: transform 0.5s var(--ease);
+    z-index: 0;
+}
+.btn-outline span {
+    position: relative;
+    z-index: 1;
+}
+.btn-outline:hover {
+    border-color: var(--ivory);
+    color: var(--ink);
+}
+.btn-outline:hover::before {
+    transform: scaleX(1);
+    transform-origin: left center;
+}
 
-.btn-bronze { background: var(--bronze); color: var(--ivory); }
-.btn-bronze:hover { background: var(--ink); }
+.btn-bronze {
+    background: var(--bronze);
+    color: var(--ivory);
+}
+.btn-bronze:hover {
+    background: var(--ink);
+    color: var(--ivory);
+}
+
+.btn-pill {
+    border-radius: 999px;
+    padding: 1.125rem 2rem;
+    background: var(--ink);
+    color: var(--ivory);
+    border: none;
+    transition: all 0.5s var(--ease);
+}
+.btn-pill:hover {
+    background: var(--bronze);
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px -15px rgba(142, 112, 72, 0.4);
+}
+.btn-pill.btn-pill-outline {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--linen);
+}
+.btn-pill.btn-pill-outline:hover {
+    background: var(--ink);
+    color: var(--ivory);
+    border-color: var(--ink);
+    box-shadow: 0 20px 40px -15px rgba(14, 19, 16, 0.3);
+}
+
+.btn-round {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--ivory);
+    color: var(--ink);
+    box-shadow: 0 20px 40px -15px rgba(0,0,0,0.4);
+    transition: all 0.4s var(--ease);
+    border: none;
+    cursor: pointer;
+}
+.btn-round:hover {
+    transform: scale(1.08);
+    background: var(--bronze);
+    color: var(--ivory);
+}
 
 .btn-block { width: 100%; }
 
 /* ============================================================
-   HERO — Multi-layer Ken Burns crossfade
+   HERO
    ============================================================ */
 .hero {
     position: relative;
@@ -463,7 +565,6 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     transform: translateZ(0);
 }
 
-/* Hero slides — zoom + crossfade ταυτόχρονα */
 .hero-slide {
     position: absolute;
     inset: -3%;
@@ -541,26 +642,28 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 
 .hero-coords {
-    font-family: 'Playfair Display', serif;
-    font-size: 14px;
-    font-style: italic;
+    font-family: 'GFS Didot', 'Cormorant Garamond', serif;
+    font-size: 15px;
     color: rgba(248, 245, 239, 0.75);
+    letter-spacing: 0.04em;
 }
 
 .hero-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'GFS Didot', 'Cormorant Garamond', Garamond, serif;
     font-weight: 400;
     font-size: clamp(2.75rem, 6.5vw, 5.75rem);
-    line-height: 0.98;
-    letter-spacing: -0.03em;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
     color: var(--ivory);
     text-shadow: 0 2px 40px rgba(0,0,0,0.4);
     max-width: 15ch;
 }
 .hero-title em {
+    font-family: 'Cormorant Garamond', Garamond, serif;
     font-style: italic;
-    font-weight: 400;
+    font-weight: 500;
     color: var(--champagne);
+    letter-spacing: 0;
 }
 
 .hero-foot {
@@ -615,7 +718,6 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     50% { transform: scaleY(1); transform-origin: top; }
 }
 
-/* Mobile: μόνο crossfade, χωρίς scale (perf) */
 @media (max-width: 767px) {
     @keyframes heroCinematic {
         0%   { opacity: 0; }
@@ -627,7 +729,7 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 
 /* ============================================================
-   ABOUT — Cinematic frames με εναλλασσόμενα zooms
+   ABOUT
    ============================================================ */
 .about-grid {
     display: grid;
@@ -652,18 +754,19 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 .stat { display: flex; flex-direction: column; gap: 0.5rem; }
 .stat-v {
-    font-family: 'Playfair Display', serif;
+    font-family: 'GFS Didot', 'Cormorant Garamond', Garamond, serif;
     font-size: clamp(1.875rem, 3vw, 2.5rem);
     font-weight: 400;
     line-height: 1;
     color: var(--bronze);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
 }
 .stat-v sup {
     font-size: 0.45em;
     vertical-align: super;
     opacity: 0.7;
     margin-left: 0.125em;
+    font-family: 'Cormorant Garamond', serif;
     font-style: italic;
 }
 .stat-k {
@@ -714,8 +817,8 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     z-index: 3;
 }
 .about-badge strong {
-    font-family: 'Playfair Display', serif;
-    font-weight: 500;
+    font-family: 'GFS Didot', 'Cormorant Garamond', Garamond, serif;
+    font-weight: 400;
     font-size: 1.75rem;
     line-height: 1;
     color: var(--bronze);
@@ -783,9 +886,9 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 
 .amenity-num {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', Garamond, serif;
     font-style: italic;
-    font-size: 14px;
+    font-size: 15px;
     color: var(--stone);
     opacity: 0.75;
 }
@@ -796,13 +899,13 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     transition: color 0.4s var(--ease);
 }
 .amenity h3 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 500;
-    font-size: 1.25rem;
+    font-family: 'GFS Didot', 'Cormorant Garamond', Garamond, serif;
+    font-weight: 400;
+    font-size: 1.375rem;
     line-height: 1.25;
     color: var(--ink);
     margin-top: auto;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.01em;
 }
 .amenity p {
     font-size: 13.5px;
@@ -812,7 +915,7 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 
 /* ============================================================
-   GALLERY — Cinematic pan/zoom σε κάθε card
+   GALLERY
    ============================================================ */
 .gallery-head {
     display: flex;
@@ -825,16 +928,24 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 
 .filters { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .filters button {
-    padding: 0.5rem 1rem;
-    font-size: 12px;
-    letter-spacing: 0.02em;
-    font-weight: 400;
+    padding: 0.625rem 1.25rem;
+    font-size: 13px;
+    letter-spacing: 0.005em;
+    font-weight: 500;
     color: var(--stone);
-    border: 1px solid transparent;
-    transition: all 0.3s;
+    background: transparent;
+    border: none;
+    border-radius: 999px;
+    transition: all 0.3s var(--ease);
 }
-.filters button.active { color: var(--ink); border-color: var(--ink); }
-.filters button:not(.active):hover { color: var(--ink); }
+.filters button.active {
+    color: var(--ivory);
+    background: var(--ink);
+}
+.filters button:not(.active):hover {
+    color: var(--ink);
+    background: var(--linen);
+}
 
 .gallery-grid {
     display: grid;
@@ -893,10 +1004,10 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     font-weight: 500;
 }
 .g-item-info h3 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'GFS Didot', 'Cormorant Garamond', Garamond, serif;
     font-weight: 400;
-    font-size: 1.5rem;
-    letter-spacing: -0.02em;
+    font-size: 1.625rem;
+    letter-spacing: -0.015em;
 }
 
 .g-item-plus {
@@ -993,6 +1104,7 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     padding: 3rem 2.5rem;
     position: relative;
     box-shadow: 0 40px 100px -30px rgba(0,0,0,0.5);
+    border-radius: 4px;
 }
 @media (min-width: 640px) { .reserve-card { padding: 3.5rem 3rem; } }
 
@@ -1002,17 +1114,22 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     top: 0; left: 0; right: 0;
     height: 2px;
     background: linear-gradient(90deg, var(--champagne), var(--bronze), var(--champagne));
+    border-radius: 4px 4px 0 0;
 }
 
 .reserve-card h3 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'GFS Didot', 'Cormorant Garamond', Garamond, serif;
     font-weight: 400;
-    font-size: clamp(1.75rem, 2.5vw, 2.125rem);
+    font-size: clamp(1.875rem, 2.5vw, 2.25rem);
     line-height: 1.15;
     letter-spacing: -0.02em;
     margin-bottom: 0.625rem;
 }
-.reserve-card h3 em { font-style: italic; color: var(--bronze); }
+.reserve-card h3 em {
+    font-family: 'Cormorant Garamond', Garamond, serif;
+    font-style: italic;
+    color: var(--bronze);
+}
 .reserve-card > p {
     font-size: 14px;
     color: var(--stone);
@@ -1022,7 +1139,7 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 .reserve-card .stack {
     display: flex;
     flex-direction: column;
-    gap: 0.625rem;
+    gap: 0.75rem;
 }
 
 /* ============================================================
@@ -1044,13 +1161,14 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     flex-direction: column;
     gap: 1.25rem;
     transition: transform 0.4s var(--ease);
+    border-radius: 4px;
 }
 @media (hover: hover) {
     .review:hover { transform: translateY(-3px); }
 }
 .review-quote {
-    font-family: 'Playfair Display', serif;
-    font-size: 3rem;
+    font-family: 'Cormorant Garamond', Garamond, serif;
+    font-size: 3.5rem;
     line-height: 0.5;
     color: var(--bronze);
     opacity: 0.5;
@@ -1078,9 +1196,9 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     gap: 1rem;
 }
 .review-author .name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.0625rem;
-    font-weight: 500;
+    font-family: 'GFS Didot', 'Cormorant Garamond', Garamond, serif;
+    font-size: 1.15rem;
+    font-weight: 400;
     color: var(--ink);
     letter-spacing: -0.01em;
 }
@@ -1107,12 +1225,12 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     justify-content: space-between;
     gap: 1.5rem;
     text-align: left;
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.0625rem, 1.5vw, 1.25rem);
-    font-weight: 500;
+    font-family: 'GFS Didot', 'Cormorant Garamond', Garamond, serif;
+    font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+    font-weight: 400;
     color: var(--ink);
     transition: color 0.3s;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.015em;
 }
 .faq-q:hover { color: var(--bronze); }
 .faq-q i {
@@ -1168,10 +1286,10 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 .poi-l i { color: var(--bronze); font-size: 13px; width: 14px; }
 .poi-v {
-    font-family: 'Playfair Display', serif;
-    font-size: 15px;
+    font-family: 'GFS Didot', 'Cormorant Garamond', Garamond, serif;
+    font-size: 16px;
     color: var(--bronze);
-    font-weight: 500;
+    font-weight: 400;
     letter-spacing: -0.01em;
 }
 
@@ -1181,6 +1299,7 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     overflow: hidden;
     box-shadow: 0 40px 100px -30px rgba(14, 19, 16, 0.2);
     background: var(--bone);
+    border-radius: 4px;
 }
 @media (max-width: 640px) { .map-frame { height: 400px; } }
 
@@ -1210,6 +1329,7 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     box-shadow: 0 25px 50px -15px rgba(0,0,0,0.4);
     border: 1px solid rgba(194, 161, 105, 0.35);
     white-space: nowrap;
+    border-radius: 999px;
     animation: pulseOverlay 3s ease-in-out infinite;
 }
 @keyframes pulseOverlay {
@@ -1224,6 +1344,7 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
         white-space: normal;
         text-align: center;
         max-width: 90%;
+        border-radius: 8px;
     }
 }
 .map-overlay i {
@@ -1253,17 +1374,18 @@ footer {
     border-bottom: 1px solid rgba(248, 245, 239, 0.08);
 }
 .footer-hero h2 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'GFS Didot', 'Cormorant Garamond', Garamond, serif;
     font-weight: 400;
     font-size: clamp(2rem, 4.5vw, 3.75rem);
-    line-height: 1.05;
-    letter-spacing: -0.025em;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
     max-width: 22ch;
 }
 .footer-hero h2 em {
+    font-family: 'Cormorant Garamond', Garamond, serif;
     font-style: italic;
     color: var(--champagne);
-    font-weight: 400;
+    font-weight: 500;
 }
 .footer-hero .cta-row {
     display: flex;
@@ -1283,11 +1405,11 @@ footer {
 @media (min-width: 1024px) { .footer-cols { grid-template-columns: 2fr 1fr 1fr 1fr; } }
 
 .f-brand-name {
-    font-family: 'Playfair Display', serif;
+    font-family: 'GFS Didot', 'Cormorant Garamond', Garamond, serif;
     font-size: 1.5rem;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     color: var(--ivory);
-    font-weight: 500;
+    font-weight: 400;
     margin-bottom: 1rem;
 }
 .f-brand p {
@@ -1365,35 +1487,21 @@ footer {
     display: none;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.875rem 1.375rem;
+    padding: 0.875rem 1.5rem;
     background: var(--ink);
     color: var(--ivory);
-    font-size: 11.5px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+    font-size: 13.5px;
+    letter-spacing: 0.01em;
     font-weight: 500;
     box-shadow: 0 20px 40px -15px rgba(0,0,0,0.4);
     border: 1px solid rgba(194, 161, 105, 0.25);
-    transition: background-color 0.3s;
+    border-radius: 999px;
+    transition: all 0.4s var(--ease);
 }
 @media (min-width: 640px) { .float-reserve .floating-phone { display: inline-flex; } }
-.float-reserve .floating-phone:hover { background: var(--bronze); }
-.float-reserve .floating-phone i { color: var(--champagne); font-size: 11px; }
-
-.floating-wa {
-    width: 52px; height: 52px;
-    border-radius: 50%;
-    background: var(--ivory);
-    color: var(--ink);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3125rem;
-    box-shadow: 0 20px 40px -15px rgba(0,0,0,0.4);
-    transition: transform 0.3s var(--ease), background-color 0.3s;
-}
-@media (hover: hover) {
-    .floating-wa:hover { transform: scale(1.05); background: var(--bronze); color: var(--ivory); }
+.float-reserve .floating-phone:hover {
+    background: var(--bronze);
+    transform: translateY(-2px);
 }
 
 /* ============================================================
@@ -1412,9 +1520,7 @@ footer {
 </head>
 <body>
 
-<!-- ============================================================
-     HEADER
-     ============================================================ -->
+<!-- ==================== HEADER ==================== -->
 <header id="header">
     <div class="header-inner">
         <a href="#" class="brand">
@@ -1431,9 +1537,8 @@ footer {
         </nav>
 
         <a href="#rates" class="cta-reserve">
-            <i class="fa-solid fa-circle"></i>
             <span>Κρατήσεις</span>
-            <small>2310 000 000</small>
+            <span class="arrow">→</span>
         </a>
 
         <button class="menu-btn" id="menuBtn" aria-label="Menu">
@@ -1442,6 +1547,7 @@ footer {
     </div>
 </header>
 
+<!-- ==================== MOBILE MENU ==================== -->
 <div id="mmenu">
     <button class="m-close" id="menuClose" aria-label="Close">
         <i class="fa-solid fa-xmark"></i>
@@ -1457,19 +1563,17 @@ footer {
     </nav>
     <div class="m-actions">
         <a href="tel:2310000000" class="btn btn-ivory btn-block">
-            <i class="fa-solid fa-phone"></i>
             <span>2310 000 000</span>
+            <span class="arrow">→</span>
         </a>
         <a href="https://wa.me/302310000000" target="_blank" rel="noopener" class="btn btn-outline btn-block">
-            <i class="fa-brands fa-whatsapp"></i>
             <span>WhatsApp</span>
+            <span class="arrow">→</span>
         </a>
     </div>
 </div>
 
-<!-- ============================================================
-     HERO — Cinematic crossfade + zoom
-     ============================================================ -->
+<!-- ==================== HERO ==================== -->
 <section class="hero">
     <div class="hero-media">
         <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=2400&q=90&auto=format&fit=crop&dpr=2');"></div>
@@ -1499,12 +1603,12 @@ footer {
 
             <div class="hero-actions">
                 <a href="#rates" class="btn btn-ivory">
-                    <i class="fa-regular fa-calendar"></i>
                     <span>Διαθεσιμότητα</span>
+                    <span class="arrow">→</span>
                 </a>
                 <a href="#gallery" class="btn btn-outline">
-                    <i class="fa-solid fa-images"></i>
-                    <span>Συλλογή</span>
+                    <span>Δείτε τη βίλα</span>
+                    <span class="arrow">→</span>
                 </a>
             </div>
         </div>
@@ -1513,9 +1617,7 @@ footer {
     <div class="hero-scroll">Scroll</div>
 </section>
 
-<!-- ============================================================
-     ABOUT — Cinematic frames
-     ============================================================ -->
+<!-- ==================== ABOUT ==================== -->
 <section id="about" class="section">
     <div class="container">
         <div class="about-grid">
@@ -1549,13 +1651,13 @@ footer {
 
             <div class="about-visual reveal d2">
                 <div class="frame frame-1">
-                    <img class="cine-zoom" 
-                         src="https://images.unsplash.com/photo-1615529182904-14819c35db37?w=1200&q=90&auto=format&fit=crop&dpr=2" 
+                    <img class="cine-zoom"
+                         src="https://images.unsplash.com/photo-1615529182904-14819c35db37?w=1200&q=90&auto=format&fit=crop&dpr=2"
                          alt="Minimal Cycladic interior" loading="lazy">
                 </div>
                 <div class="frame frame-2">
-                    <img class="cine-zoom-reverse cine-d3" 
-                         src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=90&auto=format&fit=crop&dpr=2" 
+                    <img class="cine-zoom-reverse cine-d3"
+                         src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=90&auto=format&fit=crop&dpr=2"
                          alt="Stone wall detail" loading="lazy">
                 </div>
 
@@ -1568,9 +1670,7 @@ footer {
     </div>
 </section>
 
-<!-- ============================================================
-     AMENITIES
-     ============================================================ -->
+<!-- ==================== AMENITIES ==================== -->
 <section id="amenities" class="section amenities-section">
     <div class="container">
         <div class="amenities-head">
@@ -1652,9 +1752,7 @@ footer {
     </div>
 </section>
 
-<!-- ============================================================
-     GALLERY — κάθε card έχει pan + zoom
-     ============================================================ -->
+<!-- ==================== GALLERY ==================== -->
 <section id="gallery" class="section">
     <div class="container">
         <div class="gallery-head">
@@ -1674,10 +1772,10 @@ footer {
 
         <div class="gallery-grid" id="galleryGrid">
 
-            <div class="g-item reveal" data-cat="pool" 
+            <div class="g-item reveal" data-cat="pool"
                  data-full="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=2400&q=90&auto=format&dpr=2">
-                <img class="cine-pan" 
-                     src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=1400&q=90&auto=format&fit=crop&dpr=2" 
+                <img class="cine-pan"
+                     src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=1400&q=90&auto=format&fit=crop&dpr=2"
                      alt="Infinity pool at golden hour" loading="lazy">
                 <div class="g-item-veil"></div>
                 <div class="g-item-plus"><i class="fa-solid fa-plus"></i></div>
@@ -1687,10 +1785,10 @@ footer {
                 </div>
             </div>
 
-            <div class="g-item reveal d1" data-cat="interior" 
+            <div class="g-item reveal d1" data-cat="interior"
                  data-full="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=2400&q=90&auto=format&dpr=2">
-                <img class="cine-zoom cine-d2" 
-                     src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1400&q=90&auto=format&fit=crop&dpr=2" 
+                <img class="cine-zoom cine-d2"
+                     src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1400&q=90&auto=format&fit=crop&dpr=2"
                      alt="Minimal luxury living room" loading="lazy">
                 <div class="g-item-veil"></div>
                 <div class="g-item-plus"><i class="fa-solid fa-plus"></i></div>
@@ -1700,10 +1798,10 @@ footer {
                 </div>
             </div>
 
-            <div class="g-item reveal" data-cat="interior" 
+            <div class="g-item reveal" data-cat="interior"
                  data-full="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=2400&q=90&auto=format&dpr=2">
-                <img class="cine-zoom-reverse cine-d4" 
-                     src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=1200&q=90&auto=format&fit=crop&dpr=2" 
+                <img class="cine-zoom-reverse cine-d4"
+                     src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=1200&q=90&auto=format&fit=crop&dpr=2"
                      alt="Master suite bedroom" loading="lazy">
                 <div class="g-item-veil"></div>
                 <div class="g-item-plus"><i class="fa-solid fa-plus"></i></div>
@@ -1713,10 +1811,10 @@ footer {
                 </div>
             </div>
 
-            <div class="g-item reveal d1" data-cat="views" 
+            <div class="g-item reveal d1" data-cat="views"
                  data-full="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=2400&q=90&auto=format&dpr=2">
-                <img class="cine-pan cine-d1" 
-                     src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=1200&q=90&auto=format&fit=crop&dpr=2" 
+                <img class="cine-pan cine-d1"
+                     src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=1200&q=90&auto=format&fit=crop&dpr=2"
                      alt="Aegean sea sunset" loading="lazy">
                 <div class="g-item-veil"></div>
                 <div class="g-item-plus"><i class="fa-solid fa-plus"></i></div>
@@ -1726,10 +1824,10 @@ footer {
                 </div>
             </div>
 
-            <div class="g-item reveal d2" data-cat="pool" 
+            <div class="g-item reveal d2" data-cat="pool"
                  data-full="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=2400&q=90&auto=format&dpr=2">
-                <img class="cine-zoom cine-d5" 
-                     src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1200&q=90&auto=format&fit=crop&dpr=2" 
+                <img class="cine-zoom cine-d5"
+                     src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1200&q=90&auto=format&fit=crop&dpr=2"
                      alt="Pool sunbeds" loading="lazy">
                 <div class="g-item-veil"></div>
                 <div class="g-item-plus"><i class="fa-solid fa-plus"></i></div>
@@ -1739,10 +1837,10 @@ footer {
                 </div>
             </div>
 
-            <div class="g-item reveal" data-cat="views" 
+            <div class="g-item reveal" data-cat="views"
                  data-full="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=2400&q=90&auto=format&dpr=2">
-                <img class="cine-pan cine-d3" 
-                     src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=2000&q=90&auto=format&fit=crop&dpr=2" 
+                <img class="cine-pan cine-d3"
+                     src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=2000&q=90&auto=format&fit=crop&dpr=2"
                      alt="Villa terrace and gardens" loading="lazy">
                 <div class="g-item-veil"></div>
                 <div class="g-item-plus"><i class="fa-solid fa-plus"></i></div>
@@ -1761,9 +1859,7 @@ footer {
     <img id="lbImg" src="" alt="">
 </div>
 
-<!-- ============================================================
-     RATES
-     ============================================================ -->
+<!-- ==================== RATES ==================== -->
 <section id="rates" class="section rates-section">
     <div class="container">
         <div class="rates-grid">
@@ -1792,17 +1888,17 @@ footer {
                 </p>
 
                 <div class="stack">
-                    <a href="tel:2310000000" class="btn btn-bronze btn-block">
-                        <i class="fa-solid fa-phone"></i>
+                    <a href="tel:2310000000" class="btn btn-pill btn-block">
                         <span>2310 000 000</span>
+                        <span class="arrow">→</span>
                     </a>
-                    <a href="https://wa.me/302310000000" target="_blank" rel="noopener" class="btn btn-block" style="background:#25D366;color:#fff;">
-                        <i class="fa-brands fa-whatsapp" style="font-size:14px;"></i>
+                    <a href="https://wa.me/302310000000" target="_blank" rel="noopener" class="btn btn-pill btn-block" style="background:#25D366;color:#fff;">
+                        <i class="fa-brands fa-whatsapp"></i>
                         <span>WhatsApp</span>
                     </a>
-                    <a href="mailto:reservations@aetheria-residence.gr" class="btn btn-block" style="background:transparent;color:var(--ink);border:1px solid var(--linen);">
-                        <i class="fa-regular fa-envelope"></i>
+                    <a href="mailto:reservations@aetheria-residence.gr" class="btn btn-pill btn-pill-outline btn-block">
                         <span>Email</span>
+                        <span class="arrow">→</span>
                     </a>
                 </div>
             </div>
@@ -1810,9 +1906,7 @@ footer {
     </div>
 </section>
 
-<!-- ============================================================
-     REVIEWS
-     ============================================================ -->
+<!-- ==================== REVIEWS ==================== -->
 <section id="reviews" class="section">
     <div class="container">
         <div class="reviews-head">
@@ -1869,9 +1963,7 @@ footer {
     </div>
 </section>
 
-<!-- ============================================================
-     FAQ
-     ============================================================ -->
+<!-- ==================== FAQ ==================== -->
 <section class="section faq-section">
     <div class="container">
         <div style="text-align:center; margin-bottom:3.5rem;">
@@ -1911,9 +2003,7 @@ footer {
     </div>
 </section>
 
-<!-- ============================================================
-     LOCATION
-     ============================================================ -->
+<!-- ==================== LOCATION ==================== -->
 <section id="location" class="section">
     <div class="container">
         <div class="location-grid">
@@ -1959,9 +2049,7 @@ footer {
     </div>
 </section>
 
-<!-- ============================================================
-     FOOTER
-     ============================================================ -->
+<!-- ==================== FOOTER ==================== -->
 <footer>
     <div class="footer-hero">
         <h2 class="reveal">
@@ -1969,12 +2057,12 @@ footer {
         </h2>
         <div class="cta-row reveal d1">
             <a href="tel:2310000000" class="btn btn-ivory">
-                <i class="fa-solid fa-phone"></i>
                 <span>2310 000 000</span>
+                <span class="arrow">→</span>
             </a>
             <a href="https://wa.me/302310000000" target="_blank" rel="noopener" class="btn btn-outline">
-                <i class="fa-brands fa-whatsapp"></i>
                 <span>WhatsApp</span>
+                <span class="arrow">→</span>
             </a>
         </div>
     </div>
@@ -2022,12 +2110,13 @@ footer {
     </div>
 </footer>
 
+<!-- ==================== FLOATING ==================== -->
 <div class="float-reserve">
     <a href="tel:2310000000" class="floating-phone">
-        <i class="fa-solid fa-phone"></i>
         <span>2310 000 000</span>
+        <span class="arrow">→</span>
     </a>
-    <a href="https://wa.me/302310000000" target="_blank" rel="noopener" class="floating-wa" aria-label="WhatsApp">
+    <a href="https://wa.me/302310000000" target="_blank" rel="noopener" class="btn-round" aria-label="WhatsApp">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 </div>
