@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="el" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aetheria Luxury Residence | Αποκλειστική Ιδιωτική Βίλα</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Leaflet JS Map CSS & JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom Tailwind Styling Tokens -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: {
+                            50: '#FBF9F5',
+                            100: '#F5F1E9',
+                            200: '#EFECE6',
+                            300: '#E2DDD3',
+                        },
+                        charcoal: {
+                            800: '#2A3230',
+                            900: '#1C2321',
+                            950: '#121716',
+                        },
+                        terracotta: {
+                            400: '#D17C62',
+                            500: '#C26D53',
+                            600: '#A6563E',
+                        },
+                        gold: {
+                            400: '#E5C158',
+                            500: '#D4AF37',
+                            600: '#B89326',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    letterSpacing: {
+                        'ultra-wide': '0.3em',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Styles & Typography Setup */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #FBF9F5;
+            color: #1C2321;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        /* Custom Dynamic Cursor Accent */
+        #custom-cursor {
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            border: 1px solid rgba(194, 109, 83, 0.6);
+            border-radius: 50%;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease-out, width 0.3s ease, height 0.3s ease, background-color 0.3s ease;
+        }
+
+        #custom-cursor-dot {
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 6px;
+            background-color: #C26D53;
+            border-radius: 50%;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Scroll Progress Bar */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #C26D53, #D4AF37);
+            z-index: 100;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        /* Reveal-on-scroll animation classes */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1), transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
+
+        /* Liquid Luxury Button Hover Animation */
+        .btn-luxury {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1;
+        }
+
+        .btn-luxury::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #C26D53;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: -1;
+        }
+
+        .btn-luxury:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* Gold Outline Button */
+        .btn-gold-outline {
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            color: #1C2321;
+            transition: all 0.4s ease;
+        }
+
+        .btn-gold-outline:hover {
+            border-color: #D4AF37;
+            background-color: #1C2321;
+            color: #FBF9F5;
+            box-shadow: 0 10px 30px -10px rgba(28, 35, 33, 0.3);
+        }
+
+        /* Image Parallax Zoom Container */
+        .img-reveal-box {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .img-reveal-box img {
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .img-reveal-box:hover img {
+            transform: scale(1.06);
+        }
+
+        /* Header backdrop and smooth toggle */
+        .nav-hidden {
+            transform: translateY(-100%);
+            transition: transform 0.4s ease;
+        }
+
+        .nav-visible {
+            transform: translateY(0);
+            transition: transform 0.4s ease;
+        }
+
+        .glass-header {
+            background: rgba(251, 249, 245, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(226, 221, 211, 0.6);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FBF9F5;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C26D53;
+            border-radius: 3px;
+        }
+
+        /* Accordion transition */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Ambient Hero Glow Effect */
+        .ambient-glow {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(194, 109, 83, 0.15) 0%, rgba(251, 249, 245, 0) 70%);
+            pointer-events: none;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-terracotta-500 selection:text-white">
+
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress"></div>
+
+    <!-- Custom Cursor Ring & Dot -->
+    <div id="custom-cursor"></div>
+    <div id="custom-cursor-dot"></div>
+
+    <!-- Header / Navigation -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-40 py-5 transition-all duration-300 nav-visible">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
+            
+            <!-- Brand Logo -->
+            <a href="#" class="group flex flex-col">
+                <span class="font-serif text-2xl md:text-3xl tracking-wider text-charcoal-900 font-medium group-hover:text-terracotta-500 transition-colors">
+                    AETHERIA
+                </span>
+                <span class="text-[9px] tracking-[0.3em] text-charcoal-800/60 uppercase font-light">Luxury Residence</span>
+            </a>
+
+            <!-- Desktop Nav Items -->
+            <nav class="hidden md:flex items-center space-x-10 text-xs tracking-[0.2em] uppercase font-medium text-charcoal-900/80">
+                <a href="#about" class="hover:text-terracotta-500 transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-terracotta-500 hover:after:w-full after:transition-all">Σχετικα</a>
+                <a href="#amenities" class="hover:text-terracotta-500 transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-terracotta-500 hover:after:w-full after:transition-all">Παροχες</a>
+                <a href="#gallery" class="hover:text-terracotta-500 transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-terracotta-500 hover:after:w-full after:transition-all">Συλλογη</a>
+                <a href="#rates" class="hover:text-terracotta-500 transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-terracotta-500 hover:after:w-full after:transition-all">Πληροφοριες</a>
+                <a href="#reviews" class="hover:text-terracotta-500 transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-terracotta-500 hover:after:w-full after:transition-all">Αξιολογησεις</a>
+                <a href="#location" class="hover:text-terracotta-500 transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-terracotta-500 hover:after:w-full after:transition-all">Τοποθεσια</a>
+            </nav>
+
+            <!-- Direct Call Action Button Header -->
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="tel:2310000000" class="btn-luxury bg-charcoal-900 text-cream-50 px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] inline-flex items-center gap-2.5 shadow-sm">
+                    <i class="fa-solid fa-phone text-terracotta-400 text-xs"></i>
+                    <span>2310 000000</span>
+                </a>
+            </div>
+
+            <!-- Mobile Hamburger Toggle -->
+            <button id="mobile-menu-btn" class="md:hidden text-charcoal-900 focus:outline-none p-2" aria-label="Μενού">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden fixed inset-0 top-[70px] bg-cream-50/98 backdrop-blur-2xl z-50 flex flex-col px-8 py-10 space-y-6 text-lg font-serif">
+            <a href="#about" class="mobile-link text-charcoal-900 hover:text-terracotta-500 border-b border-cream-200 pb-3">Σχετικά με τη Βίλα</a>
+            <a href="#amenities" class="mobile-link text-charcoal-900 hover:text-terracotta-500 border-b border-cream-200 pb-3">Πολυτελείς Παροχές</a>
+            <a href="#gallery" class="mobile-link text-charcoal-900 hover:text-terracotta-500 border-b border-cream-200 pb-3">Συλλογή Φωτογραφιών</a>
+            <a href="#rates" class="mobile-link text-charcoal-900 hover:text-terracotta-500 border-b border-cream-200 pb-3">Πληροφορίες & Τιμές</a>
+            <a href="#reviews" class="mobile-link text-charcoal-900 hover:text-terracotta-500 border-b border-cream-200 pb-3">Εμπειρίες Επισκεπτών</a>
+            <a href="#location" class="mobile-link text-charcoal-900 hover:text-terracotta-500 border-b border-cream-200 pb-3">Τοποθεσία & Χάρτης</a>
+            
+            <div class="pt-6 space-y-3">
+                <a href="tel:2310000000" class="w-full bg-charcoal-900 text-cream-50 text-center py-4 text-xs font-sans font-semibold uppercase tracking-widest flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-phone text-terracotta-400"></i>
+                    <span>Κληση 2310 000000</span>
+                </a>
+                <a href="https://wa.me/302310000000" target="_blank" rel="noopener" class="w-full bg-[#25D366] text-white text-center py-4 text-xs font-sans font-semibold uppercase tracking-widest flex items-center justify-center gap-3">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>WhatsApp Chat</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section with Smooth Parallax Background -->
+    <section class="relative min-h-screen flex items-center justify-center pt-28 pb-16 px-6 overflow-hidden">
+        
+        <!-- Parallax Hero Background -->
+        <div id="hero-bg" class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=2000&q=90" 
+                 alt="Aetheria Luxury Villa Aegean View" 
+                 class="w-full h-full object-cover object-center filter brightness-[0.82] scale-105 transition-transform duration-700 ease-out"
+                 onerror="this.src='https://placehold.co/1920x1080/EFECE6/1C2321?text=Aetheria+Villa'">
+            <div class="absolute inset-0 bg-gradient-to-t from-cream-50 via-charcoal-950/20 to-charcoal-950/40"></div>
+        </div>
+
+        <div class="ambient-glow top-1/4 left-1/2 -translate-x-1/2"></div>
+
+        <!-- Hero Content Box -->
+        <div class="relative z-10 max-w-5xl mx-auto text-center text-white mt-10 space-y-8">
+            
+            <div class="reveal-up">
+                <span class="inline-block text-[10px] sm:text-xs uppercase tracking-ultra-wide text-cream-100 font-medium px-5 py-2 border border-white/20 bg-black/30 backdrop-blur-md rounded-full mb-2">
+                    Ιδιωτικη Βιλα Υψηλης Αρχιτεκτονικης
+                </span>
+            </div>
+
+            <h1 class="reveal-up delay-100 font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-normal leading-[1.05] tracking-tight drop-shadow-md">
+                Αυθεντική πολυτέλεια <br class="hidden sm:inline"><span class="italic font-light text-cream-100">με θέα το απέραντο γαλάζιο</span>
+            </h1>
+
+            <p class="reveal-up delay-200 max-w-2xl mx-auto text-sm sm:text-base md:text-lg text-cream-100/90 font-light leading-relaxed font-sans">
+                Μια απομονωμένη όαση με ιδιωτική πισίνα infinity, μεσογειακούς κήπους και απαράμιλλη αισθητική, σχεδιασμένη για απόλυτη ηρεμία και διακριτικότητα.
+            </p>
+
+            <!-- Floating Direct Reservation CTA Bar (No Forms) -->
+            <div class="reveal-up delay-300 pt-4 flex flex-wrap items-center justify-center gap-4 max-w-3xl mx-auto">
+                
+                <!-- Primary Call Button -->
+                <a href="tel:2310000000" class="btn-luxury bg-cream-50 text-charcoal-900 border border-white px-8 py-4 text-xs font-semibold uppercase tracking-[0.2em] flex items-center gap-3 shadow-2xl hover:text-white">
+                    <i class="fa-solid fa-phone text-terracotta-500 text-sm"></i>
+                    <span>Κληση: 2310 000000</span>
+                </a>
+
+                <!-- WhatsApp Button -->
+                <a href="https://wa.me/302310000000?text=%CE%93%CE%B5%CE%B9%CE%B1%20%CF%83%CE%B1%CF%82,%20%CE%B8%CE%B1%20%CE%B7%CE%B8%CE%B5%CE%BB%CE%B1%20%CF%80%CE%BB%CE%B7%CF%81%CE%BF%CF%86%CE%BF%CF%81%CE%B9%CE%B5%CF%82%20%CE%B3%CE%B9%CE%B1%20%CF%84%CE%B7%20%CE%92%CE%B9%CE%BB%CE%B1%20Aetheria" target="_blank" rel="noopener" class="bg-[#25D366] text-white px-8 py-4 text-xs font-semibold uppercase tracking-[0.2em] flex items-center gap-3 shadow-2xl hover:brightness-105 transition-all">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>WhatsApp Direct</span>
+                </a>
+
+                <!-- Email Link Button -->
+                <a href="mailto:reservations@aetheria-residence.gr" class="border border-white/40 bg-black/20 backdrop-blur-md text-white px-8 py-4 text-xs font-semibold uppercase tracking-[0.2em] flex items-center gap-3 hover:bg-white hover:text-charcoal-900 transition-all">
+                    <i class="fa-regular fa-envelope text-sm"></i>
+                    <span>Email Us</span>
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- Scroll Indicator Arrow -->
+        <a href="#about" class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 text-white/70 hover:text-white transition-colors animate-bounce">
+            <i class="fa-solid fa-chevron-down text-lg"></i>
+        </a>
+    </section>
+
+    <!-- Narrative / About Section -->
+    <section id="about" class="py-28 px-6 md:px-12 max-w-7xl mx-auto relative">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            
+            <!-- Left Text Column -->
+            <div class="lg:col-span-6 space-y-8">
+                <div class="reveal-up space-y-3">
+                    <div class="flex items-center space-x-3">
+                        <span class="h-[1px] w-10 bg-terracotta-500"></span>
+                        <span class="text-xs uppercase tracking-ultra-wide text-terracotta-500 font-semibold">Η Αρχιτεκτονικη της Γαληνης</span>
+                    </div>
+                    <h2 class="font-serif text-3xl sm:text-5xl text-charcoal-900 font-normal leading-[1.12]">
+                        Ένα καταφύγιο εκλεπτυσμένης αισθητικής και απόλυτης ιδιωτικότητας
+                    </h2>
+                </div>
+
+                <p class="reveal-up delay-100 text-charcoal-800/80 font-light text-base sm:text-lg leading-relaxed">
+                    Το <strong class="font-semibold text-charcoal-900">Aetheria Luxury Residence</strong> δημιουργήθηκε για ταξιδιώτες που αναζητούν την κομψότητα, την ηρεμία και την άμεση επαφή με το φυσικό κυκλαδίτικο τοπίο.
+                </p>
+
+                <p class="reveal-up delay-200 text-charcoal-800/75 font-light text-sm sm:text-base leading-relaxed">
+                    Σχεδιασμένο με γνώμονα τη βιοκλιματική αρχιτεκτονική, ενσωματώνει φυσική πέτρα, ξύλο καστανιάς και λινά υφάσματα. Η πισίνα υπερχείλισης γίνεται ένα με τον ορίζοντα, προσφέροντας μια ανεμπόδιστη εμπειρία ηλιοβασιλέματος κάθε απόγευμα.
+                </p>
+
+                <!-- Highlights Stat Row -->
+                <div class="reveal-up delay-300 grid grid-cols-3 gap-6 pt-6 border-t border-cream-300">
+                    <div>
+                        <span class="font-serif text-3xl sm:text-4xl text-terracotta-500 block font-normal">240m²</span>
+                        <span class="text-[10px] sm:text-xs text-charcoal-900 uppercase tracking-widest font-medium">Χωροι Διαμονης</span>
+                    </div>
+                    <div>
+                        <span class="font-serif text-3xl sm:text-4xl text-terracotta-500 block font-normal">3</span>
+                        <span class="text-[10px] sm:text-xs text-charcoal-900 uppercase tracking-widest font-medium">Master Σουιτες</span>
+                    </div>
+                    <div>
+                        <span class="font-serif text-3xl sm:text-4xl text-terracotta-500 block font-normal">180°</span>
+                        <span class="text-[10px] sm:text-xs text-charcoal-900 uppercase tracking-widest font-medium">Θεα Αιγαιο</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Visual Composition with Parallax Reveal -->
+            <div class="lg:col-span-6 grid grid-cols-12 gap-4 relative">
+                <div class="col-span-8 img-reveal-box shadow-2xl reveal-up">
+                    <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1000&q=85" 
+                         alt="Master Bedroom Suite" 
+                         class="w-full h-[450px] object-cover"
+                         onerror="this.src='https://placehold.co/800x1000/EFECE6/1C2321?text=Bedroom'">
+                </div>
+                <div class="col-span-4 img-reveal-box shadow-xl self-end reveal-up delay-200">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=85" 
+                         alt="Living Space Architecture" 
+                         class="w-full h-[280px] object-cover"
+                         onerror="this.src='https://placehold.co/600x800/EFECE6/1C2321?text=Interior'">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Amenities Interactive Showcase -->
+    <section id="amenities" class="bg-cream-100 py-28 px-6 md:px-12 border-y border-cream-300 relative">
+        <div class="max-w-7xl mx-auto">
+            
+            <div class="text-center max-w-2xl mx-auto mb-20 space-y-4">
+                <span class="reveal-up text-xs uppercase tracking-ultra-wide text-terracotta-500 font-semibold block">Υψηλες Παροχες</span>
+                <h2 class="reveal-up delay-100 font-serif text-3xl sm:text-5xl text-charcoal-900 font-normal">
+                    Σχεδιασμένο για να καλύπτει κάθε σας ανάγκη
+                </h2>
+                <p class="reveal-up delay-200 text-charcoal-800/70 text-sm font-light leading-relaxed">
+                    Από τη στιγμή που θα φτάσετε, κάθε λεπτομέρεια έχει προβλεφθεί για μια άνετη και πολυτελή διαμονή.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Feature 1 -->
+                <div class="reveal-up bg-cream-50 p-8 border border-cream-300 hover:border-terracotta-500 transition-all duration-500 group">
+                    <div class="w-12 h-12 bg-cream-200 rounded-full flex items-center justify-center text-charcoal-900 group-hover:bg-terracotta-500 group-hover:text-white transition-colors duration-300 mb-6">
+                        <i class="fa-solid fa-water-ladder text-lg"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl text-charcoal-900 mb-2 font-normal">Ιδιωτική Πισίνα Infinity</h3>
+                    <p class="text-xs text-charcoal-800/70 font-light leading-relaxed">
+                        Πισίνα υπερχείλισης με θαλασσινό νερό, ξαπλώστρες, ομπρέλες και πανοραμική θέα στο πέλαγος.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="reveal-up delay-100 bg-cream-50 p-8 border border-cream-300 hover:border-terracotta-500 transition-all duration-500 group">
+                    <div class="w-12 h-12 bg-cream-200 rounded-full flex items-center justify-center text-charcoal-900 group-hover:bg-terracotta-500 group-hover:text-white transition-colors duration-300 mb-6">
+                        <i class="fa-solid fa-wifi text-lg"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl text-charcoal-900 mb-2 font-normal">Starlink High-Speed Wi-Fi</h3>
+                    <p class="text-xs text-charcoal-800/70 font-light leading-relaxed">
+                        Δορυφορικό ίντερνετ εξαιρετικά υψηλής ταχύτητας (έως 1Gbps) σε όλους τους εσωτερικούς & εξωτερικούς χώρους.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="reveal-up delay-200 bg-cream-50 p-8 border border-cream-300 hover:border-terracotta-500 transition-all duration-500 group">
+                    <div class="w-12 h-12 bg-cream-200 rounded-full flex items-center justify-center text-charcoal-900 group-hover:bg-terracotta-500 group-hover:text-white transition-colors duration-300 mb-6">
+                        <i class="fa-solid fa-kitchen-set text-lg"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl text-charcoal-900 mb-2 font-normal">Gourmet Κουζίνα</h3>
+                    <p class="text-xs text-charcoal-800/70 font-light leading-relaxed">
+                        Πλήρως εξοπλισμένη κουζίνα με συσκευές Miele, μηχανή espresso Nespresso και συντηρητή κρασιών.
+                    </p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="reveal-up delay-300 bg-cream-50 p-8 border border-cream-300 hover:border-terracotta-500 transition-all duration-500 group">
+                    <div class="w-12 h-12 bg-cream-200 rounded-full flex items-center justify-center text-charcoal-900 group-hover:bg-terracotta-500 group-hover:text-white transition-colors duration-300 mb-6">
+                        <i class="fa-solid fa-house-signal text-lg"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl text-charcoal-900 mb-2 font-normal">Smart Home Automation</h3>
+                    <p class="text-xs text-charcoal-800/70 font-light leading-relaxed">
+                        Έλεγχος φωτισμού, θερμοκρασίας και ηχοσυστήματος Sonos μέσω κεντρικής οθόνης touch screen.
+                    </p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="reveal-up bg-cream-50 p-8 border border-cream-300 hover:border-terracotta-500 transition-all duration-500 group">
+                    <div class="w-12 h-12 bg-cream-200 rounded-full flex items-center justify-center text-charcoal-900 group-hover:bg-terracotta-500 group-hover:text-white transition-colors duration-300 mb-6">
+                        <i class="fa-solid fa-charging-station text-lg"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl text-charcoal-900 mb-2 font-normal">Ιδιωτικό Parking & EV</h3>
+                    <p class="text-xs text-charcoal-800/70 font-light leading-relaxed">
+                        Ασφαλής περιφραγμένος χώρος στάθμευσης για 3 οχήματα με ταχυφορτιστή ηλεκτρικών αυτοκινήτων.
+                    </p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="reveal-up delay-100 bg-cream-50 p-8 border border-cream-300 hover:border-terracotta-500 transition-all duration-500 group">
+                    <div class="w-12 h-12 bg-cream-200 rounded-full flex items-center justify-center text-charcoal-900 group-hover:bg-terracotta-500 group-hover:text-white transition-colors duration-300 mb-6">
+                        <i class="fa-solid fa-fire-burner text-lg"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl text-charcoal-900 mb-2 font-normal">BBQ & Outdoor Dining</h3>
+                    <p class="text-xs text-charcoal-800/70 font-light leading-relaxed">
+                        Στεγασμένη τραπεζαρία 10 ατόμων με ψησταριά υγραερίου για ατμοσφαιρικά δείπνα κάτω από τα αστέρια.
+                    </p>
+                </div>
+
+                <!-- Feature 7 -->
+                <div class="reveal-up delay-200 bg-cream-50 p-8 border border-cream-300 hover:border-terracotta-500 transition-all duration-500 group">
+                    <div class="w-12 h-12 bg-cream-200 rounded-full flex items-center justify-center text-charcoal-900 group-hover:bg-terracotta-500 group-hover:text-white transition-colors duration-300 mb-6">
+                        <i class="fa-solid fa-bed text-lg"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl text-charcoal-900 mb-2 font-normal">Βιολογικά Λινά & Coco-Mat</h3>
+                    <p class="text-xs text-charcoal-800/70 font-light leading-relaxed">
+                        Οικολογικά στρώματα Coco-Mat, 100% λινά σεντόνια και επιλογή μαξιλαριών για τέλειο ύπνο.
+                    </p>
+                </div>
+
+                <!-- Feature 8 -->
+                <div class="reveal-up delay-300 bg-cream-50 p-8 border border-cream-300 hover:border-terracotta-500 transition-all duration-500 group">
+                    <div class="w-12 h-12 bg-cream-200 rounded-full flex items-center justify-center text-charcoal-900 group-hover:bg-terracotta-500 group-hover:text-white transition-colors duration-300 mb-6">
+                        <i class="fa-solid fa-concierge-bell text-lg"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl text-charcoal-900 mb-2 font-normal">Private Concierge</h3>
+                    <p class="text-xs text-charcoal-800/70 font-light leading-relaxed">
+                        Δυνατότητα κράτησης ιδιωτικού σεφ, μεταφοράς από/προς αεροδρόμιο και ιδιωτικών σκαφών.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Showcase Section with Category Filtering & Lightbox -->
+    <section id="gallery" class="py-28 px-6 md:px-12 max-w-7xl mx-auto">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+            <div class="reveal-up space-y-2">
+                <span class="text-xs uppercase tracking-ultra-wide text-terracotta-500 font-semibold block">Φωτογραφικο Υλικο</span>
+                <h2 class="font-serif text-3xl sm:text-5xl text-charcoal-900 font-normal">
+                    Ανακαλύψτε τη βίλα
+                </h2>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div id="gallery-filters" class="reveal-up delay-100 flex flex-wrap gap-2 text-xs uppercase tracking-widest font-medium">
+                <button data-filter="all" class="gallery-filter-btn px-5 py-2.5 bg-charcoal-900 text-cream-50 transition-all shadow-sm">Όλοι οι χώροι</button>
+                <button data-filter="pool" class="gallery-filter-btn px-5 py-2.5 bg-cream-200 text-charcoal-900 hover:bg-charcoal-900 hover:text-cream-50 transition-all">Πισίνα & Κήπος</button>
+                <button data-filter="interior" class="gallery-filter-btn px-5 py-2.5 bg-cream-200 text-charcoal-900 hover:bg-charcoal-900 hover:text-cream-50 transition-all">Εσωτερικό</button>
+                <button data-filter="views" class="gallery-filter-btn px-5 py-2.5 bg-cream-200 text-charcoal-900 hover:bg-charcoal-900 hover:text-cream-50 transition-all">Θέα</button>
+            </div>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- Item 1 -->
+            <div class="gallery-item pool img-reveal-box relative cursor-pointer group shadow-xl reveal-up" data-src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1400&q=85">
+                <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80" alt="Infinity Pool View" class="w-full h-80 object-cover">
+                <div class="absolute inset-0 bg-charcoal-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white">
+                    <span class="text-xs tracking-widest uppercase border border-white/40 px-4 py-2 bg-black/20 backdrop-blur-md">Μεγεθυνση</span>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="gallery-item interior img-reveal-box relative cursor-pointer group shadow-xl reveal-up delay-100" data-src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1400&q=85">
+                <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=800&q=80" alt="Master Suite Bedroom" class="w-full h-80 object-cover">
+                <div class="absolute inset-0 bg-charcoal-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white">
+                    <span class="text-xs tracking-widest uppercase border border-white/40 px-4 py-2 bg-black/20 backdrop-blur-md">Μεγεθυνση</span>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="gallery-item views img-reveal-box relative cursor-pointer group shadow-xl reveal-up delay-200" data-src="https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1400&q=85">
+                <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=800&q=80" alt="Panoramic Aegean Sunset" class="w-full h-80 object-cover">
+                <div class="absolute inset-0 bg-charcoal-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white">
+                    <span class="text-xs tracking-widest uppercase border border-white/40 px-4 py-2 bg-black/20 backdrop-blur-md">Μεγεθυνση</span>
+                </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="gallery-item interior img-reveal-box relative cursor-pointer group shadow-xl reveal-up" data-src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1400&q=85">
+                <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80" alt="Living Room Lounge" class="w-full h-80 object-cover">
+                <div class="absolute inset-0 bg-charcoal-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white">
+                    <span class="text-xs tracking-widest uppercase border border-white/40 px-4 py-2 bg-black/20 backdrop-blur-md">Μεγεθυνση</span>
+                </div>
+            </div>
+
+            <!-- Item 5 -->
+            <div class="gallery-item views img-reveal-box relative cursor-pointer group shadow-xl reveal-up delay-100" data-src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1400&q=85">
+                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80" alt="Outdoor Patio Terrace" class="w-full h-80 object-cover">
+                <div class="absolute inset-0 bg-charcoal-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white">
+                    <span class="text-xs tracking-widest uppercase border border-white/40 px-4 py-2 bg-black/20 backdrop-blur-md">Μεγεθυνση</span>
+                </div>
+            </div>
+
+            <!-- Item 6 -->
+            <div class="gallery-item pool img-reveal-box relative cursor-pointer group shadow-xl reveal-up delay-200" data-src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1400&q=85">
+                <img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=800&q=80" alt="Pool Sunbeds" class="w-full h-80 object-cover">
+                <div class="absolute inset-0 bg-charcoal-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white">
+                    <span class="text-xs tracking-widest uppercase border border-white/40 px-4 py-2 bg-black/20 backdrop-blur-md">Μεγεθυνση</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox-modal" class="fixed inset-0 z-50 bg-charcoal-950/95 backdrop-blur-xl hidden flex items-center justify-center p-4 transition-all duration-300">
+        <button id="lightbox-close" class="absolute top-6 right-6 text-white text-3xl hover:text-terracotta-500 transition-colors p-2" aria-label="Κλείσιμο">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <img id="lightbox-img" src="" alt="Enlarged gallery photo" class="max-w-full max-h-[85vh] object-contain shadow-2xl">
+    </div>
+
+    <!-- Residence Details & Direct Booking Action Block -->
+    <section id="rates" class="bg-charcoal-900 text-cream-50 py-28 px-6 md:px-12 relative overflow-hidden">
+        
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Information Column -->
+            <div class="lg:col-span-6 space-y-6">
+                <span class="reveal-up text-xs uppercase tracking-ultra-wide text-terracotta-400 font-semibold block">Πληροφοριες Διαμονης</span>
+                <h2 class="reveal-up delay-100 font-serif text-3xl sm:text-5xl font-normal leading-tight">
+                    Απευθείας κρατήσεις χωρίς προμήθειες
+                </h2>
+                <p class="reveal-up delay-200 text-cream-200/80 font-light text-sm sm:text-base leading-relaxed">
+                    Επικοινωνήστε απευθείας μαζί μας για να διασφαλίσετε τις καλύτερες διαθέσιμες τιμές, ειδικά πακέτα πολυήμερης διαμονής και προσαρμοσμένες παροχές.
+                </p>
+
+                <div class="reveal-up delay-300 space-y-4 pt-4 border-t border-charcoal-800">
+                    <div class="flex items-center space-x-3 text-sm font-light text-cream-200">
+                        <i class="fa-solid fa-check text-terracotta-400"></i>
+                        <span>Χωρητικότητα: Έως 6 Φιλοξενούμενοι (3 Master Σουίτες)</span>
+                    </div>
+                    <div class="flex items-center space-x-3 text-sm font-light text-cream-200">
+                        <i class="fa-solid fa-check text-terracotta-400"></i>
+                        <span>Ελάχιστη διαμονή: 3 διανυκτερεύσεις (5 τη θερινή σεζόν)</span>
+                    </div>
+                    <div class="flex items-center space-x-3 text-sm font-light text-cream-200">
+                        <i class="fa-solid fa-check text-terracotta-400"></i>
+                        <span>Ευέλικτη πολιτική ακύρωσης κατόπιν συνεννόησης</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Direct Contact Card (No Forms) -->
+            <div class="reveal-up delay-200 lg:col-span-6 bg-cream-50 text-charcoal-900 p-8 sm:p-12 shadow-2xl border border-cream-200 space-y-6">
+                <span class="text-xs uppercase tracking-widest text-terracotta-600 font-semibold block">Αμεση Κρατηση</span>
+                <h3 class="font-serif text-3xl font-normal">Επικοινωνήστε μαζί μας</h3>
+                <p class="text-xs sm:text-sm text-charcoal-800/80 font-light leading-relaxed">
+                    Είμαστε στη διάθεσή σας τηλεφωνικά στο <strong class="font-semibold text-charcoal-900">2310 000000</strong> ή μέσω WhatsApp για άμεση επιβεβαίωση διαθεσιμότητας.
+                </p>
+
+                <div class="space-y-3 pt-2">
+                    
+                    <!-- Direct Phone CTA -->
+                    <a href="tel:2310000000" class="btn-luxury w-full bg-charcoal-900 text-cream-50 py-4 px-6 text-xs font-semibold tracking-widest uppercase flex items-center justify-center gap-3">
+                        <i class="fa-solid fa-phone text-terracotta-400 text-sm"></i>
+                        <span>Τηλεφωνηστε στο 2310 000000</span>
+                    </a>
+
+                    <!-- Direct WhatsApp CTA -->
+                    <a href="https://wa.me/302310000000" target="_blank" rel="noopener" class="w-full bg-[#25D366] text-white py-4 px-6 text-xs font-semibold tracking-widest uppercase flex items-center justify-center gap-3 hover:brightness-105 transition-all shadow-md">
+                        <i class="fa-brands fa-whatsapp text-xl"></i>
+                        <span>WhatsApp Μηνημα</span>
+                    </a>
+
+                    <!-- Direct Email CTA -->
+                    <a href="mailto:reservations@aetheria-residence.gr" class="btn-gold-outline w-full py-4 px-6 text-xs font-semibold tracking-widest uppercase flex items-center justify-center gap-3">
+                        <i class="fa-regular fa-envelope text-sm"></i>
+                        <span>Αποστολη Email</span>
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Guest Experiences / Reviews Section -->
+    <section id="reviews" class="py-28 px-6 md:px-12 max-w-7xl mx-auto">
+        
+        <div class="text-center max-w-2xl mx-auto mb-20 space-y-3">
+            <span class="reveal-up text-xs uppercase tracking-ultra-wide text-terracotta-500 font-semibold block">Αξιολογησεις 5 Αστερων</span>
+            <h2 class="reveal-up delay-100 font-serif text-3xl sm:text-5xl text-charcoal-900 font-normal">
+                Εμπειρίες των φιλοξενουμένων μας
+            </h2>
+            <div class="reveal-up delay-200 flex items-center justify-center space-x-1 text-gold-500 text-xs pt-1">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <span class="text-charcoal-900 font-sans font-medium text-xs ml-2">4.99 / 5.00 (52 Κριτικές)</span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <!-- Review 1 -->
+            <div class="reveal-up bg-cream-100 p-8 border border-cream-300 shadow-xl flex flex-col justify-between hover:border-terracotta-500 transition-all duration-300">
+                <div class="space-y-4">
+                    <div class="flex text-gold-500 text-xs space-x-1">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-xs sm:text-sm text-charcoal-800/90 font-light leading-relaxed italic">
+                        «Η διαμονή μας στο Aetheria ήταν απλά μαγευτική. Η θέα από την πισίνα την ώρα που δύει ο ήλιος δεν περιγράφεται με λόγια. Όλα ήταν καθαρά στην εντέλεια και οι οικοδεσπότες εξαιρετικά ευγενικοί.»
+                    </p>
+                </div>
+                <div class="mt-8 pt-4 border-t border-cream-300 flex items-center justify-between">
+                    <div>
+                        <h4 class="font-serif text-lg text-charcoal-900 font-semibold">Ελένη Μ.</h4>
+                        <span class="text-[11px] text-charcoal-800/60">Αθήνα, Ελλάδα</span>
+                    </div>
+                    <i class="fa-solid fa-quote-right text-xl text-terracotta-500/30"></i>
+                </div>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="reveal-up delay-100 bg-cream-100 p-8 border border-cream-300 shadow-xl flex flex-col justify-between hover:border-terracotta-500 transition-all duration-300">
+                <div class="space-y-4">
+                    <div class="flex text-gold-500 text-xs space-x-1">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-xs sm:text-sm text-charcoal-800/90 font-light leading-relaxed italic">
+                        «Absolute perfection! The villa is even better than the photos. Premium finishes, ultra-fast Starlink internet for remote work, and complete privacy. We will definitely return next summer!»
+                    </p>
+                </div>
+                <div class="mt-8 pt-4 border-t border-cream-300 flex items-center justify-between">
+                    <div>
+                        <h4 class="font-serif text-lg text-charcoal-900 font-semibold">David & Sarah</h4>
+                        <span class="text-[11px] text-charcoal-800/60">Λονδίνο, UK</span>
+                    </div>
+                    <i class="fa-solid fa-quote-right text-xl text-terracotta-500/30"></i>
+                </div>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="reveal-up delay-200 bg-cream-100 p-8 border border-cream-300 shadow-xl flex flex-col justify-between hover:border-terracotta-500 transition-all duration-300">
+                <div class="space-y-4">
+                    <div class="flex text-gold-500 text-xs space-x-1">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-xs sm:text-sm text-charcoal-800/90 font-light leading-relaxed italic">
+                        «Εξαιρετική φιλοξενία! Το σπίτι προσφέρει όλες τις ανέσεις ενός πολυτελούς ξενοδοχείου αλλά με την άνεση της δικής σου ιδιωτικής βίλας. Η επικοινωνία στο 2310 000000 ήταν άμεση.»
+                    </p>
+                </div>
+                <div class="mt-8 pt-4 border-t border-cream-300 flex items-center justify-between">
+                    <div>
+                        <h4 class="font-serif text-lg text-charcoal-900 font-semibold">Γιώργος & Μαρία</h4>
+                        <span class="text-[11px] text-charcoal-800/60">Θεσσαλονίκη, Ελλάδα</span>
+                    </div>
+                    <i class="fa-solid fa-quote-right text-xl text-terracotta-500/30"></i>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Accordion FAQs Section -->
+    <section class="py-20 bg-cream-100 border-t border-cream-300 px-6 md:px-12">
+        <div class="max-w-4xl mx-auto space-y-8">
+            <div class="text-center space-y-2">
+                <span class="text-xs uppercase tracking-ultra-wide text-terracotta-500 font-semibold block">Συχνες Ερωτησεις</span>
+                <h2 class="font-serif text-3xl sm:text-4xl text-charcoal-900 font-normal">Χρήσιμες Πληροφορίες</h2>
+            </div>
+
+            <div class="space-y-4">
+                
+                <!-- FAQ Item 1 -->
+                <div class="bg-cream-50 border border-cream-300 overflow-hidden">
+                    <button class="accordion-btn w-full p-6 text-left flex justify-between items-center text-charcoal-900 font-serif text-xl focus:outline-none">
+                        <span>Ποια είναι η διαδικασία κράτησης;</span>
+                        <i class="fa-solid fa-plus text-xs text-terracotta-500 transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content px-6 pb-6 text-xs sm:text-sm text-charcoal-800/80 font-light leading-relaxed">
+                        Μπορείτε να επικοινωνήσετε απευθείας μαζί μας στο τηλέφωνο 2310 000000 ή μέσω WhatsApp. Σας ενημερώνουμε αμέσως για τη διαθεσιμότητα και τις τιμές της περιόδου που σας ενδιαφέρει χωρίς μεσίτες.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="bg-cream-50 border border-cream-300 overflow-hidden">
+                    <button class="accordion-btn w-full p-6 text-left flex justify-between items-center text-charcoal-900 font-serif text-xl focus:outline-none">
+                        <span>Ποιο είναι το ωράριο Check-in και Check-out;</span>
+                        <i class="fa-solid fa-plus text-xs text-terracotta-500 transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content px-6 pb-6 text-xs sm:text-sm text-charcoal-800/80 font-light leading-relaxed">
+                        Το Check-in πραγματοποιείται από τις 15:00 και μετά, ενώ το Check-out είναι έως τις 11:00. Κατόπιν συνεννόησης, παρέχεται δυνατότητα ευέλικτου ωραρίου.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="bg-cream-50 border border-cream-300 overflow-hidden">
+                    <button class="accordion-btn w-full p-6 text-left flex justify-between items-center text-charcoal-900 font-serif text-xl focus:outline-none">
+                        <span>Επιτρέπονται κατοικίδια;</span>
+                        <i class="fa-solid fa-plus text-xs text-terracotta-500 transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content px-6 pb-6 text-xs sm:text-sm text-charcoal-800/80 font-light leading-relaxed">
+                        Τα κατοικίδια είναι ευπρόσδεκτα κατόπιν προηγούμενης ενημέρωσης και επιβεβαίωσης κατά την κράτηση.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Location & Interactive Map Section -->
+    <section id="location" class="py-28 px-6 md:px-12 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-12 items-center">
+            
+            <div class="lg:col-span-5 space-y-6">
+                <span class="reveal-up text-xs uppercase tracking-ultra-wide text-terracotta-500 font-semibold block">Τοποθεσια & Προσβαση</span>
+                <h2 class="reveal-up delay-100 font-serif text-3xl sm:text-5xl text-charcoal-900 font-normal">
+                    Στο πιο προνομιακό σημείο
+                </h2>
+                <p class="reveal-up delay-200 text-charcoal-800/80 font-light text-sm sm:text-base leading-relaxed">
+                    Τοποθετημένη σε μια ήσυχη πλαγιά, η βίλα προσφέρει απόλυτη ιδιωτικότητα, ενώ παράλληλα βρίσκεται σε κοντινή απόσταση από τις καλύτερες παραλίες.
+                </p>
+
+                <!-- Points of interest -->
+                <div class="reveal-up delay-300 space-y-3 pt-2 text-xs sm:text-sm text-charcoal-900">
+                    <div class="flex items-center justify-between py-2 border-b border-cream-300">
+                        <span class="flex items-center gap-2.5"><i class="fa-solid fa-umbrella-beach text-terracotta-500"></i> Παραλία Άγιος Ιωάννης</span>
+                        <span class="font-semibold">3 λεπτά (1.2 χλμ)</span>
+                    </div>
+                    <div class="flex items-center justify-between py-2 border-b border-cream-300">
+                        <span class="flex items-center gap-2.5"><i class="fa-solid fa-utensils text-terracotta-500"></i> Παραδοσιακές Ταβέρνες</span>
+                        <span class="font-semibold">5 λεπτά (2.0 χλμ)</span>
+                    </div>
+                    <div class="flex items-center justify-between py-2 border-b border-cream-300">
+                        <span class="flex items-center gap-2.5"><i class="fa-solid fa-plane text-terracotta-500"></i> Διεθνές Αεροδρόμιο</span>
+                        <span class="font-semibold">20 λεπτά (14 χλμ)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leaflet Interactive Map Container -->
+            <div class="reveal-up delay-200 lg:col-span-7 h-[440px] shadow-2xl relative border border-cream-300">
+                <div id="villa-map" class="w-full h-full z-10"></div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-charcoal-950 text-cream-200 py-20 px-6 md:px-12 border-t border-charcoal-900">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+            
+            <div class="space-y-4 md:col-span-1">
+                <span class="font-serif text-3xl tracking-wider text-white font-normal block">
+                    AETHERIA
+                </span>
+                <p class="text-xs text-cream-200/60 font-light leading-relaxed">
+                    Πολυτελής ιδιωτική residencia με πισίνα infinity και ανεμπόδιστη θέα στο Αιγαίο.
+                </p>
+            </div>
+
+            <div>
+                <h5 class="text-xs uppercase tracking-ultra-wide text-terracotta-400 font-semibold mb-6">Πλοηγηση</h5>
+                <ul class="space-y-3 text-xs font-light text-cream-200/80">
+                    <li><a href="#about" class="hover:text-white transition-colors">Σχετικά</a></li>
+                    <li><a href="#amenities" class="hover:text-white transition-colors">Παροχές</a></li>
+                    <li><a href="#gallery" class="hover:text-white transition-colors">Συλλογή</a></li>
+                    <li><a href="#rates" class="hover:text-white transition-colors">Πληροφορίες</a></li>
+                    <li><a href="#reviews" class="hover:text-white transition-colors">Αξιολογήσεις</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h5 class="text-xs uppercase tracking-ultra-wide text-terracotta-400 font-semibold mb-6">Επικοινωνια</h5>
+                <ul class="space-y-3 text-xs font-light text-cream-200/80">
+                    <li>
+                        <a href="tel:2310000000" class="hover:text-white transition-colors flex items-center gap-2">
+                            <i class="fa-solid fa-phone text-terracotta-400"></i>
+                            <span>2310 000000</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="mailto:reservations@aetheria-residence.gr" class="hover:text-white transition-colors flex items-center gap-2">
+                            <i class="fa-regular fa-envelope text-terracotta-400"></i>
+                            <span>reservations@aetheria-residence.gr</span>
+                        </a>
+                    </li>
+                    <li>
+                        <span class="flex items-center gap-2 text-cream-200/70">
+                            <i class="fa-solid fa-location-dot text-terracotta-400"></i>
+                            <span>Κυκλάδες, Ελλάδα</span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h5 class="text-xs uppercase tracking-ultra-wide text-terracotta-400 font-semibold mb-6">Social</h5>
+                <div class="flex space-x-4 text-sm">
+                    <a href="#" class="w-10 h-10 rounded-full bg-charcoal-900 flex items-center justify-center hover:bg-terracotta-500 transition-colors text-white" aria-label="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-charcoal-900 flex items-center justify-center hover:bg-terracotta-500 transition-colors text-white" aria-label="Facebook">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="max-w-7xl mx-auto pt-8 border-t border-charcoal-900 flex flex-col sm:flex-row items-center justify-between text-[11px] font-light text-cream-200/50 gap-4">
+            <p>© 2026 Aetheria Luxury Residence. All Rights Reserved.</p>
+            <div class="flex space-x-6">
+                <a href="#" class="hover:text-white transition-colors">Πολιτική Απορρήτου</a>
+                <a href="#" class="hover:text-white transition-colors">Όροι Χρήσης</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Direct Action Sticky Bar -->
+    <div class="fixed bottom-6 right-6 z-40 flex items-center gap-3">
+        
+        <!-- Direct Phone Badge Callout -->
+        <a href="tel:2310000000" class="hidden sm:flex items-center gap-2 bg-charcoal-900 text-cream-50 px-5 py-3.5 shadow-2xl text-xs font-semibold uppercase tracking-wider hover:bg-terracotta-500 transition-all border border-cream-300/20">
+            <i class="fa-solid fa-phone text-terracotta-400 text-xs"></i>
+            <span>2310 000000</span>
+        </a>
+
+        <!-- Floating WhatsApp Button -->
+        <a href="https://wa.me/302310000000?text=%CE%93%CE%B5%CE%B9%CE%B1%20%CF%83%CE%B1%CF%82,%20%CE%B8%CE%B1%20%CE%B7%CE%B8%CE%B5%CE%BB%CE%B1%20%CF%80%CE%BB%CE%B7%CF%81%CE%BF%CF%86%CE%BF%CF%81%CE%B9%CE%B5%CF%82%20%CE%B3%CE%B9%CE%B1%20%CF%84%CE%B7%20%CE%92%CE%B9%CE%BB%CE%B1%20Aetheria" 
+           target="_blank" 
+           rel="noopener"
+           class="bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform flex items-center justify-center"
+           aria-label="Direct WhatsApp Chat">
+            <i class="fa-brands fa-whatsapp text-2xl"></i>
+        </a>
+    </div>
+
+    <!-- JavaScript Animations & Features Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // 1. Custom Cursor Tracking Logic
+            const cursor = document.getElementById('custom-cursor');
+            const cursorDot = document.getElementById('custom-cursor-dot');
+
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                cursorDot.style.left = e.clientX + 'px';
+                cursorDot.style.top = e.clientY + 'px';
+            });
+
+            // Hover zoom expansion for cursor on interactive elements
+            const interactiveElements = document.querySelectorAll('a, button, .gallery-item, input');
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.style.width = '45px';
+                    cursor.style.height = '45px';
+                    cursor.style.backgroundColor = 'rgba(194, 109, 83, 0.1)';
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursor.style.width = '24px';
+                    cursor.style.height = '24px';
+                    cursor.style.backgroundColor = 'transparent';
+                });
+            });
+
+            // 2. Scroll Progress Bar Calculation
+            const scrollProgress = document.getElementById('scroll-progress');
+            window.addEventListener('scroll', () => {
+                const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const progress = (window.scrollY / totalHeight) * 100;
+                scrollProgress.style.width = progress + '%';
+            });
+
+            // 3. Smart Hide/Show Header on Scroll
+            const header = document.getElementById('main-header');
+            let lastScrollY = window.scrollY;
+
+            window.addEventListener('scroll', () => {
+                const currentScrollY = window.scrollY;
+
+                if (currentScrollY > 80) {
+                    header.classList.add('glass-header');
+                    header.classList.remove('py-5');
+                    header.classList.add('py-3');
+                } else {
+                    header.classList.remove('glass-header');
+                    header.classList.add('py-5');
+                    header.classList.remove('py-3');
+                }
+
+                if (currentScrollY > lastScrollY && currentScrollY > 200) {
+                    header.classList.remove('nav-visible');
+                    header.classList.add('nav-hidden');
+                } else {
+                    header.classList.remove('nav-hidden');
+                    header.classList.add('nav-visible');
+                }
+
+                lastScrollY = currentScrollY;
+            });
+
+            // 4. Parallax Hero Effect on Scroll
+            const heroBg = document.getElementById('hero-bg');
+            window.addEventListener('scroll', () => {
+                const scrollPos = window.scrollY;
+                if (scrollPos < window.innerHeight) {
+                    heroBg.style.transform = `translateY(${scrollPos * 0.35}px)`;
+                }
+            });
+
+            // 5. Scroll Reveal Animations via Intersection Observer
+            const revealElements = document.querySelectorAll('.reveal-up');
+            const observerOptions = {
+                root: null,
+                threshold: 0.12,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            revealElements.forEach(el => revealObserver.observe(el));
+
+            // 6. Mobile Drawer Menu Logic
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                const icon = mobileMenuBtn.querySelector('i');
+                if (mobileMenu.classList.contains('hidden')) {
+                    icon.className = 'fa-solid fa-bars text-xl';
+                } else {
+                    icon.className = 'fa-solid fa-xmark text-xl';
+                }
+            });
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuBtn.querySelector('i').className = 'fa-solid fa-bars text-xl';
+                });
+            });
+
+            // 7. Lightbox Gallery Modal Logic
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const lightboxModal = document.getElementById('lightbox-modal');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxClose = document.getElementById('lightbox-close');
+
+            galleryItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const src = item.getAttribute('data-src');
+                    lightboxImg.src = src;
+                    lightboxModal.classList.remove('hidden');
+                });
+            });
+
+            lightboxClose.addEventListener('click', () => {
+                lightboxModal.classList.add('hidden');
+            });
+
+            lightboxModal.addEventListener('click', (e) => {
+                if (e.target === lightboxModal) {
+                    lightboxModal.classList.add('hidden');
+                }
+            });
+
+            // 8. Gallery Category Filter Logic
+            const filterBtns = document.querySelectorAll('.gallery-filter-btn');
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => {
+                        b.classList.remove('bg-charcoal-900', 'text-cream-50');
+                        b.classList.add('bg-cream-200', 'text-charcoal-900');
+                    });
+                    btn.classList.add('bg-charcoal-900', 'text-cream-50');
+                    btn.classList.remove('bg-cream-200');
+
+                    const filter = btn.getAttribute('data-filter');
+                    galleryItems.forEach(item => {
+                        if (filter === 'all' || item.classList.contains(filter)) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // 9. FAQ Accordion Logic
+            const accordionBtns = document.querySelectorAll('.accordion-btn');
+            accordionBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const content = btn.nextElementSibling;
+                    const icon = btn.querySelector('i');
+
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
+                        document.querySelectorAll('.accordion-btn i').forEach(i => i.style.transform = 'rotate(0deg)');
+                        content.style.maxHeight = content.scrollHeight + "px";
+                        icon.style.transform = 'rotate(45deg)';
+                    }
+                });
+            });
+
+            // 10. Interactive Leaflet Map Setup
+            const map = L.map('villa-map', {
+                scrollWheelZoom: false
+            }).setView([37.4467, 25.3289], 13);
+
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                subdomains: 'abcd',
+                maxZoom: 19
+            }).addTo(map);
+
+            const customDivIcon = L.divIcon({
+                className: 'custom-map-icon',
+                html: `<div style="background-color: #1C2321; color: #C26D53; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border: 2px solid #FBF9F5;">
+                        <i class="fa-solid fa-house-chimney" style="font-size: 16px;"></i>
+                       </div>`,
+                iconSize: [40, 40],
+                iconAnchor: [20, 20]
+            });
+
+            L.marker([37.4467, 25.3289], { icon: customDivIcon })
+                .addTo(map)
+                .bindPopup('<strong style="font-family: serif; font-size: 16px;">Aetheria Luxury Residence</strong><br>Τηλ: 2310 000000')
+                .openPopup();
+
+        });
+    </script>
+</body>
+</html>
