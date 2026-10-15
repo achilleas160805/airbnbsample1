@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Spectral:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,500;1,7..72,300;1,7..72,400&display=swap" rel="stylesheet">
 
 <style>
 /* =========================================================
@@ -33,12 +33,13 @@
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
     /* EDITORIAL TYPEFACE STACK
-       Display: Cormorant Garamond — high-contrast editorial serif, full Greek support
-       Body:    Spectral — warm editorial serif with Greek + Greek Extended
-       Both from Google Fonts, both carry proper polytonic Greek. */
-    --font-display: 'Cormorant Garamond', 'EB Garamond', Georgia, 'Times New Roman', serif;
-    --font-body: 'Spectral', 'EB Garamond', Georgia, 'Times New Roman', serif;
-    --font-ui: 'Spectral', 'EB Garamond', Georgia, serif;
+       Display: EB Garamond — humanist old-style serif, full polytonic Greek,
+                used for real editorial work (Penguin Classics, academic press)
+       Body:    Literata — Google's reading-optimised serif, designed for
+                long-form screen reading, complete Greek + Greek Extended */
+    --font-display: 'EB Garamond', 'Cardo', Georgia, 'Times New Roman', serif;
+    --font-body: 'Literata', 'EB Garamond', Georgia, 'Times New Roman', serif;
+    --font-ui: 'EB Garamond', 'Literata', Georgia, serif;
 }
 
 html {
@@ -124,7 +125,7 @@ ul { list-style: none; }
     font-size: 9px;
     letter-spacing: 0.32em;
     color: var(--gold);
-    font-weight: 500;
+    font-weight: 600;
     text-transform: uppercase;
 }
 @media (pointer: coarse) {
@@ -134,9 +135,6 @@ ul { list-style: none; }
 
 /* =========================================================
    TYPOGRAPHY — EDITORIAL
-   All display/heading type uses Cormorant Garamond.
-   All body/UI uses Spectral.
-   Both fonts carry full Greek + Greek Extended.
    ========================================================= */
 .h1,
 .h2,
@@ -144,31 +142,31 @@ ul { list-style: none; }
     font-family: var(--font-display);
     font-style: normal;
     color: var(--ink);
-    letter-spacing: -0.012em;
-    line-height: 1.04;
-    font-weight: 400;
+    letter-spacing: -0.008em;
+    line-height: 1.06;
+    font-weight: 500;
     text-rendering: optimizeLegibility;
 }
 .h1 {
     font-size: clamp(2.5rem, 5vw, 4.25rem);
-    font-weight: 400;
-    letter-spacing: -0.014em;
-    line-height: 1.02;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.03;
 }
 .h2 {
     font-size: clamp(1.75rem, 2.4vw, 2.25rem);
-    line-height: 1.15;
-    letter-spacing: -0.012em;
+    line-height: 1.18;
+    letter-spacing: -0.008em;
+    font-weight: 500;
 }
 
-/* Emphasis — italic in display font, accent color */
 h1 em, h2 h1 em, .h1 em, .h2 em,
 h3 em, .h3 em, p em, li em {
     font-family: inherit;
     font-style: italic;
     font-weight: inherit;
     color: var(--bronze);
-    letter-spacing: -0.012em;
+    letter-spacing: -0.008em;
 }
 .hero-title em,
 .amenities .h1 em,
@@ -184,10 +182,10 @@ h3 em, .h3 em, p em, li em {
     align-items: center;
     gap: 1rem;
     font-family: var(--font-display);
-    font-size: 11px;
-    letter-spacing: 0.38em;
+    font-size: 12px;
+    letter-spacing: 0.34em;
     text-transform: uppercase;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--gold);
     margin-bottom: 2rem;
     line-height: 1;
@@ -206,9 +204,9 @@ h3 em, .h3 em, p em, li em {
     font-family: var(--font-body);
     font-size: 17px;
     line-height: 1.85;
-    color: rgba(10, 14, 12, 0.7);
+    color: rgba(10, 14, 12, 0.72);
     font-weight: 400;
-    letter-spacing: 0;
+    letter-spacing: -0.003em;
 }
 @media (min-width: 768px) { .lead { font-size: 18px; } }
 
@@ -311,33 +309,33 @@ header.scrolled {
 header.scrolled .brand { color: var(--ink); text-shadow: none; }
 .brand-mark {
     font-family: var(--font-display);
-    font-size: 1.75rem;
+    font-size: 1.875rem;
     font-weight: 500;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     line-height: 1;
     font-style: italic;
 }
-@media (min-width: 768px) { .brand-mark { font-size: 2rem; } }
+@media (min-width: 768px) { .brand-mark { font-size: 2.125rem; } }
 .brand-suffix {
     font-family: var(--font-display);
-    font-size: 9px;
-    letter-spacing: 0.46em;
+    font-size: 10px;
+    letter-spacing: 0.44em;
     text-transform: uppercase;
     opacity: 0.72;
     margin-top: 0.4rem;
     padding-left: 2px;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .nav-desk { display: none; align-items: center; gap: 2.25rem; }
 @media (min-width: 1024px) { .nav-desk { display: flex; } }
 .nav-desk a {
     font-family: var(--font-display);
-    font-size: 12px;
-    letter-spacing: 0.26em;
+    font-size: 13px;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
-    font-weight: 500;
+    font-weight: 600;
     color: rgba(255,255,255,0.94);
     padding: 0.5rem 0;
     position: relative;
@@ -364,10 +362,10 @@ header.scrolled .nav-desk a { color: rgba(10, 14, 12, 0.82); text-shadow: none; 
     gap: 0.875rem;
     padding: 0.875rem 1.75rem;
     font-family: var(--font-display);
-    font-size: 11px;
-    letter-spacing: 0.26em;
+    font-size: 12px;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--white);
     background: transparent;
     border: 1px solid rgba(255,255,255,0.5);
@@ -442,7 +440,7 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 
 .m-brand {
     font-family: var(--font-display);
-    font-size: 1.125rem;
+    font-size: 1.25rem;
     letter-spacing: 0.42em;
     text-transform: uppercase;
     color: var(--gold);
@@ -456,7 +454,7 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 #mmenu nav a {
     font-family: var(--font-display);
     font-size: 2rem;
-    font-weight: 400;
+    font-weight: 500;
     color: var(--ivory);
     padding: 1.25rem 0;
     border-bottom: 1px solid rgba(245, 239, 228, 0.08);
@@ -464,16 +462,16 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     display: flex;
     align-items: baseline;
     gap: 1.25rem;
-    letter-spacing: -0.012em;
+    letter-spacing: -0.008em;
 }
 #mmenu nav a:hover { color: var(--gold); padding-left: 0.75rem; }
 #mmenu nav a::before {
     content: attr(data-i);
     font-family: var(--font-display);
-    font-size: 10px;
-    letter-spacing: 0.34em;
+    font-size: 11px;
+    letter-spacing: 0.32em;
     color: var(--champagne);
-    font-weight: 500;
+    font-weight: 600;
     opacity: 0.6;
 }
 .m-actions {
@@ -494,10 +492,10 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     gap: 0.875rem;
     padding: 1.125rem 2.25rem;
     font-family: var(--font-display);
-    font-size: 12px;
-    letter-spacing: 0.26em;
+    font-size: 13px;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--ivory);
     background: var(--ink);
     border: 1px solid var(--ink);
@@ -569,10 +567,10 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     position: absolute;
     top: 2rem; right: 1.5rem;
     font-family: var(--font-display);
-    font-size: 11px;
-    letter-spacing: 0.34em;
+    font-size: 12px;
+    letter-spacing: 0.32em;
     color: var(--stone);
-    font-weight: 500;
+    font-weight: 600;
 }
 @media (min-width: 768px) { .sec-num { top: 3rem; right: 3rem; } }
 @media (min-width: 1280px) { .sec-num { right: 5rem; } }
@@ -675,11 +673,11 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 
 .hero-tag {
     font-family: var(--font-display);
-    font-size: 11px;
-    letter-spacing: 0.38em;
+    font-size: 12px;
+    letter-spacing: 0.34em;
     text-transform: uppercase;
     color: rgba(245, 239, 228, 0.9);
-    font-weight: 500;
+    font-weight: 600;
     display: flex;
     align-items: center;
     gap: 0.875rem;
@@ -693,20 +691,20 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 .hero-coords {
     font-family: var(--font-display);
-    font-size: 13px;
-    letter-spacing: 0.28em;
+    font-size: 14px;
+    letter-spacing: 0.26em;
     text-transform: uppercase;
     color: rgba(245, 239, 228, 0.72);
-    font-weight: 500;
+    font-weight: 600;
     font-style: italic;
 }
 
 .hero-title {
     font-family: var(--font-display);
-    font-weight: 400;
+    font-weight: 500;
     font-size: clamp(3rem, 8vw, 6.5rem);
     line-height: 0.98;
-    letter-spacing: -0.018em;
+    letter-spacing: -0.014em;
     color: var(--ivory);
     text-shadow: 0 6px 60px rgba(0,0,0,0.45);
     max-width: 15ch;
@@ -714,9 +712,9 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 .hero-title em {
     font-style: italic;
-    font-weight: 400;
+    font-weight: 500;
     color: var(--champagne);
-    letter-spacing: -0.018em;
+    letter-spacing: -0.014em;
 }
 
 .hero-bottom {
@@ -760,11 +758,11 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 .hero-seal > svg { width: 100%; height: 100%; animation: spin 32s linear infinite; }
 .hero-seal text {
     font-family: var(--font-display);
-    font-size: 10px;
-    letter-spacing: 0.36em;
+    font-size: 11px;
+    letter-spacing: 0.34em;
     text-transform: uppercase;
     fill: var(--champagne);
-    font-weight: 500;
+    font-weight: 600;
 }
 .hero-seal .seal-ring { fill: none; stroke: var(--gold); stroke-width: 0.6; opacity: 0.5; }
 .hero-seal .seal-center {
@@ -786,11 +784,11 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     transform: translateX(-50%);
     z-index: 3;
     font-family: var(--font-display);
-    font-size: 10px;
-    letter-spacing: 0.44em;
+    font-size: 11px;
+    letter-spacing: 0.42em;
     text-transform: uppercase;
     color: rgba(245, 239, 228, 0.6);
-    font-weight: 500;
+    font-weight: 600;
     display: none;
     flex-direction: column;
     align-items: center;
@@ -825,9 +823,9 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 .marquee-track span {
     font-family: var(--font-display);
-    font-size: 1.5rem;
-    font-weight: 400;
-    letter-spacing: 0.04em;
+    font-size: 1.625rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
     font-style: italic;
     display: flex;
     align-items: center;
@@ -840,7 +838,7 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     background: var(--gold);
     opacity: 0.7;
 }
-.marquee-track em { font-style: normal; color: var(--gold); font-weight: 400; }
+.marquee-track em { font-style: normal; color: var(--gold); font-weight: 500; }
 @keyframes marquee {
     from { transform: translate3d(0,0,0); }
     to { transform: translate3d(-50%,0,0); }
@@ -874,10 +872,10 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 .stat-v {
     font-family: var(--font-display);
     font-size: clamp(2.5rem, 4vw, 3.5rem);
-    font-weight: 400;
+    font-weight: 500;
     line-height: 1;
     color: var(--bronze);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.016em;
     display: flex;
     align-items: baseline;
     gap: 0.125em;
@@ -887,16 +885,16 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     font-size: 0.4em;
     vertical-align: super;
     opacity: 0.72;
-    font-weight: 400;
+    font-weight: 500;
     font-style: italic;
 }
 .stat-k {
     font-family: var(--font-display);
-    font-size: 11px;
-    letter-spacing: 0.32em;
+    font-size: 12px;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--stone);
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .intro-visual {
@@ -940,16 +938,16 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     font-size: 2rem;
     line-height: 1;
     color: var(--bronze);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.008em;
     font-style: italic;
 }
 .badge small {
     font-family: var(--font-display);
-    font-size: 10px;
-    letter-spacing: 0.32em;
+    font-size: 11px;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--stone);
-    font-weight: 500;
+    font-weight: 600;
 }
 @media (max-width: 640px) {
     .badge { left: 0; bottom: 1rem; padding: 0.875rem 1.25rem; }
@@ -1032,13 +1030,13 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 .amenity-num {
     font-family: var(--font-display);
-    font-size: 12px;
-    letter-spacing: 0.34em;
+    font-size: 13px;
+    letter-spacing: 0.32em;
     text-transform: uppercase;
     color: var(--champagne);
     opacity: 0.68;
     transition: color 0.5s, opacity 0.5s;
-    font-weight: 500;
+    font-weight: 600;
 }
 .amenity-icon {
     color: var(--champagne);
@@ -1049,12 +1047,12 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 .amenity-icon svg { width: 100%; height: 100%; stroke-width: 1; }
 .amenity h3 {
     font-family: var(--font-display);
-    font-weight: 400;
+    font-weight: 500;
     font-size: 1.75rem;
-    line-height: 1.12;
+    line-height: 1.15;
     color: var(--ivory);
     margin-top: auto;
-    letter-spacing: -0.012em;
+    letter-spacing: -0.008em;
 }
 .amenity p {
     font-family: var(--font-body);
@@ -1063,94 +1061,6 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     line-height: 1.75;
     font-weight: 300;
 }
-
-/* =========================================================
-   SUITES
-   ========================================================= */
-.suites { background: var(--ivory); }
-.suites-head { text-align: center; margin-bottom: 5rem; }
-.suites-head .eyebrow { justify-content: center; }
-.suites-head .eyebrow::before { display: none; }
-.suites-head h2 { max-width: 22ch; margin: 0 auto; }
-
-.suites-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
-@media (min-width: 768px) { .suites-grid { grid-template-columns: repeat(3, 1fr); } }
-
-.suite {
-    background: var(--ivory);
-    border: 1px solid var(--sand);
-    overflow: hidden;
-    transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease), border-color 0.5s var(--ease);
-    display: flex;
-    flex-direction: column;
-    position: relative;
-}
-@media (hover: hover) {
-    .suite:hover { transform: translateY(-8px); border-color: var(--gold); box-shadow: 0 40px 80px -30px rgba(10,14,12,0.22); }
-    .suite:hover .suite-img img { transform: scale(1.08); }
-    .suite:hover .suite-tag { background: var(--gold); color: var(--ink); }
-}
-.suite-img {
-    aspect-ratio: 4/5;
-    overflow: hidden;
-    background: var(--cream);
-    position: relative;
-}
-.suite-img img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    transition: transform 1.2s var(--ease);
-    display: block;
-}
-.suite-tag {
-    position: absolute;
-    top: 1.5rem; left: 1.5rem;
-    background: rgba(10, 14, 12, 0.9);
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
-    color: var(--champagne);
-    padding: 0.625rem 1.125rem;
-    font-family: var(--font-display);
-    font-size: 10px;
-    letter-spacing: 0.36em;
-    text-transform: uppercase;
-    border: 1px solid rgba(201, 169, 97, 0.4);
-    transition: all 0.4s var(--ease);
-    font-weight: 500;
-}
-.suite-body { padding: 2.5rem 2rem; display: flex; flex-direction: column; gap: 1.5rem; flex: 1; }
-.suite-body h3 {
-    font-family: var(--font-display);
-    font-size: 1.75rem;
-    font-weight: 400;
-    color: var(--ink);
-    line-height: 1.12;
-    letter-spacing: -0.012em;
-    font-style: italic;
-}
-.suite-body p {
-    font-family: var(--font-body);
-    font-size: 15px;
-    line-height: 1.75;
-    color: var(--stone);
-    flex: 1;
-    font-weight: 300;
-}
-.suite-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem 1.5rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--sand);
-    font-family: var(--font-display);
-    font-size: 11px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--stone);
-    font-weight: 500;
-}
-.suite-meta span { display: inline-flex; align-items: center; gap: 0.5rem; }
-.suite-meta .icon { width: 13px; height: 13px; color: var(--bronze); }
 
 /* =========================================================
    GALLERY
@@ -1168,10 +1078,10 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 .filters button {
     padding: 0.75rem 1.5rem;
     font-family: var(--font-display);
-    font-size: 11px;
-    letter-spacing: 0.28em;
+    font-size: 12px;
+    letter-spacing: 0.26em;
     text-transform: uppercase;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--stone);
     background: transparent;
     border: 1px solid transparent;
@@ -1244,17 +1154,17 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 .g-item-info small {
     font-family: var(--font-display);
-    font-size: 10px;
-    letter-spacing: 0.38em;
+    font-size: 11px;
+    letter-spacing: 0.36em;
     text-transform: uppercase;
     color: var(--champagne);
-    font-weight: 500;
+    font-weight: 600;
 }
 .g-item-info h3 {
     font-family: var(--font-display);
-    font-weight: 400;
+    font-weight: 500;
     font-size: 1.75rem;
-    letter-spacing: -0.012em;
+    letter-spacing: -0.008em;
     font-style: italic;
 }
 .g-item-plus {
@@ -1358,11 +1268,11 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 .exp-icon svg { width: 100%; height: 100%; stroke-width: 1; }
 .exp-overlay h3 {
     font-family: var(--font-display);
-    font-weight: 400;
+    font-weight: 500;
     font-size: 1.5rem;
-    line-height: 1.15;
+    line-height: 1.18;
     margin-bottom: 0.625rem;
-    letter-spacing: -0.012em;
+    letter-spacing: -0.008em;
     font-style: italic;
 }
 .exp-overlay p {
@@ -1405,11 +1315,11 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     line-height: 0.5;
     color: var(--gold);
     opacity: 0.65;
-    font-weight: 400;
+    font-weight: 500;
 }
 .review p {
     font-size: 17px;
-    line-height: 1.75;
+    line-height: 1.78;
     color: var(--ink-2);
     flex: 1;
     font-style: italic;
@@ -1431,16 +1341,16 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     font-size: 1.375rem;
     font-weight: 500;
     color: var(--ink);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.008em;
     font-style: italic;
 }
 .review-author .loc {
     font-family: var(--font-display);
-    font-size: 10px;
-    letter-spacing: 0.32em;
+    font-size: 11px;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--stone);
-    font-weight: 500;
+    font-weight: 600;
 }
 
 /* =========================================================
@@ -1535,18 +1445,18 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     font-size: 1.5rem;
     font-weight: 500;
     color: var(--ivory);
-    letter-spacing: -0.012em;
+    letter-spacing: -0.008em;
     font-style: italic;
 }
 .bk-card-head small {
     display: block;
     font-family: var(--font-display);
-    font-size: 10px;
-    letter-spacing: 0.32em;
+    font-size: 11px;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--champagne);
     margin-top: 0.4rem;
-    font-weight: 500;
+    font-weight: 600;
 }
 .bk-card p {
     font-family: var(--font-body);
@@ -1574,9 +1484,9 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 .contact-strip h4 {
     font-family: var(--font-display);
     font-size: 1.5rem;
-    font-weight: 400;
+    font-weight: 500;
     color: var(--ivory);
-    letter-spacing: -0.012em;
+    letter-spacing: -0.008em;
 }
 .contact-strip h4 em {
     color: var(--champagne);
@@ -1615,12 +1525,12 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     text-align: left;
     font-family: var(--font-display);
     font-size: clamp(1.25rem, 1.9vw, 1.625rem);
-    font-weight: 400;
+    font-weight: 500;
     color: var(--ink);
     transition: color 0.3s, padding-left 0.45s var(--ease);
-    letter-spacing: -0.012em;
+    letter-spacing: -0.008em;
     cursor: pointer;
-    line-height: 1.2;
+    line-height: 1.25;
 }
 .faq-q:hover { color: var(--bronze); padding-left: 0.75rem; }
 .faq-q .icon {
@@ -1684,7 +1594,7 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     font-size: 1.25rem;
     color: var(--bronze);
     font-weight: 500;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.008em;
     font-style: italic;
 }
 
@@ -1711,10 +1621,10 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     color: var(--ivory);
     padding: 0.875rem 1.5rem;
     font-family: var(--font-display);
-    font-size: 11px;
-    letter-spacing: 0.3em;
+    font-size: 12px;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
-    font-weight: 500;
+    font-weight: 600;
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -1747,16 +1657,16 @@ footer {
 }
 .footer-hero h2 {
     font-family: var(--font-display);
-    font-weight: 400;
+    font-weight: 500;
     font-size: clamp(2rem, 5.5vw, 4.25rem);
-    line-height: 1.02;
-    letter-spacing: -0.016em;
+    line-height: 1.05;
+    letter-spacing: -0.012em;
     max-width: 22ch;
     margin: 0 auto;
 }
 .footer-hero h2 em {
     font-style: italic;
-    font-weight: 400;
+    font-weight: 500;
     color: var(--champagne);
 }
 .footer-hero .cta-row {
@@ -1781,8 +1691,8 @@ footer {
 
 .f-brand-name {
     font-family: var(--font-display);
-    font-size: 1.75rem;
-    letter-spacing: 0.06em;
+    font-size: 1.875rem;
+    letter-spacing: 0.08em;
     color: var(--ivory);
     font-weight: 500;
     text-transform: uppercase;
@@ -1799,11 +1709,11 @@ footer {
 }
 .f-title {
     font-family: var(--font-display);
-    font-size: 11px;
-    letter-spacing: 0.34em;
+    font-size: 12px;
+    letter-spacing: 0.32em;
     text-transform: uppercase;
     color: var(--champagne);
-    font-weight: 500;
+    font-weight: 600;
     margin-bottom: 1.75rem;
 }
 .f-list { display: flex; flex-direction: column; gap: 0.875rem; }
@@ -1845,11 +1755,11 @@ footer {
     justify-content: space-between;
     gap: 1.5rem;
     font-family: var(--font-display);
-    font-size: 11px;
-    letter-spacing: 0.28em;
+    font-size: 12px;
+    letter-spacing: 0.26em;
     color: rgba(245, 239, 228, 0.45);
     text-transform: uppercase;
-    font-weight: 500;
+    font-weight: 600;
     position: relative;
     z-index: 1;
 }
@@ -1874,10 +1784,10 @@ footer {
     background: var(--ink);
     color: var(--ivory);
     font-family: var(--font-display);
-    font-size: 12px;
-    letter-spacing: 0.26em;
+    font-size: 13px;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
-    font-weight: 500;
+    font-weight: 600;
     box-shadow: 0 20px 44px -18px rgba(0,0,0,0.5);
     border: 1px solid rgba(201, 169, 97, 0.3);
     transition: all 0.45s var(--ease);
@@ -1892,9 +1802,8 @@ footer {
     .intro-visual .frame:hover img { transform: none; }
     .g-item:hover img { transform: none; }
     .review:hover { transform: none; }
-    .suite:hover { transform: none; }
     .section { padding: 5.5rem 1.25rem; }
-    .marquee-track span { font-size: 1.25rem; }
+    .marquee-track span { font-size: 1.375rem; }
     .review-quote { font-size: 4rem; }
 }
 
@@ -1956,7 +1865,6 @@ footer {
         <nav class="nav-desk" aria-label="Primary">
             <a href="#intro">Η Βίλα</a>
             <a href="#amenities">Παροχές</a>
-            <a href="#suites">Σουίτες</a>
             <a href="#gallery">Συλλογή</a>
             <a href="#reservations">Κρατήσεις</a>
             <a href="#location">Τοποθεσία</a>
@@ -1981,11 +1889,10 @@ footer {
     <nav>
         <a href="#intro" data-i="01">Η Βίλα</a>
         <a href="#amenities" data-i="02">Παροχές</a>
-        <a href="#suites" data-i="03">Σουίτες</a>
-        <a href="#gallery" data-i="04">Συλλογή</a>
-        <a href="#experiences" data-i="05">Εμπειρίες</a>
-        <a href="#reservations" data-i="06">Κρατήσεις</a>
-        <a href="#location" data-i="07">Τοποθεσία</a>
+        <a href="#gallery" data-i="03">Συλλογή</a>
+        <a href="#experiences" data-i="04">Εμπειρίες</a>
+        <a href="#reservations" data-i="05">Κρατήσεις</a>
+        <a href="#location" data-i="06">Τοποθεσία</a>
     </nav>
     <div class="m-actions">
         <a href="tel:2310000000" class="btn btn-ivory btn-block">
@@ -2076,7 +1983,7 @@ footer {
 
 <!-- INTRO -->
 <section id="intro" class="section intro">
-    <span class="sec-num">01 / 09</span>
+    <span class="sec-num">01 / 08</span>
     <div class="container">
         <div class="intro-grid">
             <div class="intro-copy">
@@ -2098,7 +2005,7 @@ footer {
                     </div>
                     <div class="stat reveal d1">
                         <span class="stat-v"><span class="num" data-count="3" data-pad="2">0</span></span>
-                        <span class="stat-k">Σουίτες</span>
+                        <span class="stat-k">Υπνοδωμάτια</span>
                     </div>
                     <div class="stat reveal d2">
                         <span class="stat-v"><span class="num" data-count="180">0</span><sup>°</sup></span>
@@ -2127,7 +2034,7 @@ footer {
 
 <!-- AMENITIES -->
 <section id="amenities" class="section amenities">
-    <span class="sec-num light">02 / 09</span>
+    <span class="sec-num light">02 / 08</span>
     <div class="container">
         <div class="amenities-head">
             <div>
@@ -2200,73 +2107,9 @@ footer {
     </div>
 </section>
 
-<!-- SUITES -->
-<section id="suites" class="section suites">
-    <span class="sec-num">03 / 09</span>
-    <div class="container">
-        <div class="suites-head">
-            <span class="eyebrow reveal">Σουίτες</span>
-            <h2 class="h1 reveal d1" data-split>Τρεις <em>ιδιωτικοί</em> κόσμοι</h2>
-        </div>
-
-        <div class="suites-grid">
-            <article class="suite reveal">
-                <div class="suite-img clip-reveal">
-                    <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=900&q=80&auto=format&fit=crop"
-                         alt="Aegean suite" loading="lazy" decoding="async">
-                    <span class="suite-tag">Master</span>
-                </div>
-                <div class="suite-body">
-                    <h3>The Aegean Suite</h3>
-                    <p>King-size κρεβάτι με θέα στο Αιγαίο, ιδιωτικό μπαλκόνι, marble μπάνιο με rain shower και walk-in closet.</p>
-                    <div class="suite-meta">
-                        <span><svg class="icon"><use href="#i-bed"/></svg> King</span>
-                        <span><svg class="icon"><use href="#i-arrow-up"/></svg> 45 m²</span>
-                        <span><svg class="icon"><use href="#i-pool"/></svg> Sea view</span>
-                    </div>
-                </div>
-            </article>
-
-            <article class="suite reveal d1">
-                <div class="suite-img clip-reveal">
-                    <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=900&q=80&auto=format&fit=crop"
-                         alt="Garden suite" loading="lazy" decoding="async">
-                    <span class="suite-tag">Garden</span>
-                </div>
-                <div class="suite-body">
-                    <h3>The Garden Suite</h3>
-                    <p>Άμεση πρόσβαση στον κήπο με ελιές και λεβάντα, queen-size κρεβάτι, ιδιωτική βεράντα με daybed.</p>
-                    <div class="suite-meta">
-                        <span><svg class="icon"><use href="#i-bed"/></svg> Queen</span>
-                        <span><svg class="icon"><use href="#i-arrow-up"/></svg> 38 m²</span>
-                        <span><svg class="icon"><use href="#i-spa"/></svg> Garden</span>
-                    </div>
-                </div>
-            </article>
-
-            <article class="suite reveal d2">
-                <div class="suite-img clip-reveal">
-                    <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&q=80&auto=format&fit=crop"
-                         alt="Sunset suite" loading="lazy" decoding="async">
-                    <span class="suite-tag">Sunset</span>
-                </div>
-                <div class="suite-body">
-                    <h3>The Sunset Suite</h3>
-                    <p>Στραμμένη στα δυτικά, με πανοραμικό παράθυρο — το ηλιοβασίλεμα γίνεται η καθημερινή σας τελετή.</p>
-                    <div class="suite-meta">
-                        <span><svg class="icon"><use href="#i-bed"/></svg> King</span>
-                        <span><svg class="icon"><use href="#i-arrow-up"/></svg> 42 m²</span>
-                        <span><svg class="icon"><use href="#i-wine"/></svg> Sunset</span>
-                    </div>
-                </div>
-            </article>
-        </div>
-    </div>
-</section>
-
 <!-- GALLERY -->
 <section id="gallery" class="section gallery">
-    <span class="sec-num">04 / 09</span>
+    <span class="sec-num">03 / 08</span>
     <div class="container">
         <div class="gallery-head">
             <div>
@@ -2313,7 +2156,7 @@ footer {
                 <div class="g-item-veil"></div>
                 <div class="g-item-plus"><svg class="icon"><use href="#i-plus"/></svg></div>
                 <div class="g-item-info">
-                    <small>iii · Σουίτα</small>
+                    <small>iii · Υπνοδωμάτιο</small>
                     <h3>Master Suite</h3>
                 </div>
             </div>
@@ -2359,7 +2202,7 @@ footer {
 
 <!-- EXPERIENCES -->
 <section id="experiences" class="section experiences">
-    <span class="sec-num">05 / 09</span>
+    <span class="sec-num">04 / 08</span>
     <div class="container">
         <div class="exp-head">
             <span class="eyebrow reveal">Εμπειρίες</span>
@@ -2412,7 +2255,7 @@ footer {
 
 <!-- REVIEWS -->
 <section id="reviews" class="section reviews">
-    <span class="sec-num">06 / 09</span>
+    <span class="sec-num">05 / 08</span>
     <div class="container">
         <div class="reviews-head">
             <span class="eyebrow reveal">Μαρτυρίες</span>
@@ -2473,7 +2316,7 @@ footer {
 
 <!-- RESERVATIONS -->
 <section id="reservations" class="section reservations">
-    <span class="sec-num light">07 / 09</span>
+    <span class="sec-num light">06 / 08</span>
     <div class="container">
         <div class="reserve-grid">
             <div class="reserve-copy">
@@ -2486,7 +2329,7 @@ footer {
                 </p>
 
                 <ul class="reserve-list reveal d3">
-                    <li><svg class="icon"><use href="#i-check"/></svg> Έως 6 φιλοξενούμενοι — 3 Master Σουίτες</li>
+                    <li><svg class="icon"><use href="#i-check"/></svg> Έως 6 φιλοξενούμενοι — 3 υπνοδωμάτια</li>
                     <li><svg class="icon"><use href="#i-check"/></svg> Ελάχιστη διαμονή: 3 βράδια (5 το καλοκαίρι)</li>
                     <li><svg class="icon"><use href="#i-check"/></svg> Ευέλικτη πολιτική ακύρωσης</li>
                     <li><svg class="icon"><use href="#i-check"/></svg> Δυνατότητα early check-in / late check-out</li>
@@ -2545,7 +2388,7 @@ footer {
 
 <!-- FAQ -->
 <section class="section faq">
-    <span class="sec-num">08 / 09</span>
+    <span class="sec-num">07 / 08</span>
     <div class="container">
         <div class="faq-head">
             <span class="eyebrow reveal">Συχνές Ερωτήσεις</span>
@@ -2586,7 +2429,7 @@ footer {
 
 <!-- LOCATION -->
 <section id="location" class="section">
-    <span class="sec-num">09 / 09</span>
+    <span class="sec-num">08 / 08</span>
     <div class="container">
         <div class="location-grid">
             <div class="location-copy">
@@ -2664,7 +2507,6 @@ footer {
             <ul class="f-list">
                 <li><a href="#intro">Η Βίλα</a></li>
                 <li><a href="#amenities">Παροχές</a></li>
-                <li><a href="#suites">Σουίτες</a></li>
                 <li><a href="#gallery">Συλλογή</a></li>
                 <li><a href="#reservations">Κρατήσεις</a></li>
                 <li><a href="#location">Τοποθεσία</a></li>
@@ -2743,7 +2585,6 @@ footer {
 
     /* =========================================================
        INTERSECTION OBSERVER
-       FIX: include .clip-reveal so suite/intro images get .in
        ========================================================= */
     var animated = document.querySelectorAll('.reveal, [data-split], .clip-reveal');
 
@@ -2841,7 +2682,7 @@ footer {
             if (!ring) return;
             ring.classList.remove('hover', 'text');
             if (e.target.closest('.g-item')) ring.classList.add('text');
-            else if (e.target.closest('a, button, .bk-card, .suite, .review, .amenity')) ring.classList.add('hover');
+            else if (e.target.closest('a, button, .bk-card, .review, .amenity')) ring.classList.add('hover');
         });
     }
 
