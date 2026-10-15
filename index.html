@@ -67,15 +67,6 @@ ul { list-style: none; }
     vertical-align: middle;
 }
 
-.lead {
-    font-size: 15px;
-    line-height: 1.75;
-    color: rgba(14, 19, 16, 0.72);
-    font-weight: 400;
-}
-@media (min-width: 768px) { .lead { font-size: 16px; } }
-
-/* HEADER */
 header {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -193,7 +184,6 @@ header {
     color: var(--bronze-light); font-weight: 400;
 }
 
-/* BUTTONS */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -215,7 +205,6 @@ header {
 .btn:hover .arrow { transform: translateX(6px); opacity: 1; }
 .btn-block { width: 100%; }
 
-/* PAGE HERO */
 .page-hero {
     padding: 10rem 1.5rem 5rem;
     background: var(--ink);
@@ -271,13 +260,11 @@ header {
 .back-link:hover { color: var(--ivory); gap: 0.75rem; }
 .back-link i { font-size: 11px; }
 
-/* SECTION */
 .section { padding: 6rem 1.5rem; }
 @media (min-width: 768px) { .section { padding: 7rem 3rem; } }
 @media (min-width: 1280px) { .section { padding: 8rem 5rem; } }
 .container { max-width: 1280px; margin: 0 auto; }
 
-/* PLATFORM CARDS */
 .platforms {
     display: grid;
     gap: 1.5rem;
@@ -408,7 +395,6 @@ header {
 }
 .platform-cta:hover .arrow { transform: translateX(6px); }
 
-/* DIRECT CARD */
 .direct-card {
     margin-top: 4rem;
     padding: 3rem 2.5rem;
@@ -442,7 +428,6 @@ header {
     gap: 0.75rem;
 }
 
-/* NOTE BOX */
 .note-box {
     margin-top: 4rem;
     padding: 2.5rem;
@@ -479,7 +464,6 @@ header {
 .note-box-content p + p { margin-top: 0.75rem; }
 .note-box-content strong { color: var(--bronze); font-weight: 500; }
 
-/* FOOTER */
 footer {
     background: var(--ink);
     color: var(--ivory);
@@ -555,7 +539,6 @@ footer {
     font-weight: 500;
 }
 
-/* REVEAL */
 .reveal { opacity: 0; transform: translate3d(0, 20px, 0); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
 .reveal.in { opacity: 1; transform: translate3d(0, 0, 0); }
 .reveal.d1 { transition-delay: 0.08s; }
@@ -627,7 +610,6 @@ footer {
 
         <div class="platforms">
 
-            <!-- BOOKING.COM -->
             <article class="platform reveal">
                 <div class="platform-logo">
                     <div class="platform-logo-mark booking">
@@ -654,7 +636,6 @@ footer {
                 </a>
             </article>
 
-            <!-- AIRBNB -->
             <article class="platform reveal d1">
                 <div class="platform-logo">
                     <div class="platform-logo-mark airbnb">
@@ -683,7 +664,6 @@ footer {
 
         </div>
 
-        <!-- DIRECT CONTACT -->
         <div class="direct-card reveal d2">
             <div>
                 <h3>Προτιμάτε <em>απευθείας</em> κράτηση;</h3>
@@ -703,7 +683,6 @@ footer {
             </div>
         </div>
 
-        <!-- ΣΗΜΕΙΩΣΗ ΓΙΑ LIVE ΣΥΣΤΗΜΑ -->
         <div class="note-box reveal d3">
             <i class="fa-solid fa-circle-info note-box-icon"></i>
             <div class="note-box-content">
@@ -768,7 +747,6 @@ footer {
 (function() {
     'use strict';
 
-    /* MOBILE MENU */
     var menuBtn = document.getElementById('menuBtn');
     var menuClose = document.getElementById('menuClose');
     var mmenu = document.getElementById('mmenu');
@@ -785,7 +763,6 @@ footer {
     var mlinks = mmenu.querySelectorAll('a');
     for (var i = 0; i < mlinks.length; i++) mlinks[i].addEventListener('click', closeMenu);
 
-    /* REVEAL */
     var reveals = document.querySelectorAll('.reveal');
     if ('IntersectionObserver' in window) {
         var obs = new IntersectionObserver(function(entries) {
