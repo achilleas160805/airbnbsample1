@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Spectral:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
 
 <style>
 /* =========================================================
@@ -32,9 +32,13 @@
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
-    /* SWISS STACK — for all display / heading type */
-    --font-display: "Helvetica Neue", Helvetica, Arial, "Liberation Sans", "Nimbus Sans", sans-serif;
-    --font-body: 'Inter Tight', system-ui, -apple-system, "Segoe UI", sans-serif;
+    /* EDITORIAL TYPEFACE STACK
+       Display: Cormorant Garamond — high-contrast editorial serif, full Greek support
+       Body:    Spectral — warm editorial serif with Greek + Greek Extended
+       Both from Google Fonts, both carry proper polytonic Greek. */
+    --font-display: 'Cormorant Garamond', 'EB Garamond', Georgia, 'Times New Roman', serif;
+    --font-body: 'Spectral', 'EB Garamond', Georgia, 'Times New Roman', serif;
+    --font-ui: 'Spectral', 'EB Garamond', Georgia, serif;
 }
 
 html {
@@ -48,12 +52,14 @@ body {
     background: var(--ivory);
     color: var(--ink);
     font-family: var(--font-body);
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 400;
-    line-height: 1.7;
+    line-height: 1.75;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "kern" 1, "liga" 1;
+    text-rendering: optimizeLegibility;
 }
 
 img { max-width: 100%; display: block; }
@@ -63,14 +69,14 @@ ul { list-style: none; }
 ::selection { background: var(--gold); color: var(--ink); }
 
 /* =========================================================
-   GRAIN — light, no blend-mode
+   GRAIN
    ========================================================= */
 .grain {
     position: fixed;
     inset: 0;
     z-index: 9998;
     pointer-events: none;
-    opacity: 0.14;
+    opacity: 0.12;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -114,11 +120,12 @@ ul { list-style: none; }
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: var(--font-display);
+    font-family: var(--font-ui);
     font-size: 9px;
-    letter-spacing: 0.28em;
+    letter-spacing: 0.32em;
     color: var(--gold);
     font-weight: 500;
+    text-transform: uppercase;
 }
 @media (pointer: coarse) {
     .cursor, .cursor-ring { display: none; }
@@ -126,9 +133,10 @@ ul { list-style: none; }
 }
 
 /* =========================================================
-   TYPOGRAPHY — SWISS
-   All display type uses Helvetica Neue / Helvetica / Arial.
-   No variable-font settings (they only apply to Fraunces).
+   TYPOGRAPHY — EDITORIAL
+   All display/heading type uses Cormorant Garamond.
+   All body/UI uses Spectral.
+   Both fonts carry full Greek + Greek Extended.
    ========================================================= */
 .h1,
 .h2,
@@ -136,29 +144,32 @@ ul { list-style: none; }
     font-family: var(--font-display);
     font-style: normal;
     color: var(--ink);
-    letter-spacing: -0.028em;
+    letter-spacing: -0.012em;
     line-height: 1.04;
-    font-weight: 500;
+    font-weight: 400;
     text-rendering: optimizeLegibility;
 }
 .h1 {
-    font-size: clamp(2rem, 4.2vw, 3.5rem);
+    font-size: clamp(2.5rem, 5vw, 4.25rem);
+    font-weight: 400;
+    letter-spacing: -0.014em;
+    line-height: 1.02;
 }
 .h2 {
-    font-size: clamp(1.5rem, 2vw, 1.875rem);
+    font-size: clamp(1.75rem, 2.4vw, 2.25rem);
     line-height: 1.15;
-    letter-spacing: -0.022em;
+    letter-spacing: -0.012em;
 }
 
-/* Emphasis — same font, italic, accent color.
-   No class="em" needed anywhere. */
+/* Emphasis — italic in display font, accent color */
 h1 em, h2 h1 em, .h1 em, .h2 em,
 h3 em, .h3 em, p em, li em {
+    font-family: inherit;
     font-style: italic;
-    font-weight: 400;
+    font-weight: inherit;
     color: var(--bronze);
+    letter-spacing: -0.012em;
 }
-/* Dark-background overrides */
 .hero-title em,
 .amenities .h1 em,
 .amenities .h2 em,
@@ -173,12 +184,13 @@ h3 em, .h3 em, p em, li em {
     align-items: center;
     gap: 1rem;
     font-family: var(--font-display);
-    font-size: 10.5px;
-    letter-spacing: 0.34em;
+    font-size: 11px;
+    letter-spacing: 0.38em;
     text-transform: uppercase;
     font-weight: 500;
     color: var(--gold);
     margin-bottom: 2rem;
+    line-height: 1;
 }
 .eyebrow::before {
     content: '';
@@ -192,13 +204,13 @@ h3 em, .h3 em, p em, li em {
 
 .lead {
     font-family: var(--font-body);
-    font-size: 15.5px;
+    font-size: 17px;
     line-height: 1.85;
-    color: rgba(10, 14, 12, 0.68);
+    color: rgba(10, 14, 12, 0.7);
     font-weight: 400;
-    letter-spacing: -0.005em;
+    letter-spacing: 0;
 }
-@media (min-width: 768px) { .lead { font-size: 16.5px; } }
+@media (min-width: 768px) { .lead { font-size: 18px; } }
 
 /* =========================================================
    TEXT SPLIT REVEAL
@@ -207,8 +219,8 @@ h3 em, .h3 em, p em, li em {
     display: inline-block;
     overflow: hidden;
     vertical-align: bottom;
-    padding-bottom: 0.14em;
-    margin-bottom: -0.14em;
+    padding-bottom: 0.16em;
+    margin-bottom: -0.16em;
     will-change: transform;
 }
 .split-line > span {
@@ -299,20 +311,21 @@ header.scrolled {
 header.scrolled .brand { color: var(--ink); text-shadow: none; }
 .brand-mark {
     font-family: var(--font-display);
-    font-size: 1.5rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
+    font-size: 1.75rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     line-height: 1;
+    font-style: italic;
 }
-@media (min-width: 768px) { .brand-mark { font-size: 1.625rem; } }
+@media (min-width: 768px) { .brand-mark { font-size: 2rem; } }
 .brand-suffix {
     font-family: var(--font-display);
-    font-size: 8.5px;
-    letter-spacing: 0.42em;
+    font-size: 9px;
+    letter-spacing: 0.46em;
     text-transform: uppercase;
-    opacity: 0.7;
-    margin-top: 0.375rem;
+    opacity: 0.72;
+    margin-top: 0.4rem;
     padding-left: 2px;
     font-weight: 500;
 }
@@ -321,8 +334,8 @@ header.scrolled .brand { color: var(--ink); text-shadow: none; }
 @media (min-width: 1024px) { .nav-desk { display: flex; } }
 .nav-desk a {
     font-family: var(--font-display);
-    font-size: 11.5px;
-    letter-spacing: 0.22em;
+    font-size: 12px;
+    letter-spacing: 0.26em;
     text-transform: uppercase;
     font-weight: 500;
     color: rgba(255,255,255,0.94);
@@ -331,7 +344,7 @@ header.scrolled .brand { color: var(--ink); text-shadow: none; }
     transition: color 0.3s var(--ease);
     text-shadow: 0 1px 16px rgba(0,0,0,0.4);
 }
-header.scrolled .nav-desk a { color: rgba(10, 14, 12, 0.78); text-shadow: none; }
+header.scrolled .nav-desk a { color: rgba(10, 14, 12, 0.82); text-shadow: none; }
 .nav-desk a::after {
     content: '';
     position: absolute;
@@ -349,10 +362,10 @@ header.scrolled .nav-desk a { color: rgba(10, 14, 12, 0.78); text-shadow: none; 
     display: none;
     align-items: center;
     gap: 0.875rem;
-    padding: 0.875rem 1.625rem;
+    padding: 0.875rem 1.75rem;
     font-family: var(--font-display);
     font-size: 11px;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.26em;
     text-transform: uppercase;
     font-weight: 500;
     color: var(--white);
@@ -429,20 +442,21 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 
 .m-brand {
     font-family: var(--font-display);
-    font-size: 1rem;
-    letter-spacing: 0.34em;
+    font-size: 1.125rem;
+    letter-spacing: 0.42em;
     text-transform: uppercase;
     color: var(--gold);
     margin-bottom: 3rem;
     text-align: center;
     font-weight: 500;
+    font-style: italic;
 }
 
 #mmenu nav { display: flex; flex-direction: column; }
 #mmenu nav a {
     font-family: var(--font-display);
-    font-size: 1.75rem;
-    font-weight: 500;
+    font-size: 2rem;
+    font-weight: 400;
     color: var(--ivory);
     padding: 1.25rem 0;
     border-bottom: 1px solid rgba(245, 239, 228, 0.08);
@@ -450,14 +464,14 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     display: flex;
     align-items: baseline;
     gap: 1.25rem;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.012em;
 }
 #mmenu nav a:hover { color: var(--gold); padding-left: 0.75rem; }
 #mmenu nav a::before {
     content: attr(data-i);
     font-family: var(--font-display);
     font-size: 10px;
-    letter-spacing: 0.3em;
+    letter-spacing: 0.34em;
     color: var(--champagne);
     font-weight: 500;
     opacity: 0.6;
@@ -480,8 +494,8 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     gap: 0.875rem;
     padding: 1.125rem 2.25rem;
     font-family: var(--font-display);
-    font-size: 11.5px;
-    letter-spacing: 0.24em;
+    font-size: 12px;
+    letter-spacing: 0.26em;
     text-transform: uppercase;
     font-weight: 500;
     color: var(--ivory);
@@ -555,8 +569,8 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     position: absolute;
     top: 2rem; right: 1.5rem;
     font-family: var(--font-display);
-    font-size: 10px;
-    letter-spacing: 0.3em;
+    font-size: 11px;
+    letter-spacing: 0.34em;
     color: var(--stone);
     font-weight: 500;
 }
@@ -661,14 +675,15 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 
 .hero-tag {
     font-family: var(--font-display);
-    font-size: 10.5px;
-    letter-spacing: 0.34em;
+    font-size: 11px;
+    letter-spacing: 0.38em;
     text-transform: uppercase;
     color: rgba(245, 239, 228, 0.9);
     font-weight: 500;
     display: flex;
     align-items: center;
     gap: 0.875rem;
+    line-height: 1;
 }
 .hero-tag::before {
     content: '';
@@ -678,28 +693,30 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 .hero-coords {
     font-family: var(--font-display);
-    font-size: 12px;
-    letter-spacing: 0.22em;
+    font-size: 13px;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: rgba(245, 239, 228, 0.7);
+    color: rgba(245, 239, 228, 0.72);
     font-weight: 500;
+    font-style: italic;
 }
 
 .hero-title {
     font-family: var(--font-display);
-    font-weight: 500;
-    font-size: clamp(2.25rem, 6.2vw, 5rem);
-    line-height: 1.02;
-    letter-spacing: -0.03em;
+    font-weight: 400;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    line-height: 0.98;
+    letter-spacing: -0.018em;
     color: var(--ivory);
     text-shadow: 0 6px 60px rgba(0,0,0,0.45);
-    max-width: 17ch;
+    max-width: 15ch;
     margin-bottom: 3rem;
 }
 .hero-title em {
     font-style: italic;
     font-weight: 400;
     color: var(--champagne);
+    letter-spacing: -0.018em;
 }
 
 .hero-bottom {
@@ -720,10 +737,11 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 
 .hero-desc {
     max-width: 540px;
-    font-size: 15.5px;
-    line-height: 1.85;
-    color: rgba(245, 239, 228, 0.9);
-    font-weight: 400;
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.8;
+    color: rgba(245, 239, 228, 0.92);
+    font-weight: 300;
     text-shadow: 0 2px 22px rgba(0,0,0,0.4);
 }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: flex-start; }
@@ -742,8 +760,8 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 .hero-seal > svg { width: 100%; height: 100%; animation: spin 32s linear infinite; }
 .hero-seal text {
     font-family: var(--font-display);
-    font-size: 9.5px;
-    letter-spacing: 0.32em;
+    font-size: 10px;
+    letter-spacing: 0.36em;
     text-transform: uppercase;
     fill: var(--champagne);
     font-weight: 500;
@@ -768,10 +786,10 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     transform: translateX(-50%);
     z-index: 3;
     font-family: var(--font-display);
-    font-size: 9.5px;
-    letter-spacing: 0.42em;
+    font-size: 10px;
+    letter-spacing: 0.44em;
     text-transform: uppercase;
-    color: rgba(245, 239, 228, 0.55);
+    color: rgba(245, 239, 228, 0.6);
     font-weight: 500;
     display: none;
     flex-direction: column;
@@ -807,10 +825,10 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 .marquee-track span {
     font-family: var(--font-display);
-    font-size: 1.125rem;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    font-style: italic;
     display: flex;
     align-items: center;
     gap: 3rem;
@@ -822,7 +840,7 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     background: var(--gold);
     opacity: 0.7;
 }
-.marquee-track em { font-style: italic; color: var(--gold); font-weight: 400; }
+.marquee-track em { font-style: normal; color: var(--gold); font-weight: 400; }
 @keyframes marquee {
     from { transform: translate3d(0,0,0); }
     to { transform: translate3d(-50%,0,0); }
@@ -855,11 +873,11 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 .stat { display: flex; flex-direction: column; gap: 0.75rem; }
 .stat-v {
     font-family: var(--font-display);
-    font-size: clamp(2rem, 3.4vw, 3rem);
-    font-weight: 600;
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    font-weight: 400;
     line-height: 1;
     color: var(--bronze);
-    letter-spacing: -0.04em;
+    letter-spacing: -0.02em;
     display: flex;
     align-items: baseline;
     gap: 0.125em;
@@ -868,13 +886,14 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 .stat-v sup {
     font-size: 0.4em;
     vertical-align: super;
-    opacity: 0.7;
-    font-weight: 500;
+    opacity: 0.72;
+    font-weight: 400;
+    font-style: italic;
 }
 .stat-k {
     font-family: var(--font-display);
-    font-size: 10px;
-    letter-spacing: 0.28em;
+    font-size: 11px;
+    letter-spacing: 0.32em;
     text-transform: uppercase;
     color: var(--stone);
     font-weight: 500;
@@ -917,16 +936,17 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 .badge strong {
     font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 1.75rem;
+    font-weight: 500;
+    font-size: 2rem;
     line-height: 1;
     color: var(--bronze);
-    letter-spacing: -0.03em;
+    letter-spacing: -0.01em;
+    font-style: italic;
 }
 .badge small {
     font-family: var(--font-display);
-    font-size: 9.5px;
-    letter-spacing: 0.28em;
+    font-size: 10px;
+    letter-spacing: 0.32em;
     text-transform: uppercase;
     color: var(--stone);
     font-weight: 500;
@@ -960,11 +980,13 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 .amenities .h1 { color: var(--ivory); }
 .amenities-head-right {
-    font-size: 15px;
-    color: rgba(245, 239, 228, 0.62);
+    font-family: var(--font-body);
+    font-size: 16px;
+    color: rgba(245, 239, 228, 0.66);
     line-height: 1.9;
     max-width: 440px;
     padding-bottom: 0.75rem;
+    font-weight: 300;
 }
 
 .amenities-grid {
@@ -1011,10 +1033,10 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 .amenity-num {
     font-family: var(--font-display);
     font-size: 12px;
-    letter-spacing: 0.3em;
+    letter-spacing: 0.34em;
     text-transform: uppercase;
     color: var(--champagne);
-    opacity: 0.65;
+    opacity: 0.68;
     transition: color 0.5s, opacity 0.5s;
     font-weight: 500;
 }
@@ -1027,17 +1049,19 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 .amenity-icon svg { width: 100%; height: 100%; stroke-width: 1; }
 .amenity h3 {
     font-family: var(--font-display);
-    font-weight: 500;
-    font-size: 1.375rem;
-    line-height: 1.18;
+    font-weight: 400;
+    font-size: 1.75rem;
+    line-height: 1.12;
     color: var(--ivory);
     margin-top: auto;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.012em;
 }
 .amenity p {
-    font-size: 14px;
-    color: rgba(245, 239, 228, 0.62);
-    line-height: 1.8;
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: rgba(245, 239, 228, 0.66);
+    line-height: 1.75;
+    font-weight: 300;
 }
 
 /* =========================================================
@@ -1076,6 +1100,7 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     width: 100%; height: 100%;
     object-fit: cover;
     transition: transform 1.2s var(--ease);
+    display: block;
 }
 .suite-tag {
     position: absolute;
@@ -1086,8 +1111,8 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     color: var(--champagne);
     padding: 0.625rem 1.125rem;
     font-family: var(--font-display);
-    font-size: 9.5px;
-    letter-spacing: 0.32em;
+    font-size: 10px;
+    letter-spacing: 0.36em;
     text-transform: uppercase;
     border: 1px solid rgba(201, 169, 97, 0.4);
     transition: all 0.4s var(--ease);
@@ -1096,17 +1121,20 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 .suite-body { padding: 2.5rem 2rem; display: flex; flex-direction: column; gap: 1.5rem; flex: 1; }
 .suite-body h3 {
     font-family: var(--font-display);
-    font-size: 1.375rem;
-    font-weight: 500;
+    font-size: 1.75rem;
+    font-weight: 400;
     color: var(--ink);
-    line-height: 1.2;
-    letter-spacing: -0.02em;
+    line-height: 1.12;
+    letter-spacing: -0.012em;
+    font-style: italic;
 }
 .suite-body p {
-    font-size: 14.5px;
-    line-height: 1.8;
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.75;
     color: var(--stone);
     flex: 1;
+    font-weight: 300;
 }
 .suite-meta {
     display: flex;
@@ -1115,8 +1143,8 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     padding-top: 1.5rem;
     border-top: 1px solid var(--sand);
     font-family: var(--font-display);
-    font-size: 10.5px;
-    letter-spacing: 0.18em;
+    font-size: 11px;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--stone);
     font-weight: 500;
@@ -1140,7 +1168,7 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 .filters button {
     padding: 0.75rem 1.5rem;
     font-family: var(--font-display);
-    font-size: 10.5px;
+    font-size: 11px;
     letter-spacing: 0.28em;
     text-transform: uppercase;
     font-weight: 500;
@@ -1216,17 +1244,18 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 .g-item-info small {
     font-family: var(--font-display);
-    font-size: 9.5px;
-    letter-spacing: 0.34em;
+    font-size: 10px;
+    letter-spacing: 0.38em;
     text-transform: uppercase;
     color: var(--champagne);
     font-weight: 500;
 }
 .g-item-info h3 {
     font-family: var(--font-display);
-    font-weight: 500;
-    font-size: 1.375rem;
-    letter-spacing: -0.02em;
+    font-weight: 400;
+    font-size: 1.75rem;
+    letter-spacing: -0.012em;
+    font-style: italic;
 }
 .g-item-plus {
     position: absolute;
@@ -1329,16 +1358,19 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 .exp-icon svg { width: 100%; height: 100%; stroke-width: 1; }
 .exp-overlay h3 {
     font-family: var(--font-display);
-    font-weight: 500;
-    font-size: 1.25rem;
-    line-height: 1.2;
+    font-weight: 400;
+    font-size: 1.5rem;
+    line-height: 1.15;
     margin-bottom: 0.625rem;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.012em;
+    font-style: italic;
 }
 .exp-overlay p {
-    font-size: 13px;
+    font-family: var(--font-body);
+    font-size: 14px;
     line-height: 1.7;
-    color: rgba(245, 239, 228, 0.72);
+    color: rgba(245, 239, 228, 0.75);
+    font-weight: 300;
 }
 
 /* =========================================================
@@ -1369,21 +1401,20 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 .review-quote {
     font-family: var(--font-display);
-    font-size: 3.5rem;
+    font-size: 5rem;
     line-height: 0.5;
     color: var(--gold);
-    opacity: 0.6;
-    font-weight: 500;
+    opacity: 0.65;
+    font-weight: 400;
 }
 .review p {
-    font-size: 15px;
-    line-height: 1.8;
+    font-size: 17px;
+    line-height: 1.75;
     color: var(--ink-2);
     flex: 1;
     font-style: italic;
-    font-family: var(--font-display);
-    font-weight: 400;
-    letter-spacing: -0.005em;
+    font-family: var(--font-body);
+    font-weight: 300;
 }
 .review-stars { display: flex; gap: 4px; color: var(--gold); }
 .review-stars .icon { width: 12px; height: 12px; fill: currentColor; stroke: none; }
@@ -1397,15 +1428,16 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 .review-author .name {
     font-family: var(--font-display);
-    font-size: 1.125rem;
-    font-weight: 600;
+    font-size: 1.375rem;
+    font-weight: 500;
     color: var(--ink);
     letter-spacing: -0.01em;
+    font-style: italic;
 }
 .review-author .loc {
     font-family: var(--font-display);
-    font-size: 9.5px;
-    letter-spacing: 0.28em;
+    font-size: 10px;
+    letter-spacing: 0.32em;
     text-transform: uppercase;
     color: var(--stone);
     font-weight: 500;
@@ -1439,7 +1471,7 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     .reserve-grid { grid-template-columns: 1fr 1fr; gap: 6rem; }
 }
 .reserve-copy .h1 { color: var(--ivory); margin-bottom: 2.25rem; }
-.reserve-copy .lead { color: rgba(245, 239, 228, 0.72); }
+.reserve-copy .lead { color: rgba(245, 239, 228, 0.76); font-weight: 300; }
 .reserve-list {
     margin-top: 3rem;
     padding-top: 2.5rem;
@@ -1452,9 +1484,11 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     display: flex;
     align-items: flex-start;
     gap: 1rem;
-    font-size: 15px;
-    color: rgba(245, 239, 228, 0.85);
+    font-family: var(--font-body);
+    font-size: 16px;
+    color: rgba(245, 239, 228, 0.88);
     line-height: 1.75;
+    font-weight: 300;
 }
 .reserve-list .icon { width: 14px; height: 14px; color: var(--gold); margin-top: 0.45rem; }
 
@@ -1498,25 +1532,28 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 .bk-logo .icon { width: 22px; height: 22px; stroke-width: 1.5; }
 .bk-card-head h4 {
     font-family: var(--font-display);
-    font-size: 1.25rem;
-    font-weight: 600;
+    font-size: 1.5rem;
+    font-weight: 500;
     color: var(--ivory);
-    letter-spacing: -0.015em;
+    letter-spacing: -0.012em;
+    font-style: italic;
 }
 .bk-card-head small {
     display: block;
     font-family: var(--font-display);
-    font-size: 9.5px;
-    letter-spacing: 0.3em;
+    font-size: 10px;
+    letter-spacing: 0.32em;
     text-transform: uppercase;
     color: var(--champagne);
-    margin-top: 0.375rem;
+    margin-top: 0.4rem;
     font-weight: 500;
 }
 .bk-card p {
-    font-size: 14px;
-    line-height: 1.8;
-    color: rgba(245, 239, 228, 0.65);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.75;
+    color: rgba(245, 239, 228, 0.7);
+    font-weight: 300;
 }
 
 .contact-strip {
@@ -1536,15 +1573,20 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 .contact-strip h4 {
     font-family: var(--font-display);
-    font-size: 1.25rem;
-    font-weight: 500;
+    font-size: 1.5rem;
+    font-weight: 400;
     color: var(--ivory);
-    letter-spacing: -0.015em;
+    letter-spacing: -0.012em;
+}
+.contact-strip h4 em {
+    color: var(--champagne);
 }
 .contact-strip p {
-    font-size: 13.5px;
-    color: rgba(245, 239, 228, 0.65);
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: rgba(245, 239, 228, 0.7);
     margin-top: 0.5rem;
+    font-weight: 300;
 }
 .contact-actions { display: flex; gap: 0.875rem; flex-wrap: wrap; justify-content: center; }
 
@@ -1572,12 +1614,13 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     gap: 1.5rem;
     text-align: left;
     font-family: var(--font-display);
-    font-size: clamp(1rem, 1.5vw, 1.25rem);
-    font-weight: 500;
+    font-size: clamp(1.25rem, 1.9vw, 1.625rem);
+    font-weight: 400;
     color: var(--ink);
     transition: color 0.3s, padding-left 0.45s var(--ease);
-    letter-spacing: -0.015em;
+    letter-spacing: -0.012em;
     cursor: pointer;
+    line-height: 1.2;
 }
 .faq-q:hover { color: var(--bronze); padding-left: 0.75rem; }
 .faq-q .icon {
@@ -1594,10 +1637,12 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 .faq-a-inner {
     padding: 0 0 2rem;
-    font-size: 15px;
-    line-height: 1.85;
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.8;
     color: var(--stone);
     max-width: 92%;
+    font-weight: 300;
 }
 
 /* =========================================================
@@ -1628,16 +1673,19 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     display: flex;
     align-items: center;
     gap: 1rem;
-    font-size: 15px;
+    font-family: var(--font-body);
+    font-size: 16px;
     color: var(--ink);
+    font-weight: 400;
 }
 .poi-l .icon { color: var(--bronze); width: 16px; height: 16px; }
 .poi-v {
     font-family: var(--font-display);
-    font-size: 1rem;
+    font-size: 1.25rem;
     color: var(--bronze);
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: -0.01em;
+    font-style: italic;
 }
 
 .map-frame {
@@ -1663,8 +1711,8 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     color: var(--ivory);
     padding: 0.875rem 1.5rem;
     font-family: var(--font-display);
-    font-size: 10px;
-    letter-spacing: 0.28em;
+    font-size: 11px;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
     font-weight: 500;
     display: flex;
@@ -1699,11 +1747,11 @@ footer {
 }
 .footer-hero h2 {
     font-family: var(--font-display);
-    font-weight: 500;
-    font-size: clamp(1.75rem, 4.6vw, 3.5rem);
-    line-height: 1.05;
-    letter-spacing: -0.032em;
-    max-width: 24ch;
+    font-weight: 400;
+    font-size: clamp(2rem, 5.5vw, 4.25rem);
+    line-height: 1.02;
+    letter-spacing: -0.016em;
+    max-width: 22ch;
     margin: 0 auto;
 }
 .footer-hero h2 em {
@@ -1733,23 +1781,26 @@ footer {
 
 .f-brand-name {
     font-family: var(--font-display);
-    font-size: 1.5rem;
-    letter-spacing: 0.02em;
+    font-size: 1.75rem;
+    letter-spacing: 0.06em;
     color: var(--ivory);
-    font-weight: 600;
+    font-weight: 500;
     text-transform: uppercase;
+    font-style: italic;
     margin-bottom: 1.25rem;
 }
 .f-brand p {
-    font-size: 14px;
-    line-height: 1.85;
-    color: rgba(245, 239, 228, 0.55);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.75;
+    color: rgba(245, 239, 228, 0.58);
     max-width: 360px;
+    font-weight: 300;
 }
 .f-title {
     font-family: var(--font-display);
-    font-size: 10px;
-    letter-spacing: 0.32em;
+    font-size: 11px;
+    letter-spacing: 0.34em;
     text-transform: uppercase;
     color: var(--champagne);
     font-weight: 500;
@@ -1757,12 +1808,14 @@ footer {
 }
 .f-list { display: flex; flex-direction: column; gap: 0.875rem; }
 .f-list a, .f-list span {
-    font-size: 14px;
-    color: rgba(245, 239, 228, 0.65);
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: rgba(245, 239, 228, 0.68);
     transition: color 0.3s, padding-left 0.4s var(--ease);
     display: inline-flex;
     align-items: center;
     gap: 0.75rem;
+    font-weight: 300;
 }
 .f-list a:hover { color: var(--gold); padding-left: 0.5rem; }
 .f-list .icon { color: var(--champagne); width: 14px; height: 14px; }
@@ -1792,9 +1845,9 @@ footer {
     justify-content: space-between;
     gap: 1.5rem;
     font-family: var(--font-display);
-    font-size: 10.5px;
-    letter-spacing: 0.24em;
-    color: rgba(245, 239, 228, 0.42);
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    color: rgba(245, 239, 228, 0.45);
     text-transform: uppercase;
     font-weight: 500;
     position: relative;
@@ -1821,8 +1874,8 @@ footer {
     background: var(--ink);
     color: var(--ivory);
     font-family: var(--font-display);
-    font-size: 11px;
-    letter-spacing: 0.24em;
+    font-size: 12px;
+    letter-spacing: 0.26em;
     text-transform: uppercase;
     font-weight: 500;
     box-shadow: 0 20px 44px -18px rgba(0,0,0,0.5);
@@ -1841,7 +1894,8 @@ footer {
     .review:hover { transform: none; }
     .suite:hover { transform: none; }
     .section { padding: 5.5rem 1.25rem; }
-    .marquee-track span { font-size: 1rem; }
+    .marquee-track span { font-size: 1.25rem; }
+    .review-quote { font-size: 4rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1923,7 +1977,7 @@ footer {
     <button class="m-close" id="menuClose" aria-label="Κλείσιμο">
         <svg class="icon"><use href="#i-close"/></svg>
     </button>
-    <div class="m-brand">AETHERIA</div>
+    <div class="m-brand">Aetheria</div>
     <nav>
         <a href="#intro" data-i="01">Η Βίλα</a>
         <a href="#amenities" data-i="02">Παροχές</a>
@@ -2158,7 +2212,7 @@ footer {
         <div class="suites-grid">
             <article class="suite reveal">
                 <div class="suite-img clip-reveal">
-                    <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&q=80&auto=format&fit=crop"
+                    <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=900&q=80&auto=format&fit=crop"
                          alt="Aegean suite" loading="lazy" decoding="async">
                     <span class="suite-tag">Master</span>
                 </div>
@@ -2175,7 +2229,7 @@ footer {
 
             <article class="suite reveal d1">
                 <div class="suite-img clip-reveal">
-                    <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800&q=80&auto=format&fit=crop"
+                    <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=900&q=80&auto=format&fit=crop"
                          alt="Garden suite" loading="lazy" decoding="async">
                     <span class="suite-tag">Garden</span>
                 </div>
@@ -2192,7 +2246,7 @@ footer {
 
             <article class="suite reveal d2">
                 <div class="suite-img clip-reveal">
-                    <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80&auto=format&fit=crop"
+                    <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&q=80&auto=format&fit=crop"
                          alt="Sunset suite" loading="lazy" decoding="async">
                     <span class="suite-tag">Sunset</span>
                 </div>
@@ -2687,8 +2741,11 @@ footer {
         el.innerHTML = out;
     }
 
-    /* ============ INTERSECTION OBSERVER ============ */
-    var animated = document.querySelectorAll('.reveal, [data-split]');
+    /* =========================================================
+       INTERSECTION OBSERVER
+       FIX: include .clip-reveal so suite/intro images get .in
+       ========================================================= */
+    var animated = document.querySelectorAll('.reveal, [data-split], .clip-reveal');
 
     if ('IntersectionObserver' in window && !reducedMotion) {
         var io = new IntersectionObserver(function(entries) {
