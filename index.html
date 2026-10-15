@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter+Tight:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
 
 <style>
 /* =========================================================
@@ -31,6 +31,10 @@
     --white: #fff;
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* SWISS STACK — for all display / heading type */
+    --font-display: "Helvetica Neue", Helvetica, Arial, "Liberation Sans", "Nimbus Sans", sans-serif;
+    --font-body: 'Inter Tight', system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 html {
@@ -43,7 +47,7 @@ html {
 body {
     background: var(--ivory);
     color: var(--ink);
-    font-family: 'Inter Tight', system-ui, -apple-system, sans-serif;
+    font-family: var(--font-body);
     font-size: 15px;
     font-weight: 400;
     line-height: 1.7;
@@ -59,7 +63,7 @@ ul { list-style: none; }
 ::selection { background: var(--gold); color: var(--ink); }
 
 /* =========================================================
-   GRAIN — FIX: lighter, no blend-mode (was destroying perf)
+   GRAIN — light, no blend-mode
    ========================================================= */
 .grain {
     position: fixed;
@@ -71,7 +75,7 @@ ul { list-style: none; }
 }
 
 /* =========================================================
-   CURSOR — FIX: removed blend-mode (was expensive per-frame)
+   CURSOR
    ========================================================= */
 .cursor, .cursor-ring {
     position: fixed;
@@ -110,11 +114,11 @@ ul { list-style: none; }
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Inter Tight', sans-serif;
+    font-family: var(--font-display);
     font-size: 9px;
     letter-spacing: 0.28em;
     color: var(--gold);
-    font-weight: 400;
+    font-weight: 500;
 }
 @media (pointer: coarse) {
     .cursor, .cursor-ring { display: none; }
@@ -122,45 +126,55 @@ ul { list-style: none; }
 }
 
 /* =========================================================
-   TYPOGRAPHY — FIX: reduced top-end of clamps
+   TYPOGRAPHY — SWISS
+   All display type uses Helvetica Neue / Helvetica / Arial.
+   No variable-font settings (they only apply to Fraunces).
    ========================================================= */
+.h1,
+.h2,
 .serif {
-    font-family: 'Fraunces', Georgia, serif;
-    font-weight: 400;
-    letter-spacing: -0.02em;
-    line-height: 1.02;
-    font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
+    font-family: var(--font-display);
+    font-style: normal;
+    color: var(--ink);
+    letter-spacing: -0.028em;
+    line-height: 1.04;
+    font-weight: 500;
+    text-rendering: optimizeLegibility;
 }
 .h1 {
-    font-family: 'Fraunces', Georgia, serif;
     font-size: clamp(2rem, 4.2vw, 3.5rem);
-    line-height: 1.02;
-    letter-spacing: -0.028em;
-    font-weight: 400;
-    font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
 }
 .h2 {
-    font-family: 'Fraunces', Georgia, serif;
     font-size: clamp(1.5rem, 2vw, 1.875rem);
-    line-height: 1.18;
-    font-weight: 400;
-    letter-spacing: -0.02em;
-    font-variation-settings: 'opsz' 96, 'SOFT' 30, 'WONK' 1;
+    line-height: 1.15;
+    letter-spacing: -0.022em;
 }
-.em {
+
+/* Emphasis — same font, italic, accent color.
+   No class="em" needed anywhere. */
+h1 em, h2 h1 em, .h1 em, .h2 em,
+h3 em, .h3 em, p em, li em {
     font-style: italic;
+    font-weight: 400;
     color: var(--bronze);
-    font-weight: 300;
-    font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+}
+/* Dark-background overrides */
+.hero-title em,
+.amenities .h1 em,
+.amenities .h2 em,
+.reservations .h1 em,
+.footer-hero h2 em,
+.reserve-copy .h1 em {
+    color: var(--champagne);
 }
 
 .eyebrow {
     display: flex;
     align-items: center;
     gap: 1rem;
-    font-family: 'Inter Tight', sans-serif;
+    font-family: var(--font-display);
     font-size: 10.5px;
-    letter-spacing: 0.32em;
+    letter-spacing: 0.34em;
     text-transform: uppercase;
     font-weight: 500;
     color: var(--gold);
@@ -177,6 +191,7 @@ ul { list-style: none; }
 .eyebrow.light::before { background: var(--champagne); }
 
 .lead {
+    font-family: var(--font-body);
     font-size: 15.5px;
     line-height: 1.85;
     color: rgba(10, 14, 12, 0.68);
@@ -186,7 +201,7 @@ ul { list-style: none; }
 @media (min-width: 768px) { .lead { font-size: 16.5px; } }
 
 /* =========================================================
-   TEXT SPLIT REVEAL — FIX: inline-block, not block
+   TEXT SPLIT REVEAL
    ========================================================= */
 .split-line {
     display: inline-block;
@@ -243,7 +258,7 @@ html:not(.js-ready) .clip-reveal { clip-path: none; }
 }
 
 /* =========================================================
-   HEADER — FIX: lighter blur
+   HEADER
    ========================================================= */
 header {
     position: fixed;
@@ -283,26 +298,29 @@ header.scrolled {
 }
 header.scrolled .brand { color: var(--ink); text-shadow: none; }
 .brand-mark {
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: 1.625rem;
-    font-weight: 500;
-    letter-spacing: -0.01em;
-    font-variation-settings: 'opsz' 96, 'SOFT' 50, 'WONK' 1;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    line-height: 1;
 }
-@media (min-width: 768px) { .brand-mark { font-size: 1.875rem; } }
+@media (min-width: 768px) { .brand-mark { font-size: 1.625rem; } }
 .brand-suffix {
-    font-family: 'Inter Tight', sans-serif;
+    font-family: var(--font-display);
     font-size: 8.5px;
     letter-spacing: 0.42em;
     text-transform: uppercase;
     opacity: 0.7;
     margin-top: 0.375rem;
     padding-left: 2px;
+    font-weight: 500;
 }
 
 .nav-desk { display: none; align-items: center; gap: 2.25rem; }
 @media (min-width: 1024px) { .nav-desk { display: flex; } }
 .nav-desk a {
+    font-family: var(--font-display);
     font-size: 11.5px;
     letter-spacing: 0.22em;
     text-transform: uppercase;
@@ -332,6 +350,7 @@ header.scrolled .nav-desk a { color: rgba(10, 14, 12, 0.78); text-shadow: none; 
     align-items: center;
     gap: 0.875rem;
     padding: 0.875rem 1.625rem;
+    font-family: var(--font-display);
     font-size: 11px;
     letter-spacing: 0.22em;
     text-transform: uppercase;
@@ -409,20 +428,21 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 .m-close .icon { width: 28px; height: 28px; }
 
 .m-brand {
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: 1.125rem;
-    letter-spacing: 0.24em;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
     color: var(--gold);
     margin-bottom: 3rem;
     text-align: center;
-    font-variation-settings: 'opsz' 96, 'WONK' 1;
+    font-weight: 500;
 }
 
 #mmenu nav { display: flex; flex-direction: column; }
 #mmenu nav a {
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: 1.875rem;
-    font-weight: 400;
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 500;
     color: var(--ivory);
     padding: 1.25rem 0;
     border-bottom: 1px solid rgba(245, 239, 228, 0.08);
@@ -430,12 +450,12 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     display: flex;
     align-items: baseline;
     gap: 1.25rem;
-    font-variation-settings: 'opsz' 144, 'SOFT' 50, 'WONK' 1;
+    letter-spacing: -0.02em;
 }
 #mmenu nav a:hover { color: var(--gold); padding-left: 0.75rem; }
 #mmenu nav a::before {
     content: attr(data-i);
-    font-family: 'Inter Tight', sans-serif;
+    font-family: var(--font-display);
     font-size: 10px;
     letter-spacing: 0.3em;
     color: var(--champagne);
@@ -459,7 +479,7 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     justify-content: center;
     gap: 0.875rem;
     padding: 1.125rem 2.25rem;
-    font-family: 'Inter Tight', sans-serif;
+    font-family: var(--font-display);
     font-size: 11.5px;
     letter-spacing: 0.24em;
     text-transform: uppercase;
@@ -534,7 +554,7 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 .sec-num {
     position: absolute;
     top: 2rem; right: 1.5rem;
-    font-family: 'Inter Tight', sans-serif;
+    font-family: var(--font-display);
     font-size: 10px;
     letter-spacing: 0.3em;
     color: var(--stone);
@@ -558,7 +578,7 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 
 /* =========================================================
-   HERO — FIX: removed kenBurns (major perf win), reduced title
+   HERO
    ========================================================= */
 .hero {
     position: relative;
@@ -640,9 +660,9 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 
 .hero-tag {
-    font-family: 'Inter Tight', sans-serif;
+    font-family: var(--font-display);
     font-size: 10.5px;
-    letter-spacing: 0.32em;
+    letter-spacing: 0.34em;
     text-transform: uppercase;
     color: rgba(245, 239, 228, 0.9);
     font-weight: 500;
@@ -657,31 +677,29 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     box-shadow: 0 0 8px var(--gold);
 }
 .hero-coords {
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: 15px;
-    font-style: italic;
+    font-family: var(--font-display);
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
     color: rgba(245, 239, 228, 0.7);
-    font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
-    letter-spacing: 0.02em;
+    font-weight: 500;
 }
 
 .hero-title {
-    font-family: 'Fraunces', Georgia, serif;
-    font-weight: 300;
-    font-size: clamp(2.25rem, 6.2vw, 5.25rem);
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(2.25rem, 6.2vw, 5rem);
     line-height: 1.02;
     letter-spacing: -0.03em;
     color: var(--ivory);
     text-shadow: 0 6px 60px rgba(0,0,0,0.45);
     max-width: 17ch;
     margin-bottom: 3rem;
-    font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
 }
 .hero-title em {
     font-style: italic;
-    font-weight: 300;
+    font-weight: 400;
     color: var(--champagne);
-    font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
 }
 
 .hero-bottom {
@@ -723,7 +741,7 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 @media (min-width: 1200px) { .hero-seal { display: block; right: 4.5rem; } }
 .hero-seal > svg { width: 100%; height: 100%; animation: spin 32s linear infinite; }
 .hero-seal text {
-    font-family: 'Inter Tight', sans-serif;
+    font-family: var(--font-display);
     font-size: 9.5px;
     letter-spacing: 0.32em;
     text-transform: uppercase;
@@ -749,6 +767,7 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     left: 50%;
     transform: translateX(-50%);
     z-index: 3;
+    font-family: var(--font-display);
     font-size: 9.5px;
     letter-spacing: 0.42em;
     text-transform: uppercase;
@@ -787,10 +806,11 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     will-change: transform;
 }
 .marquee-track span {
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: 1.5rem;
-    font-weight: 400;
-    font-variation-settings: 'opsz' 96, 'SOFT' 50, 'WONK' 1;
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
     display: flex;
     align-items: center;
     gap: 3rem;
@@ -802,7 +822,7 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     background: var(--gold);
     opacity: 0.7;
 }
-.marquee-track em { font-style: italic; color: var(--gold); }
+.marquee-track em { font-style: italic; color: var(--gold); font-weight: 400; }
 @keyframes marquee {
     from { transform: translate3d(0,0,0); }
     to { transform: translate3d(-50%,0,0); }
@@ -834,26 +854,25 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 .stat { display: flex; flex-direction: column; gap: 0.75rem; }
 .stat-v {
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: clamp(2.25rem, 3.6vw, 3.25rem);
-    font-weight: 400;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.4vw, 3rem);
+    font-weight: 600;
     line-height: 1;
     color: var(--bronze);
-    letter-spacing: -0.03em;
-    font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
+    letter-spacing: -0.04em;
     display: flex;
     align-items: baseline;
     gap: 0.125em;
 }
 .stat-v .num { display: inline-block; font-variant-numeric: tabular-nums; }
 .stat-v sup {
-    font-size: 0.42em;
+    font-size: 0.4em;
     vertical-align: super;
     opacity: 0.7;
-    font-style: italic;
-    font-weight: 300;
+    font-weight: 500;
 }
 .stat-k {
+    font-family: var(--font-display);
     font-size: 10px;
     letter-spacing: 0.28em;
     text-transform: uppercase;
@@ -897,14 +916,15 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     border-left: 3px solid var(--gold);
 }
 .badge strong {
-    font-family: 'Fraunces', Georgia, serif;
-    font-weight: 500;
-    font-size: 1.875rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.75rem;
     line-height: 1;
     color: var(--bronze);
-    font-variation-settings: 'opsz' 144, 'WONK' 1;
+    letter-spacing: -0.03em;
 }
 .badge small {
+    font-family: var(--font-display);
     font-size: 9.5px;
     letter-spacing: 0.28em;
     text-transform: uppercase;
@@ -939,7 +959,6 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     .amenities-head { grid-template-columns: 1.4fr 1fr; gap: 6rem; }
 }
 .amenities .h1 { color: var(--ivory); }
-.amenities .em { color: var(--champagne); }
 .amenities-head-right {
     font-size: 15px;
     color: rgba(245, 239, 228, 0.62);
@@ -990,13 +1009,14 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     .amenity:hover .amenity-num { color: var(--gold); opacity: 1; }
 }
 .amenity-num {
-    font-family: 'Fraunces', Georgia, serif;
-    font-style: italic;
-    font-size: 14px;
+    font-family: var(--font-display);
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
     color: var(--champagne);
     opacity: 0.65;
     transition: color 0.5s, opacity 0.5s;
-    font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
+    font-weight: 500;
 }
 .amenity-icon {
     color: var(--champagne);
@@ -1006,14 +1026,13 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 .amenity-icon svg { width: 100%; height: 100%; stroke-width: 1; }
 .amenity h3 {
-    font-family: 'Fraunces', Georgia, serif;
-    font-weight: 400;
-    font-size: 1.5rem;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.375rem;
     line-height: 1.18;
     color: var(--ivory);
     margin-top: auto;
-    letter-spacing: -0.015em;
-    font-variation-settings: 'opsz' 96, 'SOFT' 50, 'WONK' 1;
+    letter-spacing: -0.02em;
 }
 .amenity p {
     font-size: 14px;
@@ -1066,6 +1085,7 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     backdrop-filter: blur(8px);
     color: var(--champagne);
     padding: 0.625rem 1.125rem;
+    font-family: var(--font-display);
     font-size: 9.5px;
     letter-spacing: 0.32em;
     text-transform: uppercase;
@@ -1075,13 +1095,12 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 .suite-body { padding: 2.5rem 2rem; display: flex; flex-direction: column; gap: 1.5rem; flex: 1; }
 .suite-body h3 {
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: 1.625rem;
-    font-weight: 400;
+    font-family: var(--font-display);
+    font-size: 1.375rem;
+    font-weight: 500;
     color: var(--ink);
-    line-height: 1.15;
+    line-height: 1.2;
     letter-spacing: -0.02em;
-    font-variation-settings: 'opsz' 96, 'SOFT' 50, 'WONK' 1;
 }
 .suite-body p {
     font-size: 14.5px;
@@ -1095,7 +1114,8 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     gap: 1rem 1.5rem;
     padding-top: 1.5rem;
     border-top: 1px solid var(--sand);
-    font-size: 11px;
+    font-family: var(--font-display);
+    font-size: 10.5px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--stone);
@@ -1119,6 +1139,7 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 .filters { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .filters button {
     padding: 0.75rem 1.5rem;
+    font-family: var(--font-display);
     font-size: 10.5px;
     letter-spacing: 0.28em;
     text-transform: uppercase;
@@ -1194,6 +1215,7 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     gap: 0.5rem;
 }
 .g-item-info small {
+    font-family: var(--font-display);
     font-size: 9.5px;
     letter-spacing: 0.34em;
     text-transform: uppercase;
@@ -1201,11 +1223,10 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     font-weight: 500;
 }
 .g-item-info h3 {
-    font-family: 'Fraunces', Georgia, serif;
-    font-weight: 400;
-    font-size: 1.625rem;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.375rem;
     letter-spacing: -0.02em;
-    font-variation-settings: 'opsz' 96, 'SOFT' 50, 'WONK' 1;
 }
 .g-item-plus {
     position: absolute;
@@ -1307,13 +1328,12 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 .exp-icon svg { width: 100%; height: 100%; stroke-width: 1; }
 .exp-overlay h3 {
-    font-family: 'Fraunces', Georgia, serif;
-    font-weight: 400;
-    font-size: 1.5rem;
-    line-height: 1.18;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.25rem;
+    line-height: 1.2;
     margin-bottom: 0.625rem;
     letter-spacing: -0.02em;
-    font-variation-settings: 'opsz' 96, 'SOFT' 50, 'WONK' 1;
 }
 .exp-overlay p {
     font-size: 13px;
@@ -1348,23 +1368,22 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     .review:hover { transform: translateY(-6px); box-shadow: 0 40px 80px -30px rgba(10,14,12,0.18); }
 }
 .review-quote {
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: 4rem;
+    font-family: var(--font-display);
+    font-size: 3.5rem;
     line-height: 0.5;
     color: var(--gold);
     opacity: 0.6;
-    font-weight: 400;
-    font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+    font-weight: 500;
 }
 .review p {
-    font-size: 15.5px;
+    font-size: 15px;
     line-height: 1.8;
     color: var(--ink-2);
     flex: 1;
     font-style: italic;
-    font-family: 'Fraunces', Georgia, serif;
-    font-weight: 300;
-    font-variation-settings: 'opsz' 96, 'SOFT' 80, 'WONK' 1;
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.005em;
 }
 .review-stars { display: flex; gap: 4px; color: var(--gold); }
 .review-stars .icon { width: 12px; height: 12px; fill: currentColor; stroke: none; }
@@ -1377,13 +1396,14 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     gap: 1rem;
 }
 .review-author .name {
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: 1.25rem;
-    font-weight: 500;
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 600;
     color: var(--ink);
-    font-variation-settings: 'opsz' 96, 'SOFT' 50, 'WONK' 1;
+    letter-spacing: -0.01em;
 }
 .review-author .loc {
+    font-family: var(--font-display);
     font-size: 9.5px;
     letter-spacing: 0.28em;
     text-transform: uppercase;
@@ -1419,7 +1439,6 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     .reserve-grid { grid-template-columns: 1fr 1fr; gap: 6rem; }
 }
 .reserve-copy .h1 { color: var(--ivory); margin-bottom: 2.25rem; }
-.reserve-copy .em { color: var(--champagne); }
 .reserve-copy .lead { color: rgba(245, 239, 228, 0.72); }
 .reserve-list {
     margin-top: 3rem;
@@ -1478,21 +1497,20 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 .bk-logo.airbnb { background: #FF5A5F; }
 .bk-logo .icon { width: 22px; height: 22px; stroke-width: 1.5; }
 .bk-card-head h4 {
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: 1.5rem;
-    font-weight: 500;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
     color: var(--ivory);
-    letter-spacing: -0.01em;
-    font-variation-settings: 'opsz' 96, 'WONK' 1;
+    letter-spacing: -0.015em;
 }
 .bk-card-head small {
     display: block;
+    font-family: var(--font-display);
     font-size: 9.5px;
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--champagne);
     margin-top: 0.375rem;
-    font-family: 'Inter Tight', sans-serif;
     font-weight: 500;
 }
 .bk-card p {
@@ -1517,12 +1535,11 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     .contact-strip { grid-template-columns: 1fr auto auto; gap: 3rem; text-align: left; padding: 2.5rem 3rem; }
 }
 .contact-strip h4 {
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: 1.375rem;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
     font-weight: 500;
     color: var(--ivory);
     letter-spacing: -0.015em;
-    font-variation-settings: 'opsz' 96, 'WONK' 1;
 }
 .contact-strip p {
     font-size: 13.5px;
@@ -1554,14 +1571,13 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     justify-content: space-between;
     gap: 1.5rem;
     text-align: left;
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: clamp(1.0625rem, 1.6vw, 1.375rem);
-    font-weight: 400;
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    font-weight: 500;
     color: var(--ink);
     transition: color 0.3s, padding-left 0.45s var(--ease);
     letter-spacing: -0.015em;
     cursor: pointer;
-    font-variation-settings: 'opsz' 96, 'SOFT' 50, 'WONK' 1;
 }
 .faq-q:hover { color: var(--bronze); padding-left: 0.75rem; }
 .faq-q .icon {
@@ -1617,11 +1633,11 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 .poi-l .icon { color: var(--bronze); width: 16px; height: 16px; }
 .poi-v {
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: 1.0625rem;
+    font-family: var(--font-display);
+    font-size: 1rem;
     color: var(--bronze);
-    font-weight: 500;
-    font-variation-settings: 'opsz' 96, 'WONK' 1;
+    font-weight: 600;
+    letter-spacing: -0.01em;
 }
 
 .map-frame {
@@ -1646,6 +1662,7 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     backdrop-filter: blur(8px);
     color: var(--ivory);
     padding: 0.875rem 1.5rem;
+    font-family: var(--font-display);
     font-size: 10px;
     letter-spacing: 0.28em;
     text-transform: uppercase;
@@ -1681,20 +1698,18 @@ footer {
     z-index: 1;
 }
 .footer-hero h2 {
-    font-family: 'Fraunces', Georgia, serif;
-    font-weight: 300;
-    font-size: clamp(1.75rem, 4.8vw, 3.75rem);
-    line-height: 1.06;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.75rem, 4.6vw, 3.5rem);
+    line-height: 1.05;
     letter-spacing: -0.032em;
     max-width: 24ch;
     margin: 0 auto;
-    font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
 }
 .footer-hero h2 em {
     font-style: italic;
+    font-weight: 400;
     color: var(--champagne);
-    font-weight: 300;
-    font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
 }
 .footer-hero .cta-row {
     display: flex;
@@ -1717,12 +1732,13 @@ footer {
 @media (min-width: 1024px) { .footer-cols { grid-template-columns: 2fr 1fr 1fr 1fr; } }
 
 .f-brand-name {
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: 1.75rem;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    letter-spacing: 0.02em;
     color: var(--ivory);
-    font-weight: 500;
+    font-weight: 600;
+    text-transform: uppercase;
     margin-bottom: 1.25rem;
-    font-variation-settings: 'opsz' 96, 'SOFT' 50, 'WONK' 1;
 }
 .f-brand p {
     font-size: 14px;
@@ -1731,6 +1747,7 @@ footer {
     max-width: 360px;
 }
 .f-title {
+    font-family: var(--font-display);
     font-size: 10px;
     letter-spacing: 0.32em;
     text-transform: uppercase;
@@ -1774,6 +1791,7 @@ footer {
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
+    font-family: var(--font-display);
     font-size: 10.5px;
     letter-spacing: 0.24em;
     color: rgba(245, 239, 228, 0.42);
@@ -1802,6 +1820,7 @@ footer {
     padding: 1rem 1.75rem;
     background: var(--ink);
     color: var(--ivory);
+    font-family: var(--font-display);
     font-size: 11px;
     letter-spacing: 0.24em;
     text-transform: uppercase;
@@ -1822,8 +1841,7 @@ footer {
     .review:hover { transform: none; }
     .suite:hover { transform: none; }
     .section { padding: 5.5rem 1.25rem; }
-    .hero-slide { animation-duration: 27s; }
-    .marquee-track span { font-size: 1.2rem; }
+    .marquee-track span { font-size: 1rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2010,7 +2028,7 @@ footer {
             <div class="intro-copy">
                 <span class="eyebrow reveal">Η Αρχιτεκτονική</span>
                 <h2 class="h1 reveal d1" data-split>
-                    Χτισμένο για να <em class="em">αναπνέει</em> με το τοπίο
+                    Χτισμένο για να <em>αναπνέει</em> με το τοπίο
                 </h2>
                 <p class="lead reveal d2">
                     Το Aetheria δεν είναι απλώς μια βίλα — είναι μια σύνθεση φωτός, πέτρας και θάλασσας. Κάθε χώρος ανοίγει προς τον ορίζοντα, αφήνοντας το τοπίο να γίνει μέρος της αρχιτεκτονικής.
@@ -2061,7 +2079,7 @@ footer {
             <div>
                 <span class="eyebrow light reveal">Παροχές</span>
                 <h2 class="h1 reveal d1" data-split>
-                    Κάθε ανάγκη, <em class="em">προβλεμμένη</em>
+                    Κάθε ανάγκη, <em>προβλεμμένη</em>
                 </h2>
             </div>
             <p class="amenities-head-right reveal d2">
@@ -2071,55 +2089,55 @@ footer {
 
         <div class="amenities-grid">
             <article class="amenity reveal">
-                <span class="amenity-num">i</span>
+                <span class="amenity-num">I</span>
                 <span class="amenity-icon"><svg><use href="#i-pool"/></svg></span>
                 <h3>Infinity Pool</h3>
                 <p>Πισίνα υπερχείλισης με θαλασσινό νερό και ξαπλώστρες, με θέα που χάνεται στον ορίζοντα.</p>
             </article>
             <article class="amenity reveal d1">
-                <span class="amenity-num">ii</span>
+                <span class="amenity-num">II</span>
                 <span class="amenity-icon"><svg><use href="#i-wifi"/></svg></span>
                 <h3>Starlink Wi-Fi</h3>
                 <p>Δορυφορική σύνδεση έως 1Gbps σε όλους τους εσωτερικούς και εξωτερικούς χώρους.</p>
             </article>
             <article class="amenity reveal d2">
-                <span class="amenity-num">iii</span>
+                <span class="amenity-num">III</span>
                 <span class="amenity-icon"><svg><use href="#i-chef"/></svg></span>
                 <h3>Ιδιωτικός Σεφ</h3>
                 <p>Κατόπιν αιτήματος, έμπειρος σεφ ετοιμάζει μεσογειακά γεύματα στη βίλα σας.</p>
             </article>
             <article class="amenity reveal d3">
-                <span class="amenity-num">iv</span>
+                <span class="amenity-num">IV</span>
                 <span class="amenity-icon"><svg><use href="#i-kitchen"/></svg></span>
                 <h3>Gourmet Κουζίνα</h3>
                 <p>Πλήρως εξοπλισμένη με συσκευές Miele, Nespresso και επαγγελματικό wine fridge.</p>
             </article>
             <article class="amenity reveal">
-                <span class="amenity-num">v</span>
+                <span class="amenity-num">V</span>
                 <span class="amenity-icon"><svg><use href="#i-car"/></svg></span>
                 <h3>Private Parking</h3>
                 <p>Περιφραγμένος χώρος για 3 οχήματα με ταχυφορτιστή ηλεκτρικών αυτοκινήτων.</p>
             </article>
             <article class="amenity reveal d1">
-                <span class="amenity-num">vi</span>
+                <span class="amenity-num">VI</span>
                 <span class="amenity-icon"><svg><use href="#i-bed"/></svg></span>
                 <h3>Coco-Mat & Λινά</h3>
                 <p>Οικολογικά στρώματα Coco-Mat, 100% λινά σεντόνια, επιλογή μαξιλαριών.</p>
             </article>
             <article class="amenity reveal d2">
-                <span class="amenity-num">vii</span>
+                <span class="amenity-num">VII</span>
                 <span class="amenity-icon"><svg><use href="#i-bbq"/></svg></span>
                 <h3>BBQ Terrace</h3>
                 <p>Στεγασμένη τραπεζαρία 10 ατόμων με ψησταριά, κάτω από τον έναστρο ουρανό.</p>
             </article>
             <article class="amenity reveal d3">
-                <span class="amenity-num">viii</span>
+                <span class="amenity-num">VIII</span>
                 <span class="amenity-icon"><svg><use href="#i-sailboat"/></svg></span>
                 <h3>Private Concierge</h3>
                 <p>Οργάνωση εκδρομών με σκάφος, μεταφορών και προνομιακών κρατήσεων.</p>
             </article>
             <article class="amenity reveal">
-                <span class="amenity-num">ix</span>
+                <span class="amenity-num">IX</span>
                 <span class="amenity-icon"><svg><use href="#i-spa"/></svg></span>
                 <h3>In-Villa Spa</h3>
                 <p>Κατ' οίκον μασάζ, θεραπείες περιποίησης και yoga sessions κατόπιν αιτήματος.</p>
@@ -2134,7 +2152,7 @@ footer {
     <div class="container">
         <div class="suites-head">
             <span class="eyebrow reveal">Σουίτες</span>
-            <h2 class="h1 reveal d1" data-split>Τρεις <em class="em">ιδιωτικοί</em> κόσμοι</h2>
+            <h2 class="h1 reveal d1" data-split>Τρεις <em>ιδιωτικοί</em> κόσμοι</h2>
         </div>
 
         <div class="suites-grid">
@@ -2199,7 +2217,7 @@ footer {
         <div class="gallery-head">
             <div>
                 <span class="eyebrow reveal">Συλλογή</span>
-                <h2 class="h1 reveal d1" data-split>Μια ματιά <em class="em">μέσα</em></h2>
+                <h2 class="h1 reveal d1" data-split>Μια ματιά <em>μέσα</em></h2>
             </div>
             <div class="filters reveal d2">
                 <button class="active" data-filter="all">Όλα</button>
@@ -2291,7 +2309,7 @@ footer {
     <div class="container">
         <div class="exp-head">
             <span class="eyebrow reveal">Εμπειρίες</span>
-            <h2 class="h1 reveal d1" data-split>Σχεδιασμένες <em class="em">στιγμές</em></h2>
+            <h2 class="h1 reveal d1" data-split>Σχεδιασμένες <em>στιγμές</em></h2>
         </div>
 
         <div class="exp-grid">
@@ -2344,7 +2362,7 @@ footer {
     <div class="container">
         <div class="reviews-head">
             <span class="eyebrow reveal">Μαρτυρίες</span>
-            <h2 class="h1 reveal d1" data-split>Από τους <em class="em">επισκέπτες</em> μας</h2>
+            <h2 class="h1 reveal d1" data-split>Από τους <em>επισκέπτες</em> μας</h2>
         </div>
 
         <div class="reviews-grid">
@@ -2407,7 +2425,7 @@ footer {
             <div class="reserve-copy">
                 <span class="eyebrow light reveal">Κρατήσεις</span>
                 <h2 class="h1 reveal d1" data-split>
-                    Κλείστε τη διαμονή σας στο <em class="em">Aetheria</em>
+                    Κλείστε τη διαμονή σας στο <em>Aetheria</em>
                 </h2>
                 <p class="lead reveal d2">
                     Επιλέξτε τον τρόπο κράτησης που σας εξυπηρετεί — μέσω Booking.com, Airbnb ή απευθείας μαζί μας. Όλες οι επιλογές οδηγούν στην ίδια εμπειρία.
@@ -2456,7 +2474,7 @@ footer {
 
         <div class="contact-strip reveal">
             <div>
-                <h4>Προτιμάτε <em class="em">απευθείας</em> κράτηση;</h4>
+                <h4>Προτιμάτε <em>απευθείας</em> κράτηση;</h4>
                 <p>Καλέστε μας ή στείλτε WhatsApp για προσωπική εξυπηρέτηση και ειδικές τιμές.</p>
             </div>
             <a href="tel:2310000000" class="btn btn-ivory" data-magnetic>
@@ -2477,7 +2495,7 @@ footer {
     <div class="container">
         <div class="faq-head">
             <span class="eyebrow reveal">Συχνές Ερωτήσεις</span>
-            <h2 class="h1 reveal d1" data-split>Χρήσιμες <em class="em">πληροφορίες</em></h2>
+            <h2 class="h1 reveal d1" data-split>Χρήσιμες <em>πληροφορίες</em></h2>
         </div>
 
         <div class="faq-wrap">
@@ -2520,7 +2538,7 @@ footer {
             <div class="location-copy">
                 <span class="eyebrow reveal">Τοποθεσία</span>
                 <h2 class="h1 reveal d1" data-split>
-                    Σε ένα από τα πιο <em class="em">προνομιακά</em> σημεία
+                    Σε ένα από τα πιο <em>προνομιακά</em> σημεία
                 </h2>
                 <p class="lead reveal d2">
                     Σε μια ήσυχη πλαγιά με θέα το Αιγαίο, η βίλα προσφέρει απόλυτη ιδιωτικότητα, ενώ βρίσκεται μόλις λίγα λεπτά από τις καλύτερες παραλίες.
@@ -2649,10 +2667,7 @@ footer {
     var fine = window.matchMedia('(pointer: fine)').matches;
     var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    /* =========================================================
-       TEXT SPLIT
-       FIX: no immediate "split-ready"; triggered on scroll below
-       ========================================================= */
+    /* ============ TEXT SPLIT ============ */
     var splitTargets = document.querySelectorAll('[data-split]');
     for (var i = 0; i < splitTargets.length; i++) {
         var el = splitTargets[i];
@@ -2672,9 +2687,7 @@ footer {
         el.innerHTML = out;
     }
 
-    /* =========================================================
-       INTERSECTION OBSERVER — handles both .reveal and [data-split]
-       ========================================================= */
+    /* ============ INTERSECTION OBSERVER ============ */
     var animated = document.querySelectorAll('.reveal, [data-split]');
 
     if ('IntersectionObserver' in window && !reducedMotion) {
@@ -2727,9 +2740,7 @@ footer {
         for (var i = 0; i < counters.length; i++) cObs.observe(counters[i]);
     }
 
-    /* =========================================================
-       SCROLL PROGRESS + HEADER
-       ========================================================= */
+    /* ============ SCROLL PROGRESS + HEADER ============ */
     var progress = document.getElementById('progress');
     var header = document.getElementById('header');
     var ticking = false;
@@ -2745,9 +2756,7 @@ footer {
     }, { passive: true });
     onScroll();
 
-    /* =========================================================
-       CUSTOM CURSOR — only on desktop + no reduced motion
-       ========================================================= */
+    /* ============ CUSTOM CURSOR ============ */
     if (fine && !reducedMotion) {
         var dot = document.querySelector('.cursor');
         var ring = document.querySelector('.cursor-ring');
@@ -2779,9 +2788,7 @@ footer {
         });
     }
 
-    /* =========================================================
-       MAGNETIC BUTTONS — only on desktop
-       ========================================================= */
+    /* ============ MAGNETIC ============ */
     if (fine && !reducedMotion) {
         var magnets = document.querySelectorAll('[data-magnetic]');
         for (var i = 0; i < magnets.length; i++) {
@@ -2799,9 +2806,7 @@ footer {
         }
     }
 
-    /* =========================================================
-       MOBILE MENU
-       ========================================================= */
+    /* ============ MOBILE MENU ============ */
     var menuBtn = document.getElementById('menuBtn');
     var menuClose = document.getElementById('menuClose');
     var mmenu = document.getElementById('mmenu');
@@ -2818,9 +2823,7 @@ footer {
     var mlinks = mmenu.querySelectorAll('a');
     for (var i = 0; i < mlinks.length; i++) mlinks[i].addEventListener('click', closeMenu);
 
-    /* =========================================================
-       GALLERY FILTER + LIGHTBOX
-       ========================================================= */
+    /* ============ GALLERY FILTER + LIGHTBOX ============ */
     var filterBtns = document.querySelectorAll('.filters button');
     var gItems = document.querySelectorAll('.g-item');
 
@@ -2862,9 +2865,7 @@ footer {
         if (e.key === 'Escape' && lb.classList.contains('open')) closeLB();
     });
 
-    /* =========================================================
-       FAQ
-       ========================================================= */
+    /* ============ FAQ ============ */
     var faqQs = document.querySelectorAll('.faq-q');
     for (var i = 0; i < faqQs.length; i++) {
         faqQs[i].addEventListener('click', function() {
@@ -2881,9 +2882,7 @@ footer {
         });
     }
 
-    /* =========================================================
-       SMOOTH SCROLL
-       ========================================================= */
+    /* ============ SMOOTH SCROLL ============ */
     var anchors = document.querySelectorAll('a[href^="#"]');
     for (var i = 0; i < anchors.length; i++) {
         anchors[i].addEventListener('click', function(e) {
