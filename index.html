@@ -4,34 +4,34 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0A0E0C">
-<title>Aetheria — Ιδιωτική Βίλα Πολυτελείας | Κυκλάδες</title>
-<meta name="description" content="Aetheria — Ιδιωτική βίλα πολυτελείας στις Κυκλάδες με infinity pool, 3 master σουίτες και πανοραμική θέα στο Αιγαίο.">
+<title>Aetheria — Ιδιωτική Βίλα | Κυκλάδες</title>
+<meta name="description" content="Aetheria — Ιδιωτική βίλα πολυτελείας στις Κυκλάδες με infinity pool και πανοραμική θέα στο Αιγαίο.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter+Tight:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
 
 <style>
 /* =========================================================
-   RESET & VARIABLES
+   RESET
    ========================================================= */
 *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-    --ivory: #F6F1E8;
-    --cream: #EFE7D8;
-    --sand: #D9CDB6;
-    --stone: #8B8272;
+    --ivory: #F5EFE4;
+    --cream: #EDE4D3;
+    --sand: #D6C9AE;
+    --stone: #8A8072;
     --ink: #0A0E0C;
-    --ink-2: #131A16;
-    --bronze: #8C6F45;
+    --ink-2: #121815;
+    --bronze: #8B6F45;
     --gold: #C9A961;
-    --champagne: #E5D4A8;
-    --white: #FFFFFF;
+    --champagne: #E4D5AB;
+    --white: #fff;
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 html {
@@ -44,92 +44,213 @@ html {
 body {
     background: var(--ivory);
     color: var(--ink);
-    font-family: 'Jost', system-ui, -apple-system, sans-serif;
+    font-family: 'Inter Tight', system-ui, -apple-system, sans-serif;
     font-size: 15px;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1.7;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'ss01', 'cv11';
 }
 
-img, video { max-width: 100%; display: block; }
+img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
 ul { list-style: none; }
-
 ::selection { background: var(--gold); color: var(--ink); }
 
 /* =========================================================
-   SCROLL PROGRESS BAR
+   GRAIN + CURSOR
    ========================================================= */
-#progress {
+.grain {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    pointer-events: none;
+    opacity: 0.32;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+}
+
+.cursor, .cursor-ring {
     position: fixed;
     top: 0; left: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--gold), var(--bronze));
-    width: 0%;
-    z-index: 999;
-    transition: width 0.1s linear;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.cursor {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    mix-blend-mode: difference;
+}
+.cursor-ring {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    border: 1px solid var(--gold);
+    transition: width 0.3s var(--ease), height 0.3s var(--ease), background 0.3s var(--ease), opacity 0.3s, border-color 0.3s;
+}
+.cursor-ring.hover {
+    width: 72px; height: 72px;
+    background: rgba(201, 169, 97, 0.15);
+    border-color: var(--gold);
+}
+.cursor-ring.text {
+    width: 90px; height: 90px;
+    background: rgba(10, 14, 12, 0.9);
+    border-color: transparent;
+}
+.cursor-ring.text::before {
+    content: 'ΔΕΙΤΕ';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    color: var(--gold);
+    font-weight: 400;
+}
+@media (pointer: coarse) {
+    .cursor, .cursor-ring { display: none; }
+    .grain { opacity: 0.18; }
 }
 
 /* =========================================================
    TYPOGRAPHY
    ========================================================= */
 .serif {
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'Fraunces', Georgia, serif;
     font-weight: 400;
-    letter-spacing: -0.015em;
-    line-height: 1.1;
+    letter-spacing: -0.02em;
+    line-height: 1.02;
+    font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
 }
 .h1 {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: clamp(2.25rem, 4.5vw, 4rem);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(2.25rem, 5vw, 4.25rem);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
     font-weight: 400;
+    font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
 }
 .h2 {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: clamp(1.5rem, 2vw, 2rem);
-    line-height: 1.2;
-    font-weight: 500;
-    letter-spacing: -0.01em;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.5rem, 2.2vw, 2.125rem);
+    line-height: 1.15;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    font-variation-settings: 'opsz' 96, 'SOFT' 30, 'WONK' 1;
 }
 .em {
     font-style: italic;
     color: var(--bronze);
-    font-weight: 400;
+    font-weight: 300;
+    font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
 }
 
 .eyebrow {
-    display: block;
-    font-family: 'Jost', sans-serif;
-    font-size: 11px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 10.5px;
     letter-spacing: 0.32em;
     text-transform: uppercase;
-    font-weight: 400;
+    font-weight: 500;
     color: var(--gold);
-    margin-bottom: 1.75rem;
+    margin-bottom: 2rem;
 }
-.eyebrow.with-rule::after {
+.eyebrow::before {
     content: '';
-    display: inline-block;
-    width: 48px;
-    height: 1px;
+    display: block;
+    width: 42px; height: 1px;
     background: var(--gold);
-    opacity: 0.5;
-    margin-left: 1.25rem;
-    vertical-align: middle;
+    opacity: 0.6;
 }
+.eyebrow.light { color: var(--champagne); }
+.eyebrow.light::before { background: var(--champagne); }
 
 .lead {
     font-size: 15.5px;
     line-height: 1.85;
-    color: rgba(10, 14, 12, 0.72);
-    font-weight: 300;
+    color: rgba(10, 14, 12, 0.68);
+    font-weight: 400;
+    letter-spacing: -0.005em;
 }
 @media (min-width: 768px) { .lead { font-size: 16.5px; } }
+
+/* =========================================================
+   TEXT SPLIT REVEAL
+   ========================================================= */
+.split-line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.05em;
+    margin-bottom: -0.05em;
+}
+.split-line > span {
+    display: inline-block;
+    transform: translateY(110%);
+    transition: transform 1s var(--ease-out);
+    transition-delay: var(--d, 0s);
+}
+.split-ready .split-line > span { transform: translateY(0); }
+
+/* Fallback: αν δεν τρέξει JS, ορατά */
+html:not(.js-ready) .split-line > span { transform: none !important; }
+
+/* =========================================================
+   REVEAL
+   ========================================================= */
+.reveal {
+    transition: opacity 1.1s var(--ease-out), transform 1.1s var(--ease-out);
+}
+html.js-ready .reveal { opacity: 0; transform: translate3d(0, 50px, 0); }
+html.js-ready .reveal.in { opacity: 1; transform: none; }
+html.js-ready .reveal.d1 { transition-delay: 0.1s; }
+html.js-ready .reveal.d2 { transition-delay: 0.2s; }
+html.js-ready .reveal.d3 { transition-delay: 0.3s; }
+html.js-ready .reveal.d4 { transition-delay: 0.4s; }
+
+/* Image clip reveal */
+.clip-reveal {
+    clip-path: inset(100% 0 0 0);
+    transition: clip-path 1.4s var(--ease-out);
+}
+html:not(.js-ready) .clip-reveal { clip-path: none; }
+.clip-reveal.in { clip-path: inset(0 0 0 0); }
+
+/* =========================================================
+   LINE DRAW
+   ========================================================= */
+.draw-line { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.6s var(--ease-out) 0.3s; }
+html:not(.js-ready) .draw-line { stroke-dashoffset: 0; }
+.draw-line.in { stroke-dashoffset: 0; }
+
+/* =========================================================
+   SVG ICON BASE
+   ========================================================= */
+.icon {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    vertical-align: middle;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.25;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex-shrink: 0;
+}
+.icon-lg { width: 1.5em; height: 1.5em; stroke-width: 1; }
+.icon-xl { width: 2em; height: 2em; stroke-width: 0.85; }
 
 /* =========================================================
    HEADER
@@ -139,7 +260,7 @@ header {
     top: 0; left: 0; right: 0;
     z-index: 100;
     padding: 1.75rem 1.5rem;
-    transition: padding 0.5s var(--ease), background-color 0.5s var(--ease), box-shadow 0.5s var(--ease);
+    transition: padding 0.6s var(--ease), background-color 0.6s var(--ease), box-shadow 0.6s var(--ease), backdrop-filter 0.6s;
 }
 @media (min-width: 768px) { header { padding: 2rem 3rem; } }
 @media (min-width: 1280px) { header { padding: 2rem 5rem; } }
@@ -147,14 +268,14 @@ header {
 header.scrolled {
     padding-top: 1rem;
     padding-bottom: 1rem;
-    background: rgba(246, 241, 232, 0.96);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 1px 0 rgba(139, 130, 114, 0.14);
+    background: rgba(245, 239, 228, 0.92);
+    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
+    box-shadow: 0 1px 0 rgba(138, 128, 114, 0.14);
 }
 
 .header-inner {
-    max-width: 1440px;
+    max-width: 1520px;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -165,101 +286,114 @@ header.scrolled {
 .brand {
     display: flex;
     flex-direction: column;
-    color: var(--white);
-    transition: color 0.5s var(--ease);
     line-height: 1;
-    text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+    color: var(--white);
+    transition: color 0.6s var(--ease);
+    text-shadow: 0 2px 24px rgba(0,0,0,0.4);
 }
 header.scrolled .brand { color: var(--ink); text-shadow: none; }
-
 .brand-mark {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 1.625rem;
-    letter-spacing: 0.06em;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.75rem;
     font-weight: 500;
+    letter-spacing: -0.01em;
+    font-variation-settings: 'opsz' 96, 'SOFT' 50, 'WONK' 1;
 }
-@media (min-width: 768px) { .brand-mark { font-size: 1.875rem; } }
-
+@media (min-width: 768px) { .brand-mark { font-size: 2rem; } }
 .brand-suffix {
-    font-family: 'Jost', sans-serif;
-    font-size: 9px;
-    letter-spacing: 0.4em;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 8.5px;
+    letter-spacing: 0.42em;
     text-transform: uppercase;
-    opacity: 0.75;
+    opacity: 0.7;
     margin-top: 0.375rem;
     font-weight: 400;
+    padding-left: 2px;
 }
 
 .nav-desk { display: none; align-items: center; gap: 2.5rem; }
 @media (min-width: 1024px) { .nav-desk { display: flex; } }
-
 .nav-desk a {
-    font-size: 12.5px;
-    letter-spacing: 0.16em;
+    font-size: 11.5px;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    font-weight: 400;
-    color: rgba(255,255,255,0.92);
+    font-weight: 500;
+    color: rgba(255,255,255,0.94);
     padding: 0.5rem 0;
     position: relative;
     transition: color 0.3s var(--ease);
-    text-shadow: 0 1px 14px rgba(0,0,0,0.35);
+    text-shadow: 0 1px 16px rgba(0,0,0,0.4);
 }
 header.scrolled .nav-desk a { color: rgba(10, 14, 12, 0.78); text-shadow: none; }
 .nav-desk a::after {
     content: '';
     position: absolute;
     bottom: 0; left: 0;
-    width: 0; height: 1px;
-    background: var(--gold);
-    transition: width 0.45s var(--ease);
+    width: 100%; height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s var(--ease);
 }
-.nav-desk a:hover::after { width: 100%; }
+.nav-desk a:hover::after { transform: scaleX(1); transform-origin: left; }
 .nav-desk a:hover { color: var(--gold); }
 
 .cta-reserve {
     display: none;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.875rem 1.75rem;
-    font-size: 12px;
-    letter-spacing: 0.18em;
+    gap: 0.875rem;
+    padding: 0.875rem 1.625rem;
+    font-size: 11px;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    font-weight: 400;
+    font-weight: 500;
     color: var(--white);
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.4);
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.5);
     border-radius: 999px;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    transition: all 0.4s var(--ease);
+    transition: all 0.5s var(--ease);
     text-shadow: 0 1px 12px rgba(0,0,0,0.3);
+    position: relative;
+    overflow: hidden;
 }
 @media (min-width: 900px) { .cta-reserve { display: inline-flex; } }
-.cta-reserve:hover { background: var(--gold); border-color: var(--gold); color: var(--ink); text-shadow: none; }
-header.scrolled .cta-reserve { color: var(--ink); border-color: rgba(10,14,12,0.2); background: transparent; text-shadow: none; }
-header.scrolled .cta-reserve:hover { color: var(--ink); background: var(--gold); border-color: var(--gold); }
+.cta-reserve::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold);
+    transform: translateY(101%);
+    transition: transform 0.5s var(--ease);
+    z-index: -1;
+}
+.cta-reserve:hover::before { transform: translateY(0); }
+.cta-reserve:hover { color: var(--ink); border-color: var(--gold); text-shadow: none; }
+header.scrolled .cta-reserve { color: var(--ink); border-color: rgba(10,14,12,0.2); text-shadow: none; }
 
 .cta-reserve .dot {
     width: 6px; height: 6px;
     border-radius: 50%;
     background: var(--gold);
     box-shadow: 0 0 12px var(--gold);
-    animation: pulse 2s ease-in-out infinite;
+    animation: pulse 2.4s ease-in-out infinite;
 }
 @keyframes pulse {
     0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(0.85); }
+    50% { opacity: 0.5; transform: scale(0.7); }
 }
 
 .menu-btn {
     color: var(--white);
     padding: 0.5rem;
-    font-size: 1.375rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: color 0.3s;
-    text-shadow: 0 1px 12px rgba(0,0,0,0.35);
+    text-shadow: 0 1px 12px rgba(0,0,0,0.4);
 }
 header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 @media (min-width: 1024px) { .menu-btn { display: none; } }
+.menu-btn .icon { width: 26px; height: 26px; }
 
 /* =========================================================
    MOBILE MENU
@@ -274,57 +408,57 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     flex-direction: column;
     overflow-y: auto;
 }
-#mmenu.open { display: flex; animation: fadeIn 0.4s var(--ease-out); }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
+#mmenu.open { display: flex; }
 .m-close {
     align-self: flex-end;
     color: var(--ivory);
-    font-size: 1.5rem;
     padding: 0.5rem;
     margin-bottom: 2rem;
-    transition: color 0.3s;
+    transition: color 0.3s, transform 0.4s var(--ease);
 }
-.m-close:hover { color: var(--gold); }
+.m-close:hover { color: var(--gold); transform: rotate(90deg); }
+.m-close .icon { width: 28px; height: 28px; }
 
 .m-brand {
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'Fraunces', Georgia, serif;
     font-size: 1.125rem;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.24em;
     color: var(--gold);
     margin-bottom: 3rem;
     text-align: center;
+    font-variation-settings: 'opsz' 96, 'WONK' 1;
 }
 
 #mmenu nav { display: flex; flex-direction: column; }
 #mmenu nav a {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 2rem;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 2.125rem;
     font-weight: 400;
     color: var(--ivory);
-    padding: 1.25rem 0;
-    border-bottom: 1px solid rgba(246, 241, 232, 0.08);
-    transition: color 0.3s, padding-left 0.4s var(--ease);
+    padding: 1.375rem 0;
+    border-bottom: 1px solid rgba(245, 239, 228, 0.08);
+    transition: color 0.35s, padding-left 0.5s var(--ease);
     display: flex;
     align-items: baseline;
-    gap: 1rem;
+    gap: 1.25rem;
+    font-variation-settings: 'opsz' 144, 'SOFT' 50, 'WONK' 1;
 }
-#mmenu nav a:hover { color: var(--gold); padding-left: 0.5rem; }
+#mmenu nav a:hover { color: var(--gold); padding-left: 0.75rem; }
 #mmenu nav a::before {
     content: attr(data-i);
-    font-family: 'Jost', sans-serif;
-    font-size: 11px;
-    letter-spacing: 0.2em;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
     color: var(--champagne);
-    font-weight: 400;
-    opacity: 0.7;
+    font-weight: 500;
+    opacity: 0.6;
 }
 .m-actions {
     margin-top: auto;
     padding-top: 3rem;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.875rem;
 }
 
 /* =========================================================
@@ -336,11 +470,11 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     justify-content: center;
     gap: 0.875rem;
     padding: 1.125rem 2.25rem;
-    font-family: 'Jost', sans-serif;
-    font-size: 12.5px;
-    letter-spacing: 0.2em;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 11.5px;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
-    font-weight: 400;
+    font-weight: 500;
     color: var(--ivory);
     background: var(--ink);
     border: 1px solid var(--ink);
@@ -349,34 +483,24 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     overflow: hidden;
     transition: color 0.5s var(--ease), border-color 0.5s var(--ease);
     border-radius: 0;
+    will-change: transform;
 }
-.btn .btn-text { position: relative; z-index: 2; }
-.btn .arrow {
-    position: relative;
-    z-index: 2;
-    display: inline-block;
-    transition: transform 0.5s var(--ease);
-    font-size: 1em;
-}
+.btn .btn-text, .btn .icon { position: relative; z-index: 2; }
+.btn .icon { transition: transform 0.5s var(--ease); }
 .btn::before {
     content: '';
     position: absolute;
     inset: 0;
     background: var(--gold);
-    transform: scaleY(0);
-    transform-origin: bottom;
-    transition: transform 0.5s var(--ease);
+    transform: translateY(101%);
+    transition: transform 0.55s var(--ease);
     z-index: 1;
 }
-.btn:hover::before { transform: scaleY(1); transform-origin: top; }
+.btn:hover::before { transform: translateY(0); }
 .btn:hover { color: var(--ink); border-color: var(--gold); }
-.btn:hover .arrow { transform: translateX(6px); }
+.btn:hover .icon { transform: translateX(6px); }
 
-.btn-ivory {
-    background: var(--ivory);
-    color: var(--ink);
-    border-color: var(--ivory);
-}
+.btn-ivory { background: var(--ivory); color: var(--ink); border-color: var(--ivory); }
 .btn-ivory::before { background: var(--ink); }
 .btn-ivory:hover { color: var(--ivory); border-color: var(--ink); }
 
@@ -388,18 +512,14 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 .btn-outline::before { background: var(--ivory); }
 .btn-outline:hover { color: var(--ink); border-color: var(--ivory); }
 
-.btn-gold {
-    background: var(--gold);
-    color: var(--ink);
-    border-color: var(--gold);
-}
+.btn-gold { background: var(--gold); color: var(--ink); border-color: var(--gold); }
 .btn-gold::before { background: var(--ink); }
 .btn-gold:hover { color: var(--ivory); border-color: var(--ink); }
 
 .btn-block { width: 100%; }
 
 .btn-round {
-    width: 60px; height: 60px;
+    width: 62px; height: 62px;
     border-radius: 50%;
     padding: 0;
     display: flex;
@@ -407,22 +527,50 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     justify-content: center;
     background: var(--gold);
     color: var(--ink);
-    box-shadow: 0 20px 40px -12px rgba(201, 169, 97, 0.6);
-    transition: all 0.4s var(--ease);
+    box-shadow: 0 20px 44px -12px rgba(201, 169, 97, 0.65);
+    transition: all 0.5s var(--ease);
     border: none;
     cursor: pointer;
+    will-change: transform;
 }
-.btn-round:hover { transform: scale(1.1) rotate(8deg); background: var(--ink); color: var(--gold); }
+.btn-round .icon { width: 22px; height: 22px; stroke-width: 1.4; }
+.btn-round:hover { background: var(--ink); color: var(--gold); }
 
 /* =========================================================
    LAYOUT
    ========================================================= */
-.section { padding: 7rem 1.5rem; }
+.section { padding: 7rem 1.5rem; position: relative; }
 @media (min-width: 768px) { .section { padding: 9rem 3rem; } }
-@media (min-width: 1280px) { .section { padding: 10rem 5rem; } }
+@media (min-width: 1280px) { .section { padding: 11rem 5rem; } }
+.container { max-width: 1520px; margin: 0 auto; }
 
-.container { max-width: 1440px; margin: 0 auto; }
-.container-narrow { max-width: 980px; margin: 0 auto; }
+/* Section number */
+.sec-num {
+    position: absolute;
+    top: 2rem; right: 1.5rem;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--stone);
+    font-weight: 500;
+    writing-mode: horizontal-tb;
+}
+@media (min-width: 768px) { .sec-num { top: 3rem; right: 3rem; } }
+@media (min-width: 1280px) { .sec-num { right: 5rem; } }
+.sec-num.light { color: rgba(228, 213, 171, 0.6); }
+
+/* =========================================================
+   PROGRESS BAR
+   ========================================================= */
+#progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--bronze));
+    width: 0%;
+    z-index: 999;
+    transition: width 0.08s linear;
+}
 
 /* =========================================================
    HERO
@@ -436,52 +584,43 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     overflow: hidden;
     color: var(--ivory);
     background: var(--ink);
-    padding: 9rem 1.5rem 4rem;
+    padding: 9rem 1.5rem 3rem;
 }
-@media (min-width: 768px) { .hero { padding: 10rem 3rem 5rem; } }
-@media (min-width: 1280px) { .hero { padding: 10rem 5rem 5.5rem; } }
+@media (min-width: 768px) { .hero { padding: 10rem 3rem 4rem; } }
+@media (min-width: 1280px) { .hero { padding: 10rem 5rem 4.5rem; } }
 
-.hero-bg {
-    position: absolute; inset: 0;
-    z-index: 0;
-}
+.hero-bg { position: absolute; inset: 0; z-index: 0; }
 .hero-slide {
     position: absolute;
     inset: 0;
     opacity: 0;
-    animation: heroCycle 21s infinite;
+    animation: heroCycle 27s infinite;
 }
 .hero-slide:nth-child(1) { animation-delay: 0s; }
-.hero-slide:nth-child(2) { animation-delay: 7s; }
-.hero-slide:nth-child(3) { animation-delay: 14s; }
+.hero-slide:nth-child(2) { animation-delay: 9s; }
+.hero-slide:nth-child(3) { animation-delay: 18s; }
+.hero-slide:first-child { opacity: 1; }
 
 .hero-slide img {
     width: 100%; height: 100%;
     object-fit: cover;
     object-position: center;
-    transform: scale(1.05);
-    animation: kenBurns 21s infinite;
+    transform: scale(1.08);
+    animation: kenBurns 27s infinite ease-in-out;
 }
-.hero-slide:nth-child(2) img { animation-delay: 7s; }
-.hero-slide:nth-child(3) img { animation-delay: 14s; }
+.hero-slide:nth-child(2) img { animation-delay: 9s; }
+.hero-slide:nth-child(3) img { animation-delay: 18s; }
 
 @keyframes kenBurns {
-    0%, 100% { transform: scale(1.05) translate(0, 0); }
-    50% { transform: scale(1.15) translate(-2%, -1%); }
+    0%, 100% { transform: scale(1.08) translate(0, 0); }
+    50% { transform: scale(1.18) translate(-1.5%, -1%); }
 }
 @keyframes heroCycle {
     0% { opacity: 0; }
-    5% { opacity: 1; }
-    28% { opacity: 1; }
-    33% { opacity: 0; }
+    4% { opacity: 1; }
+    30% { opacity: 1; }
+    34% { opacity: 0; }
     100% { opacity: 0; }
-}
-/* fallback: show first if animations off */
-@media (prefers-reduced-motion: reduce) {
-    .hero-slide { animation: none !important; opacity: 0; }
-    .hero-slide:first-child { opacity: 1; }
-    .hero-slide img { animation: none !important; }
-    .reveal { opacity: 1 !important; transform: none !important; }
 }
 
 .hero-veil {
@@ -490,16 +629,16 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     background:
         linear-gradient(180deg,
             rgba(10, 14, 12, 0.55) 0%,
-            rgba(10, 14, 12, 0.15) 35%,
-            rgba(10, 14, 12, 0.55) 65%,
-            rgba(10, 14, 12, 0.95) 100%);
+            rgba(10, 14, 12, 0.12) 35%,
+            rgba(10, 14, 12, 0.55) 68%,
+            rgba(10, 14, 12, 0.96) 100%);
     pointer-events: none;
 }
 
 .hero-content {
     position: relative;
     z-index: 3;
-    max-width: 1440px;
+    max-width: 1520px;
     width: 100%;
     margin: 0 auto;
 }
@@ -509,57 +648,65 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    margin-bottom: 3rem;
+    margin-bottom: 3.5rem;
     padding-bottom: 1.75rem;
-    border-bottom: 1px solid rgba(246, 241, 232, 0.18);
+    border-bottom: 1px solid rgba(245, 239, 228, 0.18);
     flex-wrap: wrap;
-    animation: slideUp 1s 0.2s both var(--ease-out);
 }
-@keyframes slideUp {
-    from { opacity: 0; transform: translateY(30px); }
+.hero-top > * {
+    animation: fadeUp 1.2s var(--ease-out) both;
+}
+.hero-top > *:nth-child(1) { animation-delay: 0.2s; }
+.hero-top > *:nth-child(2) { animation-delay: 0.3s; }
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
 .hero-tag {
-    font-size: 11px;
-    letter-spacing: 0.28em;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 10.5px;
+    letter-spacing: 0.32em;
     text-transform: uppercase;
-    color: rgba(246, 241, 232, 0.9);
-    font-weight: 400;
+    color: rgba(245, 239, 228, 0.9);
+    font-weight: 500;
     display: flex;
     align-items: center;
     gap: 0.875rem;
 }
 .hero-tag::before {
     content: '';
-    width: 32px; height: 1px;
+    width: 42px; height: 1px;
     background: var(--gold);
     box-shadow: 0 0 8px var(--gold);
 }
 .hero-coords {
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'Fraunces', Georgia, serif;
     font-size: 15px;
     font-style: italic;
-    color: rgba(246, 241, 232, 0.75);
-    letter-spacing: 0.05em;
+    color: rgba(245, 239, 228, 0.7);
+    font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
+    letter-spacing: 0.02em;
 }
 
 .hero-title {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-weight: 400;
-    font-size: clamp(2.75rem, 7.5vw, 6.5rem);
-    line-height: 0.98;
-    letter-spacing: -0.03em;
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 300;
+    font-size: clamp(2.75rem, 8vw, 7rem);
+    line-height: 0.96;
+    letter-spacing: -0.035em;
     color: var(--ivory);
-    text-shadow: 0 4px 60px rgba(0,0,0,0.5);
-    max-width: 14ch;
-    margin-bottom: 2.5rem;
-    animation: slideUp 1.2s 0.4s both var(--ease-out);
+    text-shadow: 0 6px 80px rgba(0,0,0,0.5);
+    max-width: 15ch;
+    margin-bottom: 3rem;
+    font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
 }
 .hero-title em {
     font-style: italic;
     font-weight: 300;
     color: var(--champagne);
+    font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
 }
 
 .hero-bottom {
@@ -568,107 +715,182 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     gap: 2.5rem;
     margin-top: 4rem;
     padding-top: 3rem;
-    border-top: 1px solid rgba(246, 241, 232, 0.18);
+    border-top: 1px solid rgba(245, 239, 228, 0.18);
     align-items: end;
-    animation: slideUp 1.2s 0.7s both var(--ease-out);
 }
 @media (min-width: 900px) {
     .hero-bottom { grid-template-columns: 1.1fr 1fr; gap: 5rem; }
 }
+.hero-bottom > * { animation: fadeUp 1.2s var(--ease-out) both; }
+.hero-bottom > *:nth-child(1) { animation-delay: 0.8s; }
+.hero-bottom > *:nth-child(2) { animation-delay: 0.95s; }
 
 .hero-desc {
-    max-width: 520px;
-    font-size: 16px;
+    max-width: 540px;
+    font-size: 15.5px;
     line-height: 1.85;
-    color: rgba(246, 241, 232, 0.9);
-    font-weight: 300;
-    text-shadow: 0 2px 20px rgba(0,0,0,0.35);
+    color: rgba(245, 239, 228, 0.9);
+    font-weight: 400;
+    text-shadow: 0 2px 22px rgba(0,0,0,0.4);
+    letter-spacing: -0.005em;
 }
-
 .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: flex-start; }
 @media (min-width: 900px) { .hero-actions { justify-content: flex-end; } }
+
+/* Rotating seal */
+.hero-seal {
+    position: absolute;
+    top: 50%; right: 3rem;
+    transform: translateY(-50%);
+    width: 130px; height: 130px;
+    z-index: 4;
+    pointer-events: none;
+    display: none;
+}
+@media (min-width: 1200px) { .hero-seal { display: block; right: 4.5rem; } }
+.hero-seal svg { width: 100%; height: 100%; animation: spin 28s linear infinite; }
+.hero-seal text {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 9.5px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    fill: var(--champagne);
+    font-weight: 500;
+}
+.hero-seal .seal-ring { fill: none; stroke: var(--gold); stroke-width: 0.6; opacity: 0.5; }
+.hero-seal .seal-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+}
+.hero-seal .seal-center svg { width: 30px; height: 30px; animation: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
 
 .hero-scroll {
     position: absolute;
     bottom: 2.5rem;
-    right: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 3;
-    font-size: 10px;
-    letter-spacing: 0.4em;
+    font-size: 9.5px;
+    letter-spacing: 0.42em;
     text-transform: uppercase;
-    color: rgba(246, 241, 232, 0.6);
-    font-weight: 400;
-    writing-mode: vertical-rl;
+    color: rgba(245, 239, 228, 0.55);
+    font-weight: 500;
     display: none;
+    flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 0.875rem;
+    animation: fadeUp 1.2s var(--ease-out) 1.2s both;
 }
-@media (min-width: 1024px) { .hero-scroll { display: flex; right: 5rem; } }
-.hero-scroll::after {
+@media (min-width: 1024px) { .hero-scroll { display: flex; } }
+.hero-scroll .icon { width: 14px; height: 14px; animation: scrollArrow 2.2s ease-in-out infinite; }
+@keyframes scrollArrow {
+    0%, 100% { transform: translateY(0); opacity: 0.6; }
+    50% { transform: translateY(6px); opacity: 1; }
+}
+
+/* =========================================================
+   MARQUEE
+   ========================================================= */
+.marquee {
+    background: var(--ink);
+    color: var(--champagne);
+    padding: 1.75rem 0;
+    overflow: hidden;
+    border-top: 1px solid rgba(245, 239, 228, 0.08);
+    border-bottom: 1px solid rgba(245, 239, 228, 0.08);
+    position: relative;
+}
+.marquee-track {
+    display: flex;
+    gap: 3rem;
+    animation: marquee 40s linear infinite;
+    white-space: nowrap;
+    width: max-content;
+}
+.marquee-track span {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    font-variation-settings: 'opsz' 96, 'SOFT' 50, 'WONK' 1;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+.marquee-track span::after {
     content: '';
-    width: 1px; height: 60px;
-    background: linear-gradient(180deg, rgba(246, 241, 232, 0.6), transparent);
-    animation: scrollHint 2.4s ease-in-out infinite;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0.7;
 }
-@keyframes scrollHint {
-    0%, 100% { transform: scaleY(0.4); transform-origin: top; }
-    50% { transform: scaleY(1); transform-origin: top; }
+.marquee-track em { font-style: italic; color: var(--gold); }
+@keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
 }
 
 /* =========================================================
    INTRO
    ========================================================= */
-.intro {
-    background: var(--ivory);
-    position: relative;
-}
+.intro { background: var(--ivory); overflow: hidden; }
 .intro-grid {
     display: grid;
     gap: 4rem;
     align-items: center;
 }
 @media (min-width: 1024px) {
-    .intro-grid { grid-template-columns: 1fr 1.1fr; gap: 7rem; }
+    .intro-grid { grid-template-columns: 1fr 1.1fr; gap: 8rem; }
 }
-.intro-copy { max-width: 560px; }
-.intro-copy h2 { margin-bottom: 2rem; color: var(--ink); }
+.intro-copy { max-width: 580px; }
+.intro-copy h2 { margin-bottom: 2.25rem; color: var(--ink); }
 .intro-copy .lead + .lead { margin-top: 1.5rem; }
 
 .intro-stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
-    margin-top: 3.5rem;
+    margin-top: 4rem;
     padding-top: 3rem;
     border-top: 1px solid var(--sand);
 }
 .stat { display: flex; flex-direction: column; gap: 0.75rem; }
 .stat-v {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: clamp(2.25rem, 3.5vw, 3rem);
-    font-weight: 500;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    font-weight: 400;
     line-height: 1;
     color: var(--bronze);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
+    font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
+    display: flex;
+    align-items: baseline;
+    gap: 0.125em;
 }
+.stat-v .num { display: inline-block; font-variant-numeric: tabular-nums; }
 .stat-v sup {
-    font-size: 0.4em;
+    font-size: 0.42em;
     vertical-align: super;
     opacity: 0.7;
-    margin-left: 0.125em;
     font-style: italic;
+    font-weight: 300;
 }
 .stat-k {
-    font-size: 10.5px;
-    letter-spacing: 0.24em;
+    font-size: 10px;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
     color: var(--stone);
-    font-weight: 400;
+    font-weight: 500;
 }
 
 .intro-visual {
     display: grid;
-    grid-template-columns: 1.4fr 1fr;
+    grid-template-columns: 1.35fr 1fr;
     gap: 1.25rem;
     position: relative;
 }
@@ -680,7 +902,7 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 .intro-visual .frame img {
     width: 100%; height: 100%;
     object-fit: cover;
-    transition: transform 1.5s var(--ease);
+    transition: transform 1.6s var(--ease);
 }
 @media (hover: hover) {
     .intro-visual .frame:hover img { transform: scale(1.06); }
@@ -691,10 +913,10 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 .badge {
     position: absolute;
     bottom: 3rem;
-    left: -1rem;
+    left: -1.25rem;
     background: var(--ivory);
-    padding: 1.25rem 1.75rem;
-    box-shadow: 0 40px 80px -25px rgba(10, 14, 12, 0.3);
+    padding: 1.375rem 1.875rem;
+    box-shadow: 0 40px 80px -25px rgba(10, 14, 12, 0.28);
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
@@ -702,66 +924,75 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     border-left: 3px solid var(--gold);
 }
 .badge strong {
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'Fraunces', Georgia, serif;
     font-weight: 500;
-    font-size: 1.875rem;
+    font-size: 2rem;
     line-height: 1;
     color: var(--bronze);
+    font-variation-settings: 'opsz' 144, 'WONK' 1;
 }
 .badge small {
-    font-size: 10px;
-    letter-spacing: 0.24em;
+    font-size: 9.5px;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
     color: var(--stone);
-    font-weight: 400;
+    font-weight: 500;
 }
 @media (max-width: 640px) {
     .badge { left: 0; bottom: 1rem; padding: 0.875rem 1.25rem; }
+    .badge strong { font-size: 1.5rem; }
 }
 
 /* =========================================================
    AMENITIES
    ========================================================= */
-.amenities {
-    background: var(--ink);
-    color: var(--ivory);
+.amenities { background: var(--ink); color: var(--ivory); position: relative; overflow: hidden; }
+.amenities::before {
+    content: '';
+    position: absolute;
+    top: -30%; left: -15%;
+    width: 60%; height: 80%;
+    background: radial-gradient(ellipse, rgba(201, 169, 97, 0.08), transparent 65%);
+    pointer-events: none;
 }
 .amenities-head {
     display: grid;
     gap: 2.5rem;
-    margin-bottom: 5rem;
+    margin-bottom: 6rem;
     align-items: end;
+    position: relative;
 }
 @media (min-width: 900px) {
     .amenities-head { grid-template-columns: 1.4fr 1fr; gap: 6rem; }
 }
-.amenities .eyebrow { color: var(--gold); }
 .amenities .h1 { color: var(--ivory); }
 .amenities .em { color: var(--champagne); }
 .amenities-head-right {
     font-size: 15px;
-    color: rgba(246, 241, 232, 0.65);
-    line-height: 1.85;
-    max-width: 420px;
+    color: rgba(245, 239, 228, 0.62);
+    line-height: 1.9;
+    max-width: 440px;
     padding-bottom: 0.75rem;
+    font-weight: 400;
 }
 
 .amenities-grid {
     display: grid;
     grid-template-columns: 1fr;
-    border-top: 1px solid rgba(246, 241, 232, 0.12);
+    border-top: 1px solid rgba(245, 239, 228, 0.12);
+    position: relative;
 }
 @media (min-width: 640px) { .amenities-grid { grid-template-columns: 1fr 1fr; } }
 @media (min-width: 1024px) { .amenities-grid { grid-template-columns: repeat(3, 1fr); } }
 
 .amenity {
     padding: 3rem 2rem;
-    border-bottom: 1px solid rgba(246, 241, 232, 0.12);
-    border-right: 1px solid rgba(246, 241, 232, 0.12);
+    border-bottom: 1px solid rgba(245, 239, 228, 0.12);
+    border-right: 1px solid rgba(245, 239, 228, 0.12);
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    transition: background-color 0.5s var(--ease);
+    transition: background-color 0.6s var(--ease);
     min-height: 300px;
     position: relative;
     overflow: hidden;
@@ -772,74 +1003,78 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 @media (min-width: 1024px) {
     .amenity:nth-child(3n) { border-right: none; }
 }
-.amenity::before {
+.amenity::after {
     content: '';
     position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 0;
-    background: linear-gradient(180deg, transparent, rgba(201, 169, 97, 0.08));
-    transition: height 0.6s var(--ease);
+    inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(201, 169, 97, 0.1));
+    opacity: 0;
+    transition: opacity 0.6s var(--ease);
     pointer-events: none;
 }
 @media (hover: hover) {
-    .amenity:hover::before { height: 100%; }
-    .amenity:hover .amenity-icon { color: var(--gold); transform: translateY(-4px); }
+    .amenity:hover::after { opacity: 1; }
+    .amenity:hover .amenity-icon { color: var(--gold); transform: translateY(-6px) rotate(-4deg); }
+    .amenity:hover .amenity-num { color: var(--gold); opacity: 1; }
 }
-
 .amenity-num {
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'Fraunces', Georgia, serif;
     font-style: italic;
-    font-size: 15px;
+    font-size: 14px;
     color: var(--champagne);
-    opacity: 0.7;
+    opacity: 0.65;
+    transition: color 0.5s, opacity 0.5s;
+    font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1;
 }
 .amenity-icon {
     color: var(--champagne);
-    font-size: 1.75rem;
-    transition: color 0.4s var(--ease), transform 0.4s var(--ease);
-    display: inline-block;
+    transition: color 0.5s var(--ease), transform 0.5s var(--ease);
+    display: inline-flex;
+    width: 32px; height: 32px;
 }
+.amenity-icon svg { width: 100%; height: 100%; stroke-width: 1; }
 .amenity h3 {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-weight: 500;
-    font-size: 1.625rem;
-    line-height: 1.2;
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 400;
+    font-size: 1.75rem;
+    line-height: 1.15;
     color: var(--ivory);
     margin-top: auto;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.015em;
+    font-variation-settings: 'opsz' 96, 'SOFT' 50, 'WONK' 1;
 }
 .amenity p {
     font-size: 14px;
-    color: rgba(246, 241, 232, 0.65);
-    line-height: 1.8;
-    font-weight: 300;
+    color: rgba(245, 239, 228, 0.62);
+    line-height: 1.85;
+    font-weight: 400;
 }
 
 /* =========================================================
    SUITES
    ========================================================= */
 .suites { background: var(--ivory); }
-.suites-head { text-align: center; margin-bottom: 5rem; }
-.suites-head h2 { max-width: 20ch; margin: 0 auto; }
+.suites-head { text-align: center; margin-bottom: 6rem; }
+.suites-head .eyebrow { justify-content: center; }
+.suites-head .eyebrow::before { display: none; }
+.suites-head h2 { max-width: 22ch; margin: 0 auto; }
 
-.suites-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-}
+.suites-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
 @media (min-width: 768px) { .suites-grid { grid-template-columns: repeat(3, 1fr); } }
 
 .suite {
     background: var(--ivory);
     border: 1px solid var(--sand);
     overflow: hidden;
-    transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease), border-color 0.5s var(--ease);
+    transition: transform 0.6s var(--ease), box-shadow 0.6s var(--ease), border-color 0.6s var(--ease);
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 @media (hover: hover) {
-    .suite:hover { transform: translateY(-8px); border-color: var(--gold); box-shadow: 0 40px 80px -30px rgba(10,14,12,0.25); }
-    .suite:hover .suite-img img { transform: scale(1.08); }
+    .suite:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: 0 50px 100px -35px rgba(10,14,12,0.28); }
+    .suite:hover .suite-img img { transform: scale(1.1); }
+    .suite:hover .suite-tag { background: var(--gold); color: var(--ink); }
 }
 .suite-img {
     aspect-ratio: 4/5;
@@ -850,33 +1085,36 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 .suite-img img {
     width: 100%; height: 100%;
     object-fit: cover;
-    transition: transform 1s var(--ease);
+    transition: transform 1.3s var(--ease);
 }
 .suite-tag {
     position: absolute;
     top: 1.5rem; left: 1.5rem;
-    background: rgba(10, 14, 12, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(10, 14, 12, 0.9);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     color: var(--champagne);
-    padding: 0.5rem 1rem;
-    font-size: 10px;
-    letter-spacing: 0.28em;
+    padding: 0.625rem 1.125rem;
+    font-size: 9.5px;
+    letter-spacing: 0.32em;
     text-transform: uppercase;
-    border: 1px solid rgba(201, 169, 97, 0.35);
-}
-.suite-body { padding: 2.5rem 2rem; display: flex; flex-direction: column; gap: 1.25rem; flex: 1; }
-.suite-body h3 {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 1.75rem;
+    border: 1px solid rgba(201, 169, 97, 0.4);
+    transition: all 0.5s var(--ease);
     font-weight: 500;
+}
+.suite-body { padding: 2.75rem 2.25rem; display: flex; flex-direction: column; gap: 1.5rem; flex: 1; }
+.suite-body h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.875rem;
+    font-weight: 400;
     color: var(--ink);
-    line-height: 1.15;
-    letter-spacing: -0.01em;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-variation-settings: 'opsz' 96, 'SOFT' 50, 'WONK' 1;
 }
 .suite-body p {
     font-size: 14.5px;
-    line-height: 1.8;
+    line-height: 1.85;
     color: var(--stone);
     flex: 1;
 }
@@ -884,15 +1122,16 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     display: flex;
     flex-wrap: wrap;
     gap: 1rem 1.5rem;
-    padding-top: 1.25rem;
+    padding-top: 1.5rem;
     border-top: 1px solid var(--sand);
-    font-size: 12px;
-    letter-spacing: 0.12em;
+    font-size: 11px;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--stone);
+    font-weight: 500;
 }
 .suite-meta span { display: inline-flex; align-items: center; gap: 0.5rem; }
-.suite-meta i { color: var(--bronze); font-size: 12px; }
+.suite-meta .icon { width: 13px; height: 13px; color: var(--bronze); }
 
 /* =========================================================
    GALLERY
@@ -904,19 +1143,19 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     gap: 2rem;
     align-items: flex-end;
     justify-content: space-between;
-    margin-bottom: 4rem;
+    margin-bottom: 5rem;
 }
 .filters { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .filters button {
     padding: 0.75rem 1.5rem;
-    font-size: 11px;
-    letter-spacing: 0.22em;
+    font-size: 10.5px;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
-    font-weight: 400;
+    font-weight: 500;
     color: var(--stone);
     background: transparent;
     border: 1px solid transparent;
-    transition: all 0.4s var(--ease);
+    transition: all 0.5s var(--ease);
     cursor: pointer;
 }
 .filters button.active {
@@ -947,30 +1186,30 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 @media (min-width: 1024px) {
     .g-item { aspect-ratio: auto; }
-    .g-item:nth-child(1) { grid-column: span 8; height: 620px; }
-    .g-item:nth-child(2) { grid-column: span 4; height: 620px; }
-    .g-item:nth-child(3) { grid-column: span 4; height: 440px; }
-    .g-item:nth-child(4) { grid-column: span 4; height: 440px; }
-    .g-item:nth-child(5) { grid-column: span 4; height: 440px; }
-    .g-item:nth-child(6) { grid-column: span 12; height: 520px; }
+    .g-item:nth-child(1) { grid-column: span 8; height: 640px; }
+    .g-item:nth-child(2) { grid-column: span 4; height: 640px; }
+    .g-item:nth-child(3) { grid-column: span 4; height: 460px; }
+    .g-item:nth-child(4) { grid-column: span 4; height: 460px; }
+    .g-item:nth-child(5) { grid-column: span 4; height: 460px; }
+    .g-item:nth-child(6) { grid-column: span 12; height: 540px; }
 }
 .g-item img {
     width: 100%; height: 100%;
     object-fit: cover;
-    transition: transform 1.2s var(--ease);
+    transition: transform 1.4s var(--ease);
 }
 @media (hover: hover) {
-    .g-item:hover img { transform: scale(1.06); }
+    .g-item:hover img { transform: scale(1.07); }
     .g-item:hover .g-item-plus {
         background: var(--gold);
         color: var(--ink);
-        transform: scale(1.08);
+        transform: scale(1.1) rotate(90deg);
     }
 }
 .g-item-veil {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, transparent 50%, rgba(10, 14, 12, 0.85) 100%);
+    background: linear-gradient(180deg, transparent 50%, rgba(10, 14, 12, 0.88) 100%);
     pointer-events: none;
     z-index: 1;
 }
@@ -978,42 +1217,43 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     position: absolute;
     bottom: 0; left: 0; right: 0;
     z-index: 2;
-    padding: 2.25rem;
+    padding: 2.5rem;
     color: var(--ivory);
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 }
 .g-item-info small {
-    font-size: 10px;
-    letter-spacing: 0.3em;
+    font-size: 9.5px;
+    letter-spacing: 0.34em;
     text-transform: uppercase;
     color: var(--champagne);
-    font-weight: 400;
+    font-weight: 500;
 }
 .g-item-info h3 {
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'Fraunces', Georgia, serif;
     font-weight: 400;
-    font-size: 1.75rem;
-    letter-spacing: -0.01em;
+    font-size: 1.875rem;
+    letter-spacing: -0.02em;
+    font-variation-settings: 'opsz' 96, 'SOFT' 50, 'WONK' 1;
 }
 .g-item-plus {
     position: absolute;
     top: 1.5rem; right: 1.5rem;
     z-index: 3;
-    width: 48px; height: 48px;
+    width: 50px; height: 50px;
     border-radius: 50%;
-    border: 1px solid rgba(246, 241, 232, 0.5);
+    border: 1px solid rgba(245, 239, 228, 0.5);
     color: var(--ivory);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 13px;
-    background: rgba(10, 14, 12, 0.4);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    transition: all 0.4s var(--ease);
+    background: rgba(10, 14, 12, 0.42);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.5s var(--ease);
 }
+.g-item-plus .icon { width: 16px; height: 16px; }
 
 #lightbox {
     position: fixed; inset: 0;
@@ -1024,34 +1264,34 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     justify-content: center;
     padding: 2rem;
 }
-#lightbox.open { display: flex; animation: fadeIn 0.3s var(--ease-out); }
+#lightbox.open { display: flex; }
 #lightbox img {
     max-width: 100%; max-height: 88vh;
     object-fit: contain;
-    box-shadow: 0 60px 120px rgba(0,0,0,0.6);
-    animation: zoomIn 0.4s var(--ease-out);
+    box-shadow: 0 80px 140px rgba(0,0,0,0.65);
+    animation: zoomIn 0.55s var(--ease-out);
 }
 @keyframes zoomIn {
-    from { opacity: 0; transform: scale(0.95); }
+    from { opacity: 0; transform: scale(0.92); }
     to { opacity: 1; transform: scale(1); }
 }
 .lb-close {
     position: absolute;
     top: 2rem; right: 2rem;
     color: var(--ivory);
-    font-size: 1.75rem;
     padding: 1rem;
-    transition: color 0.3s, transform 0.3s;
+    transition: color 0.3s, transform 0.5s var(--ease);
 }
 .lb-close:hover { color: var(--gold); transform: rotate(90deg); }
+.lb-close .icon { width: 28px; height: 28px; }
 
 /* =========================================================
    EXPERIENCES
    ========================================================= */
-.experiences {
-    background: var(--ivory);
-}
-.exp-head { text-align: center; margin-bottom: 5rem; }
+.experiences { background: var(--ivory); }
+.exp-head { text-align: center; margin-bottom: 6rem; }
+.exp-head .eyebrow { justify-content: center; }
+.exp-head .eyebrow::before { display: none; }
 .exp-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -1070,52 +1310,55 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 .exp-card img {
     width: 100%; height: 100%;
     object-fit: cover;
-    transition: transform 1.4s var(--ease);
+    transition: transform 1.6s var(--ease);
 }
 @media (hover: hover) {
-    .exp-card:hover img { transform: scale(1.08); }
-    .exp-card:hover .exp-overlay { background: rgba(10, 14, 12, 0.75); }
-    .exp-card:hover .exp-icon { transform: translateY(0); opacity: 1; }
+    .exp-card:hover img { transform: scale(1.1); }
+    .exp-card:hover .exp-overlay { background: rgba(10, 14, 12, 0.8); }
+    .exp-card:hover .exp-icon { transform: translateY(0) rotate(0); opacity: 1; }
 }
 .exp-overlay {
     position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(10, 14, 12, 0.3) 0%, rgba(10, 14, 12, 0.85) 100%);
+    background: linear-gradient(180deg, rgba(10, 14, 12, 0.35) 0%, rgba(10, 14, 12, 0.88) 100%);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: 2rem;
+    padding: 2.25rem;
     color: var(--ivory);
-    transition: background 0.6s var(--ease);
+    transition: background 0.7s var(--ease);
 }
 .exp-icon {
     color: var(--gold);
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    opacity: 0.85;
-    transform: translateY(8px);
-    transition: all 0.5s var(--ease);
+    margin-bottom: 1.25rem;
+    width: 30px; height: 30px;
+    opacity: 0.9;
+    transform: translateY(10px) rotate(-8deg);
+    transition: all 0.6s var(--ease);
 }
+.exp-icon svg { width: 100%; height: 100%; stroke-width: 1; }
 .exp-overlay h3 {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-weight: 500;
-    font-size: 1.5rem;
-    line-height: 1.2;
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.01em;
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 400;
+    font-size: 1.625rem;
+    line-height: 1.15;
+    margin-bottom: 0.625rem;
+    letter-spacing: -0.02em;
+    font-variation-settings: 'opsz' 96, 'SOFT' 50, 'WONK' 1;
 }
 .exp-overlay p {
     font-size: 13px;
     line-height: 1.7;
-    color: rgba(246, 241, 232, 0.75);
+    color: rgba(245, 239, 228, 0.72);
+    font-weight: 400;
 }
 
 /* =========================================================
    REVIEWS
    ========================================================= */
-.reviews {
-    background: var(--cream);
-}
-.reviews-head { text-align: center; margin-bottom: 5rem; }
+.reviews { background: var(--cream); }
+.reviews-head { text-align: center; margin-bottom: 6rem; }
+.reviews-head .eyebrow { justify-content: center; }
+.reviews-head .eyebrow::before { display: none; }
 .reviews-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -1124,43 +1367,41 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 @media (min-width: 900px) { .reviews-grid { grid-template-columns: repeat(3, 1fr); } }
 
 .review {
-    padding: 3rem 2.5rem;
+    padding: 3.25rem 2.75rem;
     background: var(--ivory);
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.75rem;
     border: 1px solid var(--sand);
-    transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
+    transition: transform 0.6s var(--ease), box-shadow 0.6s var(--ease);
     position: relative;
 }
 @media (hover: hover) {
-    .review:hover { transform: translateY(-6px); box-shadow: 0 40px 80px -30px rgba(10,14,12,0.2); }
+    .review:hover { transform: translateY(-8px); box-shadow: 0 50px 100px -35px rgba(10,14,12,0.22); }
 }
 .review-quote {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 4rem;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 4.5rem;
     line-height: 0.5;
     color: var(--gold);
-    opacity: 0.55;
-    font-weight: 500;
+    opacity: 0.6;
+    font-weight: 400;
+    font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
 }
 .review p {
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.85;
     color: var(--ink-2);
-    font-weight: 300;
     flex: 1;
     font-style: italic;
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 300;
+    font-variation-settings: 'opsz' 96, 'SOFT' 80, 'WONK' 1;
 }
-.review-stars {
-    display: flex;
-    gap: 4px;
-    color: var(--gold);
-    font-size: 11px;
-}
+.review-stars { display: flex; gap: 4px; color: var(--gold); }
+.review-stars .icon { width: 12px; height: 12px; fill: currentColor; stroke: none; }
 .review-author {
-    padding-top: 1.5rem;
+    padding-top: 1.75rem;
     border-top: 1px solid var(--sand);
     display: flex;
     align-items: baseline;
@@ -1168,17 +1409,18 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     gap: 1rem;
 }
 .review-author .name {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 1.25rem;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.375rem;
     font-weight: 500;
     color: var(--ink);
+    font-variation-settings: 'opsz' 96, 'SOFT' 50, 'WONK' 1;
 }
 .review-author .loc {
-    font-size: 10px;
-    letter-spacing: 0.22em;
+    font-size: 9.5px;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
     color: var(--stone);
-    font-weight: 400;
+    font-weight: 500;
 }
 
 /* =========================================================
@@ -1193,9 +1435,9 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 .reservations::before {
     content: '';
     position: absolute;
-    top: -20%; right: -10%;
-    width: 60%; height: 80%;
-    background: radial-gradient(ellipse, rgba(201, 169, 97, 0.12), transparent 70%);
+    top: -25%; right: -12%;
+    width: 65%; height: 85%;
+    background: radial-gradient(ellipse, rgba(201, 169, 97, 0.13), transparent 70%);
     pointer-events: none;
 }
 .reserve-grid {
@@ -1208,13 +1450,13 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 @media (min-width: 1024px) {
     .reserve-grid { grid-template-columns: 1fr 1fr; gap: 6rem; }
 }
-.reserve-copy .eyebrow { color: var(--gold); }
-.reserve-copy .h1 { color: var(--ivory); margin-bottom: 2rem; }
-.reserve-copy .lead { color: rgba(246, 241, 232, 0.75); }
+.reserve-copy .h1 { color: var(--ivory); margin-bottom: 2.25rem; }
+.reserve-copy .em { color: var(--champagne); }
+.reserve-copy .lead { color: rgba(245, 239, 228, 0.72); }
 .reserve-list {
-    margin-top: 3rem;
+    margin-top: 3.5rem;
     padding-top: 2.5rem;
-    border-top: 1px solid rgba(246, 241, 232, 0.14);
+    border-top: 1px solid rgba(245, 239, 228, 0.14);
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
@@ -1224,29 +1466,20 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     align-items: flex-start;
     gap: 1rem;
     font-size: 15px;
-    color: rgba(246, 241, 232, 0.85);
-    line-height: 1.7;
+    color: rgba(245, 239, 228, 0.85);
+    line-height: 1.75;
 }
-.reserve-list li i {
-    color: var(--gold);
-    font-size: 12px;
-    margin-top: 0.5rem;
-    flex-shrink: 0;
-}
+.reserve-list .icon { width: 14px; height: 14px; color: var(--gold); margin-top: 0.45rem; }
 
-.booking-cards {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-}
+.booking-cards { display: flex; flex-direction: column; gap: 1.5rem; }
 .bk-card {
-    padding: 2.25rem;
-    background: rgba(246, 241, 232, 0.04);
-    border: 1px solid rgba(246, 241, 232, 0.14);
-    transition: all 0.5s var(--ease);
+    padding: 2.5rem;
+    background: rgba(245, 239, 228, 0.04);
+    border: 1px solid rgba(245, 239, 228, 0.14);
+    transition: all 0.55s var(--ease);
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1.5rem;
     position: relative;
     overflow: hidden;
 }
@@ -1257,81 +1490,91 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     height: 2px;
     background: linear-gradient(90deg, transparent, var(--gold), transparent);
     opacity: 0;
-    transition: opacity 0.5s var(--ease);
+    transition: opacity 0.55s var(--ease);
 }
 @media (hover: hover) {
-    .bk-card:hover { background: rgba(246, 241, 232, 0.08); border-color: rgba(201, 169, 97, 0.5); transform: translateY(-4px); }
+    .bk-card:hover { background: rgba(245, 239, 228, 0.08); border-color: rgba(201, 169, 97, 0.5); transform: translateY(-6px); }
     .bk-card:hover::before { opacity: 1; }
 }
-.bk-card-head { display: flex; align-items: center; gap: 1rem; }
+.bk-card-head { display: flex; align-items: center; gap: 1.25rem; }
 .bk-logo {
-    width: 52px; height: 52px;
-    border-radius: 12px;
+    width: 54px; height: 54px;
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.375rem;
     color: #fff;
     flex-shrink: 0;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.5rem;
+    font-weight: 500;
 }
 .bk-logo.booking { background: #003580; }
 .bk-logo.airbnb { background: #FF5A5F; }
+.bk-logo .icon { width: 24px; height: 24px; stroke-width: 1.5; }
 .bk-card-head h4 {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 1.5rem;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.625rem;
     font-weight: 500;
     color: var(--ivory);
     letter-spacing: -0.01em;
+    font-variation-settings: 'opsz' 96, 'WONK' 1;
 }
 .bk-card-head small {
     display: block;
-    font-size: 10px;
-    letter-spacing: 0.24em;
+    font-size: 9.5px;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--champagne);
-    margin-top: 0.25rem;
-    font-family: 'Jost', sans-serif;
+    margin-top: 0.375rem;
+    font-family: 'Inter Tight', sans-serif;
+    font-weight: 500;
 }
 .bk-card p {
     font-size: 14px;
-    line-height: 1.75;
-    color: rgba(246, 241, 232, 0.65);
+    line-height: 1.8;
+    color: rgba(245, 239, 228, 0.65);
 }
 
 .contact-strip {
-    margin-top: 4rem;
-    padding: 2.5rem 2rem;
+    margin-top: 4.5rem;
+    padding: 2.75rem 2rem;
     background: rgba(201, 169, 97, 0.08);
     border: 1px solid rgba(201, 169, 97, 0.3);
     display: grid;
     gap: 1.5rem;
     align-items: center;
     text-align: center;
+    position: relative;
+    z-index: 1;
 }
 @media (min-width: 768px) {
-    .contact-strip { grid-template-columns: 1fr auto auto; gap: 3rem; text-align: left; padding: 2.5rem 3rem; }
+    .contact-strip { grid-template-columns: 1fr auto auto; gap: 3rem; text-align: left; padding: 2.75rem 3.25rem; }
 }
 .contact-strip h4 {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 1.375rem;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.5rem;
     font-weight: 500;
     color: var(--ivory);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.015em;
+    font-variation-settings: 'opsz' 96, 'WONK' 1;
 }
 .contact-strip p {
     font-size: 13.5px;
-    color: rgba(246, 241, 232, 0.65);
-    margin-top: 0.375rem;
+    color: rgba(245, 239, 228, 0.65);
+    margin-top: 0.5rem;
 }
-.contact-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; }
+.contact-actions { display: flex; gap: 0.875rem; flex-wrap: wrap; justify-content: center; }
 
 /* =========================================================
    FAQ
    ========================================================= */
 .faq { background: var(--ivory); }
-.faq-head { text-align: center; margin-bottom: 5rem; }
+.faq-head { text-align: center; margin-bottom: 6rem; }
+.faq-head .eyebrow { justify-content: center; }
+.faq-head .eyebrow::before { display: none; }
 .faq-wrap {
-    max-width: 820px;
+    max-width: 900px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -1340,55 +1583,53 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 .faq-item:first-child { border-top: 1px solid var(--sand); }
 .faq-q {
     width: 100%;
-    padding: 2rem 0;
+    padding: 2.25rem 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
     text-align: left;
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: clamp(1.125rem, 1.6vw, 1.375rem);
-    font-weight: 500;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.125rem, 1.8vw, 1.5rem);
+    font-weight: 400;
     color: var(--ink);
-    transition: color 0.3s;
-    letter-spacing: -0.01em;
+    transition: color 0.3s, padding-left 0.5s var(--ease);
+    letter-spacing: -0.015em;
     cursor: pointer;
+    font-variation-settings: 'opsz' 96, 'SOFT' 50, 'WONK' 1;
 }
-.faq-q:hover { color: var(--bronze); }
-.faq-q i {
+.faq-q:hover { color: var(--bronze); padding-left: 0.75rem; }
+.faq-q .icon {
     color: var(--bronze);
-    font-size: 12px;
-    transition: transform 0.4s var(--ease);
+    width: 16px; height: 16px;
+    transition: transform 0.5s var(--ease);
     flex-shrink: 0;
 }
-.faq-q.open i { transform: rotate(45deg); }
+.faq-q.open .icon { transform: rotate(135deg); color: var(--gold); }
 .faq-a {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.5s var(--ease);
+    transition: max-height 0.6s var(--ease);
 }
 .faq-a-inner {
-    padding: 0 0 2rem;
+    padding: 0 0 2.25rem;
     font-size: 15px;
-    line-height: 1.85;
+    line-height: 1.9;
     color: var(--stone);
     max-width: 92%;
-    font-weight: 300;
+    font-weight: 400;
 }
 
 /* =========================================================
    LOCATION
    ========================================================= */
-.location-grid {
-    display: grid;
-    gap: 4rem;
-}
+.location-grid { display: grid; gap: 4rem; }
 @media (min-width: 1024px) {
     .location-grid { grid-template-columns: 1fr 1.4fr; gap: 6rem; align-items: center; }
 }
-.location-copy h2 { margin-bottom: 2rem; }
+.location-copy h2 { margin-bottom: 2.25rem; }
 .poi-list {
-    margin-top: 2.5rem;
+    margin-top: 3rem;
     padding-top: 1.5rem;
     border-top: 1px solid var(--sand);
 }
@@ -1396,10 +1637,12 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    padding: 1.25rem 0;
+    padding: 1.375rem 0;
     border-bottom: 1px solid var(--sand);
     gap: 1rem;
+    transition: padding-left 0.5s var(--ease);
 }
+@media (hover: hover) { .poi:hover { padding-left: 0.5rem; } }
 .poi:last-child { border-bottom: none; }
 .poi-l {
     display: flex;
@@ -1407,48 +1650,50 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     gap: 1rem;
     font-size: 15px;
     color: var(--ink);
+    font-weight: 400;
 }
-.poi-l i { color: var(--bronze); font-size: 14px; width: 16px; }
+.poi-l .icon { color: var(--bronze); width: 16px; height: 16px; }
 .poi-v {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 17px;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.125rem;
     color: var(--bronze);
     font-weight: 500;
+    font-variation-settings: 'opsz' 96, 'WONK' 1;
 }
 
 .map-frame {
     position: relative;
-    height: 540px;
+    height: 560px;
     overflow: hidden;
-    box-shadow: 0 40px 100px -30px rgba(10, 14, 12, 0.22);
+    box-shadow: 0 50px 110px -35px rgba(10, 14, 12, 0.25);
     background: var(--cream);
 }
 @media (max-width: 640px) { .map-frame { height: 400px; } }
 .map-frame iframe {
     width: 100%; height: 100%;
     border: 0; display: block;
-    filter: grayscale(0.3) contrast(1.05);
+    filter: grayscale(0.35) contrast(1.05);
 }
 .map-overlay {
     position: absolute;
-    top: 1.5rem; left: 1.5rem;
+    top: 1.75rem; left: 1.75rem;
     z-index: 5;
     background: rgba(10, 14, 12, 0.94);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     color: var(--ivory);
     padding: 0.875rem 1.5rem;
-    font-size: 10.5px;
-    letter-spacing: 0.22em;
+    font-size: 10px;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
-    font-weight: 400;
+    font-weight: 500;
     display: flex;
     align-items: center;
     gap: 0.75rem;
     pointer-events: none;
     border: 1px solid rgba(201, 169, 97, 0.35);
 }
-.map-overlay i { color: var(--gold); font-size: 12px; }
+.map-overlay .icon { color: var(--gold); width: 14px; height: 14px; }
 
 /* =========================================================
    FOOTER
@@ -1456,117 +1701,128 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 footer {
     background: var(--ink);
     color: var(--ivory);
-    padding: 7rem 1.5rem 2.5rem;
+    padding: 8rem 1.5rem 2.5rem;
+    position: relative;
+    overflow: hidden;
 }
-@media (min-width: 768px) { footer { padding: 8rem 3rem 2.5rem; } }
-@media (min-width: 1280px) { footer { padding: 8rem 5rem 2.5rem; } }
+@media (min-width: 768px) { footer { padding: 9rem 3rem 2.5rem; } }
+@media (min-width: 1280px) { footer { padding: 9rem 5rem 2.5rem; } }
 
 .footer-hero {
-    max-width: 1440px;
-    margin: 0 auto 5rem;
-    padding-bottom: 5rem;
-    border-bottom: 1px solid rgba(246, 241, 232, 0.1);
+    max-width: 1520px;
+    margin: 0 auto 6rem;
+    padding-bottom: 6rem;
+    border-bottom: 1px solid rgba(245, 239, 228, 0.1);
     text-align: center;
+    position: relative;
+    z-index: 1;
 }
 .footer-hero h2 {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-weight: 400;
-    font-size: clamp(2rem, 5.5vw, 4.5rem);
-    line-height: 1.05;
-    letter-spacing: -0.025em;
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 300;
+    font-size: clamp(2rem, 6vw, 5rem);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
     max-width: 24ch;
     margin: 0 auto;
+    font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
 }
 .footer-hero h2 em {
     font-style: italic;
     color: var(--champagne);
     font-weight: 300;
+    font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
 }
 .footer-hero .cta-row {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-    margin-top: 3rem;
+    margin-top: 3.5rem;
     justify-content: center;
 }
 
 .footer-cols {
-    max-width: 1440px;
+    max-width: 1520px;
     margin: 0 auto 5rem;
     display: grid;
     grid-template-columns: 1fr;
     gap: 3.5rem;
+    position: relative;
+    z-index: 1;
 }
 @media (min-width: 640px) { .footer-cols { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1024px) { .footer-cols { grid-template-columns: 2fr 1fr 1fr 1fr; } }
 
 .f-brand-name {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 1.75rem;
-    letter-spacing: 0.06em;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.875rem;
+    letter-spacing: 0.01em;
     color: var(--ivory);
     font-weight: 500;
     margin-bottom: 1.25rem;
+    font-variation-settings: 'opsz' 96, 'SOFT' 50, 'WONK' 1;
 }
 .f-brand p {
     font-size: 14px;
-    line-height: 1.85;
-    color: rgba(246, 241, 232, 0.55);
-    max-width: 340px;
+    line-height: 1.9;
+    color: rgba(245, 239, 228, 0.55);
+    max-width: 360px;
 }
 .f-title {
-    font-size: 10.5px;
-    letter-spacing: 0.28em;
+    font-size: 10px;
+    letter-spacing: 0.32em;
     text-transform: uppercase;
     color: var(--champagne);
-    font-weight: 400;
-    margin-bottom: 1.75rem;
+    font-weight: 500;
+    margin-bottom: 1.875rem;
 }
 .f-list { display: flex; flex-direction: column; gap: 0.875rem; }
 .f-list a, .f-list span {
     font-size: 14px;
-    color: rgba(246, 241, 232, 0.65);
-    transition: color 0.3s, padding-left 0.3s var(--ease);
+    color: rgba(245, 239, 228, 0.65);
+    transition: color 0.3s, padding-left 0.4s var(--ease);
     display: inline-flex;
     align-items: center;
     gap: 0.75rem;
 }
 .f-list a:hover { color: var(--gold); padding-left: 0.5rem; }
-.f-list i { color: var(--champagne); font-size: 13px; }
+.f-list .icon { color: var(--champagne); width: 14px; height: 14px; }
 
 .f-socials { display: flex; gap: 0.75rem; }
 .f-socials a {
-    width: 44px; height: 44px;
+    width: 46px; height: 46px;
     border-radius: 50%;
-    border: 1px solid rgba(246, 241, 232, 0.18);
+    border: 1px solid rgba(245, 239, 228, 0.18);
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--ivory);
-    font-size: 14px;
-    transition: all 0.4s var(--ease);
+    transition: all 0.5s var(--ease);
 }
-.f-socials a:hover { background: var(--gold); border-color: var(--gold); color: var(--ink); transform: translateY(-3px); }
+.f-socials a .icon { width: 16px; height: 16px; }
+.f-socials a:hover { background: var(--gold); border-color: var(--gold); color: var(--ink); transform: translateY(-4px); }
 
 .footer-bottom {
-    max-width: 1440px;
+    max-width: 1520px;
     margin: 0 auto;
-    padding-top: 2.5rem;
-    border-top: 1px solid rgba(246, 241, 232, 0.1);
+    padding-top: 2.75rem;
+    border-top: 1px solid rgba(245, 239, 228, 0.1);
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
-    font-size: 11px;
-    letter-spacing: 0.16em;
-    color: rgba(246, 241, 232, 0.42);
+    font-size: 10.5px;
+    letter-spacing: 0.24em;
+    color: rgba(245, 239, 228, 0.42);
     text-transform: uppercase;
-    font-weight: 400;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
 }
 
 /* =========================================================
-   FLOATING BUTTONS
+   FLOATING
    ========================================================= */
 .float-reserve {
     position: fixed;
@@ -1584,37 +1840,19 @@ footer {
     padding: 1rem 1.75rem;
     background: var(--ink);
     color: var(--ivory);
-    font-size: 12px;
-    letter-spacing: 0.18em;
+    font-size: 11px;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
-    font-weight: 400;
-    box-shadow: 0 20px 50px -15px rgba(0,0,0,0.5);
+    font-weight: 500;
+    box-shadow: 0 24px 56px -18px rgba(0,0,0,0.55);
     border: 1px solid rgba(201, 169, 97, 0.3);
-    transition: all 0.4s var(--ease);
+    transition: all 0.5s var(--ease);
 }
 @media (min-width: 768px) { .float-reserve .floating-phone { display: inline-flex; } }
-.float-reserve .floating-phone:hover { background: var(--gold); color: var(--ink); transform: translateY(-3px); border-color: var(--gold); }
+.float-reserve .floating-phone:hover { background: var(--gold); color: var(--ink); transform: translateY(-4px); border-color: var(--gold); }
 
 /* =========================================================
-   REVEAL ANIMATION (visible by default)
-   ========================================================= */
-.reveal {
-    transition: opacity 1s var(--ease-out), transform 1s var(--ease-out);
-}
-html.js-ready .reveal {
-    opacity: 0;
-    transform: translate3d(0, 40px, 0);
-}
-html.js-ready .reveal.in {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-}
-html.js-ready .reveal.d1 { transition-delay: 0.1s; }
-html.js-ready .reveal.d2 { transition-delay: 0.2s; }
-html.js-ready .reveal.d3 { transition-delay: 0.3s; }
-
-/* =========================================================
-   MOBILE PERF
+   RESPONSIVE PERF
    ========================================================= */
 @media (max-width: 768px) {
     .intro-visual .frame:hover img { transform: none; }
@@ -1623,19 +1861,63 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
     .suite:hover { transform: none; }
     .section { padding: 5.5rem 1.25rem; }
     .hero-slide { animation-duration: 27s; }
-    .hero-slide img { animation: none; }
+    .hero-slide img { animation: none; transform: scale(1); }
+    .marquee-track span { font-size: 1.25rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *,*::before,*::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    .hero-slide { animation: none !important; opacity: 0; }
+    .hero-slide:first-child { opacity: 1; }
+    .hero-slide img, .marquee-track, .hero-seal svg { animation: none !important; }
+    .split-line > span { transform: none !important; }
+    .reveal { opacity: 1 !important; transform: none !important; }
+    .clip-reveal { clip-path: none !important; }
 }
 </style>
 </head>
 <body>
 
+<!-- SVG SPRITE -->
+<svg style="display:none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16M13 5l7 7-7 7"/></symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></symbol>
+    <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 4v16M5 13l7 7 7-7"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z"/></symbol>
+    <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 1 1-15.6-5.1L4 21l4.7-1.3A8.5 8.5 0 0 1 21 11.5z"/><path d="M8.5 9.5c.5 3 3 5.5 6 6l1.5-1.5 2 1.5-1 2c-3.5.5-7.5-3.5-8-7l2-1 1.5 2-1.5 1.5"/></symbol>
+    <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></symbol>
+    <symbol id="i-facebook" viewBox="0 0 24 24"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v7h4v-7h3l1-4h-4V8z"/></symbol>
+    <symbol id="i-pinterest" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 20l2.5-8.5c.4-1.4 1.2-2 2.3-2 1.7 0 2.7 1 2.7 2.7 0 2-1.2 3.5-2.7 3.5-.9 0-1.6-.5-1.8-1.3"/></symbol>
+    <symbol id="i-location" viewBox="0 0 24 24"><path d="M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 7"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2l2.9 6.9L22 10l-5.5 4.6L18.2 22 12 18.3 5.8 22l1.7-7.4L2 10l7.1-1.1z"/></symbol>
+    <symbol id="i-pool" viewBox="0 0 24 24"><path d="M2 18c1.5 0 2-1 3.5-1s2 1 3.5 1 2-1 3.5-1 2 1 3.5 1 2-1 3.5-1"/><path d="M2 22c1.5 0 2-1 3.5-1s2 1 3.5 1 2-1 3.5-1 2 1 3.5 1 2-1 3.5-1"/><path d="M8 14V4a2 2 0 0 1 4 0M14 14V4a2 2 0 0 1 4 0"/></symbol>
+    <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2 8.5a16 16 0 0 1 20 0M5.5 12a11 11 0 0 1 13 0M9 15.5a6 6 0 0 1 6 0"/><circle cx="12" cy="19" r="0.75" fill="currentColor"/></symbol>
+    <symbol id="i-chef" viewBox="0 0 24 24"><path d="M6 13a4 4 0 1 1 1.5-7.7 5 5 0 0 1 9 0A4 4 0 1 1 18 13v5a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1z"/><path d="M6 13h12"/></symbol>
+    <symbol id="i-kitchen" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3"/></symbol>
+    <symbol id="i-car" viewBox="0 0 24 24"><path d="M3 13l2-6a2 2 0 0 1 2-1h10a2 2 0 0 1 2 1l2 6v5h-3v-2H6v2H3z"/><circle cx="7" cy="16" r="1.5"/><circle cx="17" cy="16" r="1.5"/></symbol>
+    <symbol id="i-bed" viewBox="0 0 24 24"><path d="M3 20v-8h18v8M3 14h18M3 20v-3M21 20v-3M6 12V8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v4"/></symbol>
+    <symbol id="i-bbq" viewBox="0 0 24 24"><path d="M12 3c0 2-2 2.5-2 5 0 1 .5 2 1.5 2.5M14 3c0 2 2 2.5 2 5 0 1-.5 2-1.5 2.5M9 20l1.5-3M15 20l-1.5-3M8.5 17h7"/></symbol>
+    <symbol id="i-sailboat" viewBox="0 0 24 24"><path d="M3 18h18l-3 3H6zM12 3v15M12 3L6 15h6M12 3l6 12h-6"/></symbol>
+    <symbol id="i-spa" viewBox="0 0 24 24"><path d="M12 3c-3 5-3 9 0 12 3-3 3-7 0-12z"/><path d="M12 15c-4-2-8-1-9 3 3 3 7 2 9-1 2 3 6 4 9 1-1-4-5-5-9-3z"/></symbol>
+    <symbol id="i-wine" viewBox="0 0 24 24"><path d="M8 3h8l-1 8a3 3 0 0 1-6 0zM12 14v6M9 20h6"/></symbol>
+    <symbol id="i-yoga" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><path d="M12 8v6l4 6M12 14l-4 6M6 11l6 1 6-1"/></symbol>
+</svg>
+
+<div class="grain"></div>
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
 <div id="progress"></div>
 
 <header id="header">
     <div class="header-inner">
         <a href="#" class="brand" aria-label="Aetheria home">
             <span class="brand-mark">Aetheria</span>
-            <span class="brand-suffix">Kyklades</span>
+            <span class="brand-suffix">Kyklades · Aegean</span>
         </a>
 
         <nav class="nav-desk" aria-label="Primary">
@@ -1647,22 +1929,22 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
             <a href="#location">Τοποθεσία</a>
         </nav>
 
-        <a href="#reservations" class="cta-reserve">
+        <a href="#reservations" class="cta-reserve" data-magnetic>
             <span class="dot"></span>
             <span>Άμεση Κράτηση</span>
         </a>
 
         <button class="menu-btn" id="menuBtn" aria-label="Άνοιγμα μενού">
-            <i class="fa-solid fa-bars"></i>
+            <svg class="icon"><use href="#i-menu"/></svg>
         </button>
     </div>
 </header>
 
 <div id="mmenu">
     <button class="m-close" id="menuClose" aria-label="Κλείσιμο">
-        <i class="fa-solid fa-xmark"></i>
+        <svg class="icon"><use href="#i-close"/></svg>
     </button>
-    <div class="m-brand">AETHERIA — KYKLADES</div>
+    <div class="m-brand">AETHERIA</div>
     <nav>
         <a href="#intro" data-i="01">Η Βίλα</a>
         <a href="#amenities" data-i="02">Παροχές</a>
@@ -1675,11 +1957,11 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
     <div class="m-actions">
         <a href="tel:2310000000" class="btn btn-ivory btn-block">
             <span class="btn-text">2310 000 000</span>
-            <span class="arrow">→</span>
+            <svg class="icon"><use href="#i-arrow"/></svg>
         </a>
         <a href="https://wa.me/302310000000" target="_blank" rel="noopener" class="btn btn-outline btn-block">
             <span class="btn-text">WhatsApp</span>
-            <span class="arrow">→</span>
+            <svg class="icon"><use href="#i-arrow"/></svg>
         </a>
     </div>
 </div>
@@ -1687,34 +1969,45 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
 <!-- ============================================================
      HERO
      ============================================================ -->
-<section class="hero">
+<section class="hero" id="hero">
     <div class="hero-bg">
         <div class="hero-slide">
-            <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=2200&q=85&auto=format&fit=crop"
-                 alt="Aetheria Villa — Santorini Aegean view" fetchpriority="high" decoding="async">
+            <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=2400&q=85&auto=format&fit=crop"
+                 alt="Aetheria Villa" fetchpriority="high" decoding="async">
         </div>
         <div class="hero-slide">
-            <img src="https://images.unsplash.com/photo-1602002418082-a4443e081dd1?w=2200&q=85&auto=format&fit=crop"
+            <img src="https://images.unsplash.com/photo-1602002418082-a4443e081dd1?w=2400&q=85&auto=format&fit=crop"
                  alt="Infinity pool at sunset" loading="lazy" decoding="async">
         </div>
         <div class="hero-slide">
-            <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=2200&q=85&auto=format&fit=crop"
-                 alt="Luxury villa in Cyclades" loading="lazy" decoding="async">
+            <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=2400&q=85&auto=format&fit=crop"
+                 alt="Cycladic villa" loading="lazy" decoding="async">
         </div>
     </div>
     <div class="hero-veil"></div>
 
+    <div class="hero-seal" aria-hidden="true">
+        <svg viewBox="0 0 130 130">
+            <defs>
+                <path id="sealPath" d="M 65, 65 m -48, 0 a 48,48 0 1,1 96,0 a 48,48 0 1,1 -96,0"/>
+            </defs>
+            <text><textPath href="#sealPath" startOffset="0%">
+                AETHERIA · KYKLADES · AEGEAN · EST. 2019 ·
+            </textPath></text>
+            <circle class="seal-ring" cx="65" cy="65" r="62"/>
+        </svg>
+        <span class="seal-center">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><use href="#i-sailboat"/></svg>
+        </span>
+    </div>
+
     <div class="hero-content">
         <div class="hero-top">
-            <div class="hero-tag">
-                <span>Ιδιωτική Βίλα · Αιγαίο</span>
-            </div>
-            <div class="hero-coords">
-                37°26'N &nbsp;·&nbsp; 25°19'E
-            </div>
+            <div class="hero-tag"><span>Ιδιωτική Βίλα · Αιγαίο</span></div>
+            <div class="hero-coords">37°26'N &nbsp;·&nbsp; 25°19'E</div>
         </div>
 
-        <h1 class="hero-title">
+        <h1 class="hero-title" data-split>
             Ένα καταφύγιο πάνω από το <em>απέραντο γαλάζιο</em>
         </h1>
 
@@ -1724,30 +2017,42 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
             </p>
 
             <div class="hero-actions">
-                <a href="#reservations" class="btn btn-gold">
+                <a href="#reservations" class="btn btn-gold" data-magnetic>
                     <span class="btn-text">Διαθεσιμότητα</span>
-                    <span class="arrow">→</span>
+                    <svg class="icon"><use href="#i-arrow"/></svg>
                 </a>
-                <a href="#gallery" class="btn btn-outline">
+                <a href="#gallery" class="btn btn-outline" data-magnetic>
                     <span class="btn-text">Δείτε τη βίλα</span>
-                    <span class="arrow">→</span>
+                    <svg class="icon"><use href="#i-arrow"/></svg>
                 </a>
             </div>
         </div>
     </div>
 
-    <div class="hero-scroll">Scroll</div>
+    <div class="hero-scroll">
+        <span>Scroll</span>
+        <svg class="icon"><use href="#i-arrow-down"/></svg>
+    </div>
 </section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+    <div class="marquee-track">
+        <span>Aetheria <em>·</em> Kyklades <em>·</em> Infinity Pool <em>·</em> Private Chef <em>·</em> Aegean Views <em>·</em> Est. 2019 <em>·</em> Starlink <em>·</em> In-Villa Spa <em>·</em></span>
+        <span>Aetheria <em>·</em> Kyklades <em>·</em> Infinity Pool <em>·</em> Private Chef <em>·</em> Aegean Views <em>·</em> Est. 2019 <em>·</em> Starlink <em>·</em> In-Villa Spa <em>·</em></span>
+    </div>
+</div>
 
 <!-- ============================================================
      INTRO
      ============================================================ -->
 <section id="intro" class="section intro">
+    <span class="sec-num">01 / 09</span>
     <div class="container">
         <div class="intro-grid">
             <div class="intro-copy">
-                <span class="eyebrow with-rule reveal">01 — Η Αρχιτεκτονική</span>
-                <h2 class="h1 reveal d1">
+                <span class="eyebrow reveal">Η Αρχιτεκτονική</span>
+                <h2 class="h1 reveal d1" data-split>
                     Χτισμένο για να <em class="em">αναπνέει</em> με το τοπίο
                 </h2>
                 <p class="lead reveal d2">
@@ -1759,28 +2064,28 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
 
                 <div class="intro-stats">
                     <div class="stat reveal">
-                        <span class="stat-v">240<sup>m²</sup></span>
+                        <span class="stat-v"><span class="num" data-count="240">0</span><sup>m²</sup></span>
                         <span class="stat-k">Χώροι</span>
                     </div>
                     <div class="stat reveal d1">
-                        <span class="stat-v">03</span>
+                        <span class="stat-v"><span class="num" data-count="3" data-pad="2">0</span></span>
                         <span class="stat-k">Σουίτες</span>
                     </div>
                     <div class="stat reveal d2">
-                        <span class="stat-v">180<sup>°</sup></span>
+                        <span class="stat-v"><span class="num" data-count="180">0</span><sup>°</sup></span>
                         <span class="stat-k">Θέα</span>
                     </div>
                 </div>
             </div>
 
             <div class="intro-visual reveal d2">
-                <div class="frame frame-1">
-                    <img src="https://images.unsplash.com/photo-1615529182904-14819c35db37?w=900&q=85&auto=format&fit=crop"
-                         alt="Minimal Cycladic interior" loading="lazy" decoding="async">
+                <div class="frame frame-1 clip-reveal">
+                    <img src="https://images.unsplash.com/photo-1615529182904-14819c35db37?w=1000&q=85&auto=format&fit=crop"
+                         alt="Interior" loading="lazy" decoding="async">
                 </div>
-                <div class="frame frame-2">
-                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=700&q=85&auto=format&fit=crop"
-                         alt="Stone wall detail" loading="lazy" decoding="async">
+                <div class="frame frame-2 clip-reveal">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=85&auto=format&fit=crop"
+                         alt="Stone detail" loading="lazy" decoding="async">
                 </div>
                 <div class="badge">
                     <strong>2019</strong>
@@ -1795,11 +2100,12 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
      AMENITIES
      ============================================================ -->
 <section id="amenities" class="section amenities">
+    <span class="sec-num light">02 / 09</span>
     <div class="container">
         <div class="amenities-head">
             <div>
-                <span class="eyebrow with-rule reveal">02 — Παροχές</span>
-                <h2 class="h1 reveal d1">
+                <span class="eyebrow light reveal">Παροχές</span>
+                <h2 class="h1 reveal d1" data-split>
                     Κάθε ανάγκη, <em class="em">προβλεμμένη</em>
                 </h2>
             </div>
@@ -1811,55 +2117,55 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
         <div class="amenities-grid">
             <article class="amenity reveal">
                 <span class="amenity-num">i</span>
-                <i class="fa-solid fa-water-ladder amenity-icon"></i>
+                <span class="amenity-icon"><svg><use href="#i-pool"/></svg></span>
                 <h3>Infinity Pool</h3>
                 <p>Πισίνα υπερχείλισης με θαλασσινό νερό και ξαπλώστρες, με θέα που χάνεται στον ορίζοντα.</p>
             </article>
             <article class="amenity reveal d1">
                 <span class="amenity-num">ii</span>
-                <i class="fa-solid fa-wifi amenity-icon"></i>
+                <span class="amenity-icon"><svg><use href="#i-wifi"/></svg></span>
                 <h3>Starlink Wi-Fi</h3>
                 <p>Δορυφορική σύνδεση έως 1Gbps σε όλους τους εσωτερικούς και εξωτερικούς χώρους.</p>
             </article>
             <article class="amenity reveal d2">
                 <span class="amenity-num">iii</span>
-                <i class="fa-solid fa-utensils amenity-icon"></i>
+                <span class="amenity-icon"><svg><use href="#i-chef"/></svg></span>
                 <h3>Ιδιωτικός Σεφ</h3>
                 <p>Κατόπιν αιτήματος, έμπειρος σεφ ετοιμάζει μεσογειακά γεύματα στη βίλα σας.</p>
             </article>
             <article class="amenity reveal d3">
                 <span class="amenity-num">iv</span>
-                <i class="fa-solid fa-kitchen-set amenity-icon"></i>
+                <span class="amenity-icon"><svg><use href="#i-kitchen"/></svg></span>
                 <h3>Gourmet Κουζίνα</h3>
                 <p>Πλήρως εξοπλισμένη με συσκευές Miele, Nespresso και επαγγελματικό wine fridge.</p>
             </article>
             <article class="amenity reveal">
                 <span class="amenity-num">v</span>
-                <i class="fa-solid fa-car amenity-icon"></i>
+                <span class="amenity-icon"><svg><use href="#i-car"/></svg></span>
                 <h3>Private Parking</h3>
                 <p>Περιφραγμένος χώρος για 3 οχήματα με ταχυφορτιστή ηλεκτρικών αυτοκινήτων.</p>
             </article>
             <article class="amenity reveal d1">
                 <span class="amenity-num">vi</span>
-                <i class="fa-solid fa-bed amenity-icon"></i>
+                <span class="amenity-icon"><svg><use href="#i-bed"/></svg></span>
                 <h3>Coco-Mat & Λινά</h3>
                 <p>Οικολογικά στρώματα Coco-Mat, 100% λινά σεντόνια, επιλογή μαξιλαριών.</p>
             </article>
             <article class="amenity reveal d2">
                 <span class="amenity-num">vii</span>
-                <i class="fa-solid fa-fire-burner amenity-icon"></i>
+                <span class="amenity-icon"><svg><use href="#i-bbq"/></svg></span>
                 <h3>BBQ Terrace</h3>
                 <p>Στεγασμένη τραπεζαρία 10 ατόμων με ψησταριά, κάτω από τον έναστρο ουρανό.</p>
             </article>
             <article class="amenity reveal d3">
                 <span class="amenity-num">viii</span>
-                <i class="fa-solid fa-sailboat amenity-icon"></i>
+                <span class="amenity-icon"><svg><use href="#i-sailboat"/></svg></span>
                 <h3>Private Concierge</h3>
                 <p>Οργάνωση εκδρομών με σκάφος, μεταφορών και προνομιακών κρατήσεων.</p>
             </article>
             <article class="amenity reveal">
                 <span class="amenity-num">ix</span>
-                <i class="fa-solid fa-spa amenity-icon"></i>
+                <span class="amenity-icon"><svg><use href="#i-spa"/></svg></span>
                 <h3>In-Villa Spa</h3>
                 <p>Κατ' οίκον μασάζ, θεραπείες περιποίησης και yoga sessions κατόπιν αιτήματος.</p>
             </article>
@@ -1871,32 +2177,33 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
      SUITES
      ============================================================ -->
 <section id="suites" class="section suites">
+    <span class="sec-num">03 / 09</span>
     <div class="container">
         <div class="suites-head">
-            <span class="eyebrow with-rule reveal" style="display:inline-block;">03 — Σουίτες</span>
-            <h2 class="h1 reveal d1">Τρεις <em class="em">ιδιωτικοί</em> κόσμοι</h2>
+            <span class="eyebrow reveal">Σουίτες</span>
+            <h2 class="h1 reveal d1" data-split>Τρεις <em class="em">ιδιωτικοί</em> κόσμοι</h2>
         </div>
 
         <div class="suites-grid">
             <article class="suite reveal">
-                <div class="suite-img">
+                <div class="suite-img clip-reveal">
                     <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=900&q=85&auto=format&fit=crop"
-                         alt="Master suite" loading="lazy" decoding="async">
+                         alt="Aegean suite" loading="lazy" decoding="async">
                     <span class="suite-tag">Master</span>
                 </div>
                 <div class="suite-body">
                     <h3>The Aegean Suite</h3>
                     <p>King-size κρεβάτι με θέα στο Αιγαίο, ιδιωτικό μπαλκόνι, marble μπάνιο με rain shower και walk-in closet.</p>
                     <div class="suite-meta">
-                        <span><i class="fa-solid fa-bed"></i> King</span>
-                        <span><i class="fa-solid fa-expand"></i> 45 m²</span>
-                        <span><i class="fa-solid fa-water"></i> Sea view</span>
+                        <span><svg class="icon"><use href="#i-bed"/></svg> King</span>
+                        <span><svg class="icon"><use href="#i-arrow-up"/></svg> 45 m²</span>
+                        <span><svg class="icon"><use href="#i-pool"/></svg> Sea view</span>
                     </div>
                 </div>
             </article>
 
             <article class="suite reveal d1">
-                <div class="suite-img">
+                <div class="suite-img clip-reveal">
                     <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=900&q=85&auto=format&fit=crop"
                          alt="Garden suite" loading="lazy" decoding="async">
                     <span class="suite-tag">Garden</span>
@@ -1905,15 +2212,15 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
                     <h3>The Garden Suite</h3>
                     <p>Άμεση πρόσβαση στον κήπο με ελιές και λεβάντα, queen-size κρεβάτι, ιδιωτική βεράντα με daybed.</p>
                     <div class="suite-meta">
-                        <span><i class="fa-solid fa-bed"></i> Queen</span>
-                        <span><i class="fa-solid fa-expand"></i> 38 m²</span>
-                        <span><i class="fa-solid fa-leaf"></i> Garden</span>
+                        <span><svg class="icon"><use href="#i-bed"/></svg> Queen</span>
+                        <span><svg class="icon"><use href="#i-arrow-up"/></svg> 38 m²</span>
+                        <span><svg class="icon"><use href="#i-spa"/></svg> Garden</span>
                     </div>
                 </div>
             </article>
 
             <article class="suite reveal d2">
-                <div class="suite-img">
+                <div class="suite-img clip-reveal">
                     <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&q=85&auto=format&fit=crop"
                          alt="Sunset suite" loading="lazy" decoding="async">
                     <span class="suite-tag">Sunset</span>
@@ -1922,9 +2229,9 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
                     <h3>The Sunset Suite</h3>
                     <p>Στραμμένη στα δυτικά, με πανοραμικό παράθυρο — το ηλιοβασίλεμα γίνεται η καθημερινή σας τελετή.</p>
                     <div class="suite-meta">
-                        <span><i class="fa-solid fa-bed"></i> King</span>
-                        <span><i class="fa-solid fa-expand"></i> 42 m²</span>
-                        <span><i class="fa-solid fa-sun"></i> Sunset</span>
+                        <span><svg class="icon"><use href="#i-bed"/></svg> King</span>
+                        <span><svg class="icon"><use href="#i-arrow-up"/></svg> 42 m²</span>
+                        <span><svg class="icon"><use href="#i-wine"/></svg> Sunset</span>
                     </div>
                 </div>
             </article>
@@ -1936,13 +2243,12 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
      GALLERY
      ============================================================ -->
 <section id="gallery" class="section gallery">
+    <span class="sec-num">04 / 09</span>
     <div class="container">
         <div class="gallery-head">
             <div>
-                <span class="eyebrow with-rule reveal">04 — Συλλογή</span>
-                <h2 class="h1 reveal d1" style="margin-top:0.5rem;">
-                    Μια ματιά <em class="em">μέσα</em>
-                </h2>
+                <span class="eyebrow reveal">Συλλογή</span>
+                <h2 class="h1 reveal d1" data-split>Μια ματιά <em class="em">μέσα</em></h2>
             </div>
             <div class="filters reveal d2">
                 <button class="active" data-filter="all">Όλα</button>
@@ -1955,10 +2261,10 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
         <div class="gallery-grid" id="galleryGrid">
             <div class="g-item reveal" data-cat="pool"
                  data-full="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=2400&q=90&auto=format">
-                <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=1400&q=85&auto=format&fit=crop"
-                     alt="Infinity pool" loading="lazy" decoding="async">
+                <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=1600&q=85&auto=format&fit=crop"
+                     alt="Infinity Pool" loading="lazy" decoding="async">
                 <div class="g-item-veil"></div>
-                <div class="g-item-plus"><i class="fa-solid fa-plus"></i></div>
+                <div class="g-item-plus"><svg class="icon"><use href="#i-plus"/></svg></div>
                 <div class="g-item-info">
                     <small>i · Πισίνα</small>
                     <h3>Infinity Pool</h3>
@@ -1967,10 +2273,10 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
 
             <div class="g-item reveal d1" data-cat="interior"
                  data-full="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=2400&q=90&auto=format">
-                <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1400&q=85&auto=format&fit=crop"
-                     alt="Living room" loading="lazy" decoding="async">
+                <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600&q=85&auto=format&fit=crop"
+                     alt="Living Room" loading="lazy" decoding="async">
                 <div class="g-item-veil"></div>
-                <div class="g-item-plus"><i class="fa-solid fa-plus"></i></div>
+                <div class="g-item-plus"><svg class="icon"><use href="#i-plus"/></svg></div>
                 <div class="g-item-info">
                     <small>ii · Σαλόνι</small>
                     <h3>Living Room</h3>
@@ -1979,10 +2285,10 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
 
             <div class="g-item reveal" data-cat="interior"
                  data-full="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=2400&q=90&auto=format">
-                <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=1200&q=85&auto=format&fit=crop"
-                     alt="Master suite" loading="lazy" decoding="async">
+                <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=1300&q=85&auto=format&fit=crop"
+                     alt="Master Suite" loading="lazy" decoding="async">
                 <div class="g-item-veil"></div>
-                <div class="g-item-plus"><i class="fa-solid fa-plus"></i></div>
+                <div class="g-item-plus"><svg class="icon"><use href="#i-plus"/></svg></div>
                 <div class="g-item-info">
                     <small>iii · Σουίτα</small>
                     <h3>Master Suite</h3>
@@ -1991,10 +2297,10 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
 
             <div class="g-item reveal d1" data-cat="views"
                  data-full="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=2400&q=90&auto=format">
-                <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=1200&q=85&auto=format&fit=crop"
-                     alt="Aegean sunset" loading="lazy" decoding="async">
+                <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=1300&q=85&auto=format&fit=crop"
+                     alt="Sunset Terrace" loading="lazy" decoding="async">
                 <div class="g-item-veil"></div>
-                <div class="g-item-plus"><i class="fa-solid fa-plus"></i></div>
+                <div class="g-item-plus"><svg class="icon"><use href="#i-plus"/></svg></div>
                 <div class="g-item-info">
                     <small>iv · Θέα</small>
                     <h3>Sunset Terrace</h3>
@@ -2003,10 +2309,10 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
 
             <div class="g-item reveal d2" data-cat="pool"
                  data-full="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=2400&q=90&auto=format">
-                <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1200&q=85&auto=format&fit=crop"
-                     alt="Pool sunbeds" loading="lazy" decoding="async">
+                <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1300&q=85&auto=format&fit=crop"
+                     alt="Sunbeds & Bar" loading="lazy" decoding="async">
                 <div class="g-item-veil"></div>
-                <div class="g-item-plus"><i class="fa-solid fa-plus"></i></div>
+                <div class="g-item-plus"><svg class="icon"><use href="#i-plus"/></svg></div>
                 <div class="g-item-info">
                     <small>v · Πισίνα</small>
                     <h3>Sunbeds & Bar</h3>
@@ -2016,9 +2322,9 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
             <div class="g-item reveal" data-cat="views"
                  data-full="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=2400&q=90&auto=format">
                 <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=2000&q=85&auto=format&fit=crop"
-                     alt="Villa terrace" loading="lazy" decoding="async">
+                     alt="Villa Terrace" loading="lazy" decoding="async">
                 <div class="g-item-veil"></div>
-                <div class="g-item-plus"><i class="fa-solid fa-plus"></i></div>
+                <div class="g-item-plus"><svg class="icon"><use href="#i-plus"/></svg></div>
                 <div class="g-item-info">
                     <small>vi · Εξωτερικός Χώρος</small>
                     <h3>Βεράντα & Κήπος</h3>
@@ -2032,10 +2338,11 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
      EXPERIENCES
      ============================================================ -->
 <section id="experiences" class="section experiences">
+    <span class="sec-num">05 / 09</span>
     <div class="container">
         <div class="exp-head">
-            <span class="eyebrow with-rule reveal" style="display:inline-block;">05 — Εμπειρίες</span>
-            <h2 class="h1 reveal d1">Σχεδιασμένες <em class="em">στιγμές</em></h2>
+            <span class="eyebrow reveal">Εμπειρίες</span>
+            <h2 class="h1 reveal d1" data-split>Σχεδιασμένες <em class="em">στιγμές</em></h2>
         </div>
 
         <div class="exp-grid">
@@ -2043,7 +2350,7 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
                 <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=900&q=85&auto=format&fit=crop"
                      alt="Private sailing" loading="lazy" decoding="async">
                 <div class="exp-overlay">
-                    <i class="fa-solid fa-sailboat exp-icon"></i>
+                    <span class="exp-icon"><svg><use href="#i-sailboat"/></svg></span>
                     <h3>Private Sailing</h3>
                     <p>Ημερήσια εκδρομή με σκάφος στις κρυφές παραλίες των Κυκλάδων.</p>
                 </div>
@@ -2053,7 +2360,7 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
                 <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=85&auto=format&fit=crop"
                      alt="Private chef" loading="lazy" decoding="async">
                 <div class="exp-overlay">
-                    <i class="fa-solid fa-utensils exp-icon"></i>
+                    <span class="exp-icon"><svg><use href="#i-chef"/></svg></span>
                     <h3>Private Chef</h3>
                     <p>Πολυτελή γεύματα με τοπικά προϊόντα, σερβιρισμένα στη βεράντα.</p>
                 </div>
@@ -2063,7 +2370,7 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
                 <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=900&q=85&auto=format&fit=crop"
                      alt="In-villa spa" loading="lazy" decoding="async">
                 <div class="exp-overlay">
-                    <i class="fa-solid fa-spa exp-icon"></i>
+                    <span class="exp-icon"><svg><use href="#i-spa"/></svg></span>
                     <h3>In-Villa Spa</h3>
                     <p>Θεραπείες ευεξίας, μασάζ και yoga στον ιδιωτικό σας χώρο.</p>
                 </div>
@@ -2073,7 +2380,7 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
                 <img src="https://images.unsplash.com/photo-1471922694854-ff1b63b20054?w=900&q=85&auto=format&fit=crop"
                      alt="Wine tasting" loading="lazy" decoding="async">
                 <div class="exp-overlay">
-                    <i class="fa-solid fa-wine-glass exp-icon"></i>
+                    <span class="exp-icon"><svg><use href="#i-wine"/></svg></span>
                     <h3>Wine Tasting</h3>
                     <p>Γευσιγνωσία τοπικών κρασιών με σομελιέ, στο φως του ηλιοβασιλέματος.</p>
                 </div>
@@ -2086,10 +2393,11 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
      REVIEWS
      ============================================================ -->
 <section id="reviews" class="section reviews">
+    <span class="sec-num">06 / 09</span>
     <div class="container">
         <div class="reviews-head">
-            <span class="eyebrow with-rule reveal" style="display:inline-block;">06 — Εμπειρίες</span>
-            <h2 class="h1 reveal d1">Από τους <em class="em">επισκέπτες</em> μας</h2>
+            <span class="eyebrow reveal">Μαρτυρίες</span>
+            <h2 class="h1 reveal d1" data-split>Από τους <em class="em">επισκέπτες</em> μας</h2>
         </div>
 
         <div class="reviews-grid">
@@ -2097,7 +2405,11 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
                 <div class="review-quote">"</div>
                 <p>Η διαμονή μας στο Aetheria ήταν απλά μαγευτική. Η θέα από την πισίνα την ώρα που δύει ο ήλιος δεν περιγράφεται. Όλα ήταν άψογα.</p>
                 <div class="review-stars">
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    <svg class="icon"><use href="#i-star"/></svg>
+                    <svg class="icon"><use href="#i-star"/></svg>
+                    <svg class="icon"><use href="#i-star"/></svg>
+                    <svg class="icon"><use href="#i-star"/></svg>
+                    <svg class="icon"><use href="#i-star"/></svg>
                 </div>
                 <div class="review-author">
                     <span class="name">Ελένη Μ.</span>
@@ -2107,9 +2419,13 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
 
             <article class="review reveal d1">
                 <div class="review-quote">"</div>
-                <p>Absolute perfection — the villa is even better than the photos. Premium finishes, ultra-fast internet, and complete privacy. We will definitely return.</p>
+                <p>Absolute perfection — the villa is even better than the photos. Premium finishes, ultra-fast internet, and complete privacy.</p>
                 <div class="review-stars">
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    <svg class="icon"><use href="#i-star"/></svg>
+                    <svg class="icon"><use href="#i-star"/></svg>
+                    <svg class="icon"><use href="#i-star"/></svg>
+                    <svg class="icon"><use href="#i-star"/></svg>
+                    <svg class="icon"><use href="#i-star"/></svg>
                 </div>
                 <div class="review-author">
                     <span class="name">David & Sarah</span>
@@ -2119,9 +2435,13 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
 
             <article class="review reveal d2">
                 <div class="review-quote">"</div>
-                <p>Εξαιρετική φιλοξενία και απίστευτη προσοχή στη λεπτομέρεια. Νιώσαμε σαν να είμαστε σε ένα πολυτελές boutique ξενοδοχείο, αλλά με την ελευθερία του σπιτιού μας.</p>
+                <p>Εξαιρετική φιλοξενία και απίστευτη προσοχή στη λεπτομέρεια. Νιώσαμε σαν να είμαστε σε ένα πολυτελές boutique ξενοδοχείο.</p>
                 <div class="review-stars">
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    <svg class="icon"><use href="#i-star"/></svg>
+                    <svg class="icon"><use href="#i-star"/></svg>
+                    <svg class="icon"><use href="#i-star"/></svg>
+                    <svg class="icon"><use href="#i-star"/></svg>
+                    <svg class="icon"><use href="#i-star"/></svg>
                 </div>
                 <div class="review-author">
                     <span class="name">Γιώργος & Μαρία</span>
@@ -2136,11 +2456,12 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
      RESERVATIONS
      ============================================================ -->
 <section id="reservations" class="section reservations">
+    <span class="sec-num light">07 / 09</span>
     <div class="container">
         <div class="reserve-grid">
             <div class="reserve-copy">
-                <span class="eyebrow with-rule reveal">07 — Κρατήσεις</span>
-                <h2 class="h1 reveal d1">
+                <span class="eyebrow light reveal">Κρατήσεις</span>
+                <h2 class="h1 reveal d1" data-split>
                     Κλείστε τη διαμονή σας στο <em class="em">Aetheria</em>
                 </h2>
                 <p class="lead reveal d2">
@@ -2148,43 +2469,43 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
                 </p>
 
                 <ul class="reserve-list reveal d3">
-                    <li><i class="fa-solid fa-check"></i> Έως 6 φιλοξενούμενοι — 3 Master Σουίτες</li>
-                    <li><i class="fa-solid fa-check"></i> Ελάχιστη διαμονή: 3 βράδια (5 το καλοκαίρι)</li>
-                    <li><i class="fa-solid fa-check"></i> Ευέλικτη πολιτική ακύρωσης</li>
-                    <li><i class="fa-solid fa-check"></i> Δυνατότητα early check-in / late check-out</li>
+                    <li><svg class="icon"><use href="#i-check"/></svg> Έως 6 φιλοξενούμενοι — 3 Master Σουίτες</li>
+                    <li><svg class="icon"><use href="#i-check"/></svg> Ελάχιστη διαμονή: 3 βράδια (5 το καλοκαίρι)</li>
+                    <li><svg class="icon"><use href="#i-check"/></svg> Ευέλικτη πολιτική ακύρωσης</li>
+                    <li><svg class="icon"><use href="#i-check"/></svg> Δυνατότητα early check-in / late check-out</li>
                 </ul>
             </div>
 
             <div class="booking-cards">
                 <article class="bk-card reveal">
                     <div class="bk-card-head">
-                        <div class="bk-logo booking"><i class="fa-solid fa-bed"></i></div>
+                        <div class="bk-logo booking"><svg class="icon"><use href="#i-bed"/></svg></div>
                         <div>
                             <h4>Booking.com</h4>
                             <small>Επίσημο κανάλι</small>
                         </div>
                     </div>
                     <p>Δείτε πραγματικές διαθεσιμότητες, τιμές και αξιολογήσεις επισκεπτών. Δωρεάν ακύρωση σε πολλές ημερομηνίες.</p>
-                    <!-- ΑΛΛΑΞΕ το href με το πραγματικό σου listing URL -->
-                    <a href="https://www.booking.com/" target="_blank" rel="noopener" class="btn btn-gold btn-block">
+                    <!-- ΑΛΛΑΞΕ το href με το πραγματικό σου listing URL στο Booking -->
+                    <a href="https://www.booking.com/" target="_blank" rel="noopener" class="btn btn-gold btn-block" data-magnetic>
                         <span class="btn-text">Άνοιγμα στο Booking.com</span>
-                        <span class="arrow">→</span>
+                        <svg class="icon"><use href="#i-arrow-up"/></svg>
                     </a>
                 </article>
 
                 <article class="bk-card reveal d1">
                     <div class="bk-card-head">
-                        <div class="bk-logo airbnb"><i class="fa-brands fa-airbnb"></i></div>
+                        <div class="bk-logo airbnb"><svg class="icon"><use href="#i-spa"/></svg></div>
                         <div>
                             <h4>Airbnb</h4>
                             <small>Επίσημο κανάλι</small>
                         </div>
                     </div>
                     <p>Για επισκέπτες που προτιμούν την εμπειρία και την προστασία του Airbnb — με όλες τις πληροφορίες, φωτογραφίες και κριτικές.</p>
-                    <!-- ΑΛΛΑΞΕ το href με το πραγματικό σου listing URL -->
-                    <a href="https://www.airbnb.com/" target="_blank" rel="noopener" class="btn btn-gold btn-block">
+                    <!-- ΑΛΛΑΞΕ το href με το πραγματικό σου listing URL στο Airbnb -->
+                    <a href="https://www.airbnb.com/" target="_blank" rel="noopener" class="btn btn-gold btn-block" data-magnetic>
                         <span class="btn-text">Άνοιγμα στο Airbnb</span>
-                        <span class="arrow">→</span>
+                        <svg class="icon"><use href="#i-arrow-up"/></svg>
                     </a>
                 </article>
             </div>
@@ -2195,12 +2516,12 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
                 <h4>Προτιμάτε <em class="em">απευθείας</em> κράτηση;</h4>
                 <p>Καλέστε μας ή στείλτε WhatsApp για προσωπική εξυπηρέτηση και ειδικές τιμές.</p>
             </div>
-            <a href="tel:2310000000" class="btn btn-ivory">
-                <i class="fa-solid fa-phone"></i>
+            <a href="tel:2310000000" class="btn btn-ivory" data-magnetic>
+                <svg class="icon"><use href="#i-phone"/></svg>
                 <span class="btn-text">2310 000 000</span>
             </a>
-            <a href="https://wa.me/302310000000" target="_blank" rel="noopener" class="btn btn-gold">
-                <i class="fa-brands fa-whatsapp"></i>
+            <a href="https://wa.me/302310000000" target="_blank" rel="noopener" class="btn btn-gold" data-magnetic>
+                <svg class="icon"><use href="#i-whatsapp"/></svg>
                 <span class="btn-text">WhatsApp</span>
             </a>
         </div>
@@ -2211,36 +2532,37 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
      FAQ
      ============================================================ -->
 <section class="section faq">
+    <span class="sec-num">08 / 09</span>
     <div class="container">
         <div class="faq-head">
-            <span class="eyebrow with-rule reveal" style="display:inline-block;">08 — Συχνές Ερωτήσεις</span>
-            <h2 class="h1 reveal d1">Χρήσιμες Πληροφορίες</h2>
+            <span class="eyebrow reveal">Συχνές Ερωτήσεις</span>
+            <h2 class="h1 reveal d1" data-split>Χρήσιμες <em class="em">πληροφορίες</em></h2>
         </div>
 
         <div class="faq-wrap">
             <div class="faq-item">
-                <button class="faq-q"><span>Ποιο είναι το ωράριο check-in;</span><i class="fa-solid fa-plus"></i></button>
+                <button class="faq-q"><span>Ποιο είναι το ωράριο check-in;</span><svg class="icon"><use href="#i-plus"/></svg></button>
                 <div class="faq-a"><div class="faq-a-inner">
                     Check-in: από τις 15:00. Check-out: έως τις 11:00. Κατόπιν συνεννόησης, μπορούμε να προσαρμόσουμε το ωράριο στις ανάγκες σας.
                 </div></div>
             </div>
 
             <div class="faq-item">
-                <button class="faq-q"><span>Δέχεστε κατοικίδια;</span><i class="fa-solid fa-plus"></i></button>
+                <button class="faq-q"><span>Δέχεστε κατοικίδια;</span><svg class="icon"><use href="#i-plus"/></svg></button>
                 <div class="faq-a"><div class="faq-a-inner">
                     Ναι, κατόπιν προηγούμενης συνεννόησης. Παρακαλούμε ενημερώστε μας κατά την κράτηση.
                 </div></div>
             </div>
 
             <div class="faq-item">
-                <button class="faq-q"><span>Υπάρχει δυνατότητα πρώιμου check-in;</span><i class="fa-solid fa-plus"></i></button>
+                <button class="faq-q"><span>Υπάρχει δυνατότητα πρώιμου check-in;</span><svg class="icon"><use href="#i-plus"/></svg></button>
                 <div class="faq-a"><div class="faq-a-inner">
                     Εφόσον δεν υπάρχει προηγούμενη κράτηση, μπορούμε να εξασφαλίσουμε early check-in χωρίς επιπλέον χρέωση.
                 </div></div>
             </div>
 
             <div class="faq-item">
-                <button class="faq-q"><span>Πόσο απέχει από το αεροδρόμιο;</span><i class="fa-solid fa-plus"></i></button>
+                <button class="faq-q"><span>Πόσο απέχει από το αεροδρόμιο;</span><svg class="icon"><use href="#i-plus"/></svg></button>
                 <div class="faq-a"><div class="faq-a-inner">
                     Το διεθνές αεροδρόμιο βρίσκεται σε απόσταση περίπου 20 λεπτών με αυτοκίνητο. Μπορούμε να οργανώσουμε ιδιωτική μεταφορά κατόπιν αιτήματος.
                 </div></div>
@@ -2253,11 +2575,12 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
      LOCATION
      ============================================================ -->
 <section id="location" class="section">
+    <span class="sec-num">09 / 09</span>
     <div class="container">
         <div class="location-grid">
             <div class="location-copy">
-                <span class="eyebrow with-rule reveal">09 — Τοποθεσία</span>
-                <h2 class="h1 reveal d1">
+                <span class="eyebrow reveal">Τοποθεσία</span>
+                <h2 class="h1 reveal d1" data-split>
                     Σε ένα από τα πιο <em class="em">προνομιακά</em> σημεία
                 </h2>
                 <p class="lead reveal d2">
@@ -2266,20 +2589,20 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
 
                 <div class="poi-list reveal d3">
                     <div class="poi">
-                        <span class="poi-l"><i class="fa-solid fa-umbrella-beach"></i> Παραλία Άγιος Ιωάννης</span>
+                        <span class="poi-l"><svg class="icon"><use href="#i-pool"/></svg> Παραλία Άγιος Ιωάννης</span>
                         <span class="poi-v">3 λεπτά</span>
                     </div>
                     <div class="poi">
-                        <span class="poi-l"><i class="fa-solid fa-utensils"></i> Παραδοσιακές Ταβέρνες</span>
+                        <span class="poi-l"><svg class="icon"><use href="#i-chef"/></svg> Παραδοσιακές Ταβέρνες</span>
                         <span class="poi-v">5 λεπτά</span>
                     </div>
                     <div class="poi">
-                        <span class="poi-l"><i class="fa-solid fa-plane"></i> Διεθνές Αεροδρόμιο</span>
-                        <span class="poi-v">20 λεπτά</span>
+                        <span class="poi-l"><svg class="icon"><use href="#i-sailboat"/></svg> Λιμάνι</span>
+                        <span class="poi-v">15 λεπτά</span>
                     </div>
                     <div class="poi">
-                        <span class="poi-l"><i class="fa-solid fa-ship"></i> Λιμάνι</span>
-                        <span class="poi-v">15 λεπτά</span>
+                        <span class="poi-l"><svg class="icon"><use href="#i-car"/></svg> Διεθνές Αεροδρόμιο</span>
+                        <span class="poi-v">20 λεπτά</span>
                     </div>
                 </div>
             </div>
@@ -2293,7 +2616,7 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
                     title="Aetheria Location"></iframe>
 
                 <div class="map-overlay">
-                    <i class="fa-solid fa-location-dot"></i>
+                    <svg class="icon"><use href="#i-location"/></svg>
                     <span>Κυκλάδες · Αιγαίο</span>
                 </div>
             </div>
@@ -2306,17 +2629,17 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
      ============================================================ -->
 <footer>
     <div class="footer-hero">
-        <h2 class="reveal">
+        <h2 class="reveal" data-split>
             Ένα <em>αξέχαστο</em> καλοκαίρι στο Αιγαίο ξεκινά με ένα τηλεφώνημα.
         </h2>
         <div class="cta-row reveal d1">
-            <a href="tel:2310000000" class="btn btn-ivory">
+            <a href="tel:2310000000" class="btn btn-ivory" data-magnetic>
+                <svg class="icon"><use href="#i-phone"/></svg>
                 <span class="btn-text">2310 000 000</span>
-                <span class="arrow">→</span>
             </a>
-            <a href="https://wa.me/302310000000" target="_blank" rel="noopener" class="btn btn-outline">
+            <a href="https://wa.me/302310000000" target="_blank" rel="noopener" class="btn btn-outline" data-magnetic>
+                <svg class="icon"><use href="#i-whatsapp"/></svg>
                 <span class="btn-text">WhatsApp</span>
-                <span class="arrow">→</span>
             </a>
         </div>
     </div>
@@ -2342,19 +2665,19 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
         <div>
             <div class="f-title">Επικοινωνία</div>
             <ul class="f-list">
-                <li><a href="tel:2310000000"><i class="fa-solid fa-phone"></i> 2310 000 000</a></li>
-                <li><a href="mailto:reservations@aetheria-residence.gr"><i class="fa-regular fa-envelope"></i> Email</a></li>
-                <li><a href="https://wa.me/302310000000" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a></li>
-                <li><span><i class="fa-solid fa-location-dot"></i> Κυκλάδες, Ελλάδα</span></li>
+                <li><a href="tel:2310000000"><svg class="icon"><use href="#i-phone"/></svg> 2310 000 000</a></li>
+                <li><a href="mailto:reservations@aetheria-residence.gr"><svg class="icon"><use href="#i-arrow-up"/></svg> Email</a></li>
+                <li><a href="https://wa.me/302310000000" target="_blank" rel="noopener"><svg class="icon"><use href="#i-whatsapp"/></svg> WhatsApp</a></li>
+                <li><span><svg class="icon"><use href="#i-location"/></svg> Κυκλάδες, Ελλάδα</span></li>
             </ul>
         </div>
 
         <div>
             <div class="f-title">Social</div>
             <div class="f-socials">
-                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="#" aria-label="Pinterest"><i class="fa-brands fa-pinterest-p"></i></a>
+                <a href="#" aria-label="Instagram"><svg class="icon"><use href="#i-instagram"/></svg></a>
+                <a href="#" aria-label="Facebook"><svg class="icon"><use href="#i-facebook"/></svg></a>
+                <a href="#" aria-label="Pinterest"><svg class="icon"><use href="#i-pinterest"/></svg></a>
             </div>
         </div>
     </div>
@@ -2366,17 +2689,17 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
 </footer>
 
 <div id="lightbox">
-    <button class="lb-close" id="lbClose" aria-label="Κλείσιμο"><i class="fa-solid fa-xmark"></i></button>
+    <button class="lb-close" id="lbClose" aria-label="Κλείσιμο"><svg class="icon"><use href="#i-close"/></svg></button>
     <img id="lbImg" src="" alt="">
 </div>
 
 <div class="float-reserve">
-    <a href="tel:2310000000" class="floating-phone">
+    <a href="tel:2310000000" class="floating-phone" data-magnetic>
+        <svg class="icon"><use href="#i-phone"/></svg>
         <span>2310 000 000</span>
-        <span class="arrow">→</span>
     </a>
-    <a href="https://wa.me/302310000000" target="_blank" rel="noopener" class="btn-round" aria-label="WhatsApp">
-        <i class="fa-brands fa-whatsapp"></i>
+    <a href="https://wa.me/302310000000" target="_blank" rel="noopener" class="btn-round" aria-label="WhatsApp" data-magnetic>
+        <svg class="icon"><use href="#i-whatsapp"/></svg>
     </a>
 </div>
 
@@ -2384,34 +2707,31 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
 (function() {
     'use strict';
 
-    /* JS-ready flag — ΤΩΡΑ ενεργοποιείται ΜΟΝΟ αν τρέξει η JS */
     document.documentElement.classList.add('js-ready');
 
-    /* ============ SCROLL PROGRESS ============ */
-    var progress = document.getElementById('progress');
-    var header = document.getElementById('header');
-    var ticking = false;
-
-    function onScroll() {
-        var y = window.pageYOffset || document.documentElement.scrollTop;
-        var h = document.documentElement.scrollHeight - window.innerHeight;
-        var pct = h > 0 ? (y / h) * 100 : 0;
-        if (progress) progress.style.width = pct + '%';
-
-        if (y > 60) header.classList.add('scrolled');
-        else header.classList.remove('scrolled');
-
-        ticking = false;
-    }
-    window.addEventListener('scroll', function() {
-        if (!ticking) {
-            requestAnimationFrame(onScroll);
-            ticking = true;
+    /* ============ TEXT SPLIT (per word) ============ */
+    var splitTargets = document.querySelectorAll('[data-split]');
+    for (var i = 0; i < splitTargets.length; i++) {
+        var el = splitTargets[i];
+        var html = el.innerHTML.trim();
+        // split by space, keep <em> inline
+        var tokens = html.split(/(\s+|<em>|<\/em>)/).filter(function(t) { return t && !/^\s+$/.test(t); });
+        var out = '';
+        var dIndex = 0;
+        var emOpen = false;
+        for (var t = 0; t < tokens.length; t++) {
+            var tok = tokens[t];
+            if (tok === '<em>') { emOpen = true; out += '<em>'; continue; }
+            if (tok === '</em>') { emOpen = false; out += '</em>'; continue; }
+            if (tok === '' ) continue;
+            out += '<span class="split-line" style="--d:' + (dIndex * 0.05) + 's"><span>' + tok + '</span></span> ';
+            dIndex++;
         }
-    }, { passive: true });
-    onScroll();
+        el.innerHTML = out;
+        el.classList.add('split-ready');
+    }
 
-    /* ============ REVEAL ON SCROLL ============ */
+    /* ============ INTERSECTION OBSERVER ============ */
     var reveals = document.querySelectorAll('.reveal');
     if ('IntersectionObserver' in window) {
         var obs = new IntersectionObserver(function(entries) {
@@ -2427,12 +2747,106 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
         for (var i = 0; i < reveals.length; i++) reveals[i].classList.add('in');
     }
 
+    /* ============ COUNTERS ============ */
+    var counters = document.querySelectorAll('[data-count]');
+    if ('IntersectionObserver' in window) {
+        var cObs = new IntersectionObserver(function(entries) {
+            for (var i = 0; i < entries.length; i++) {
+                if (entries[i].isIntersecting) {
+                    var el = entries[i].target;
+                    var target = parseInt(el.getAttribute('data-count'), 10);
+                    var pad = el.getAttribute('data-pad');
+                    var start = performance.now();
+                    var dur = 1800;
+                    (function(e, tgt, pd) {
+                        function tick(now) {
+                            var p = Math.min((now - start) / dur, 1);
+                            var eased = 1 - Math.pow(1 - p, 4);
+                            var val = Math.round(eased * tgt);
+                            var out = pd ? String(val).padStart(parseInt(pd, 10), '0') : String(val);
+                            e.textContent = out;
+                            if (p < 1) requestAnimationFrame(tick);
+                        }
+                        requestAnimationFrame(tick);
+                    })(el, target, pad);
+                    cObs.unobserve(el);
+                }
+            }
+        }, { threshold: 0.5 });
+        for (var i = 0; i < counters.length; i++) cObs.observe(counters[i]);
+    }
+
+    /* ============ SCROLL PROGRESS + HEADER ============ */
+    var progress = document.getElementById('progress');
+    var header = document.getElementById('header');
+    var ticking = false;
+    function onScroll() {
+        var y = window.pageYOffset || document.documentElement.scrollTop;
+        var h = document.documentElement.scrollHeight - window.innerHeight;
+        var pct = h > 0 ? (y / h) * 100 : 0;
+        if (progress) progress.style.width = pct + '%';
+        if (header) header.classList.toggle('scrolled', y > 60);
+        ticking = false;
+    }
+    window.addEventListener('scroll', function() {
+        if (!ticking) { requestAnimationFrame(onScroll); ticking = true; }
+    }, { passive: true });
+    onScroll();
+
+    /* ============ CUSTOM CURSOR ============ */
+    var fine = window.matchMedia('(pointer: fine)').matches;
+    if (fine) {
+        var dot = document.querySelector('.cursor');
+        var ring = document.querySelector('.cursor-ring');
+        var mx = 0, my = 0, rx = 0, ry = 0;
+
+        document.addEventListener('mousemove', function(e) {
+            mx = e.clientX; my = e.clientY;
+            if (dot) dot.style.opacity = '1';
+            if (ring) ring.style.opacity = '1';
+            if (dot) dot.style.transform = 'translate(' + mx + 'px, ' + my + 'px) translate(-50%, -50%)';
+        });
+        function loop() {
+            rx += (mx - rx) * 0.18;
+            ry += (my - ry) * 0.18;
+            if (ring) ring.style.transform = 'translate(' + rx + 'px, ' + ry + 'px) translate(-50%, -50%)';
+            requestAnimationFrame(loop);
+        }
+        loop();
+
+        document.addEventListener('mouseover', function(e) {
+            var t = e.target.closest('a, button, .g-item, .bk-card, .suite, .review, .amenity');
+            if (!ring) return;
+            ring.classList.remove('hover', 'text');
+            if (e.target.closest('.g-item')) ring.classList.add('text');
+            else if (t) ring.classList.add('hover');
+        });
+    }
+
+    /* ============ MAGNETIC BUTTONS ============ */
+    if (fine) {
+        var magnets = document.querySelectorAll('[data-magnetic]');
+        for (var i = 0; i < magnets.length; i++) {
+            (function(el) {
+                el.addEventListener('mousemove', function(e) {
+                    var r = el.getBoundingClientRect();
+                    var x = e.clientX - r.left - r.width / 2;
+                    var y = e.clientY - r.top - r.height / 2;
+                    el.style.transform = 'translate(' + (x * 0.25) + 'px, ' + (y * 0.4) + 'px)';
+                });
+                el.addEventListener('mouseleave', function() {
+                    el.style.transform = '';
+                });
+            })(magnets[i]);
+        }
+    }
+
     /* ============ MOBILE MENU ============ */
     var menuBtn = document.getElementById('menuBtn');
     var menuClose = document.getElementById('menuClose');
     var mmenu = document.getElementById('mmenu');
 
-    menuBtn.addEventListener('click', function() {
+    if (menuBtn) menuBtn.addEventListener('click', function() {
         mmenu.classList.add('open');
         document.body.style.overflow = 'hidden';
     });
@@ -2440,7 +2854,7 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
         mmenu.classList.remove('open');
         document.body.style.overflow = '';
     }
-    menuClose.addEventListener('click', closeMenu);
+    if (menuClose) menuClose.addEventListener('click', closeMenu);
     var mlinks = mmenu.querySelectorAll('a');
     for (var i = 0; i < mlinks.length; i++) mlinks[i].addEventListener('click', closeMenu);
 
@@ -2481,8 +2895,8 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
         lbImg.src = '';
         document.body.style.overflow = '';
     }
-    lbClose.addEventListener('click', closeLB);
-    lb.addEventListener('click', function(e) { if (e.target === lb) closeLB(); });
+    if (lbClose) lbClose.addEventListener('click', closeLB);
+    if (lb) lb.addEventListener('click', function(e) { if (e.target === lb) closeLB(); });
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && lb.classList.contains('open')) closeLB();
     });
@@ -2504,7 +2918,7 @@ html.js-ready .reveal.d3 { transition-delay: 0.3s; }
         });
     }
 
-    /* ============ SMOOTH SCROLL για anchors ============ */
+    /* ============ SMOOTH SCROLL ============ */
     var anchors = document.querySelectorAll('a[href^="#"]');
     for (var i = 0; i < anchors.length; i++) {
         anchors[i].addEventListener('click', function(e) {
