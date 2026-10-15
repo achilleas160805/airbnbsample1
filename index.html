@@ -27,11 +27,7 @@
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-html {
-    scroll-behavior: smooth;
-    -webkit-text-size-adjust: 100%;
-    font-size: 16px;
-}
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; font-size: 16px; }
 body {
     background: var(--ivory);
     color: var(--ink);
@@ -44,11 +40,11 @@ body {
 }
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
-button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
 ul { list-style: none; }
 
 .serif { font-family: 'Noto Serif Display', Georgia, serif; font-weight: 400; letter-spacing: -0.02em; line-height: 1.05; }
-.h1 { font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1.08; letter-spacing: -0.02em; font-weight: 400; }
+.h1 { font-size: clamp(1.875rem, 3.75vw, 3.25rem); line-height: 1.08; letter-spacing: -0.02em; font-weight: 400; }
 .em { font-style: italic; color: var(--bronze); }
 
 .eyebrow {
@@ -75,6 +71,7 @@ ul { list-style: none; }
     font-size: 15px;
     line-height: 1.75;
     color: rgba(14, 19, 16, 0.72);
+    font-weight: 400;
 }
 @media (min-width: 768px) { .lead { font-size: 16px; } }
 
@@ -98,6 +95,7 @@ header {
     justify-content: space-between;
     gap: 2rem;
 }
+
 .brand {
     display: flex;
     align-items: baseline;
@@ -137,10 +135,10 @@ header {
     background: var(--bronze);
     transition: width 0.4s var(--ease);
 }
-.nav-desk a:hover::after { width: 100%; }
-.nav-desk a:hover { color: var(--bronze); }
-.nav-desk a.active { color: var(--bronze); }
+.nav-desk a:hover::after,
 .nav-desk a.active::after { width: 100%; }
+.nav-desk a:hover,
+.nav-desk a.active { color: var(--bronze); }
 
 .cta-reserve {
     display: none;
@@ -152,7 +150,7 @@ header {
     color: var(--ink);
     border: 1px solid rgba(14, 19, 16, 0.18);
     border-radius: 999px;
-    transition: background-color 0.4s var(--ease), color 0.4s var(--ease), border-color 0.4s var(--ease);
+    transition: all 0.4s var(--ease);
 }
 @media (min-width: 768px) { .cta-reserve { display: inline-flex; } }
 .cta-reserve:hover { background: var(--bronze); border-color: var(--bronze); color: #fff; }
@@ -194,7 +192,6 @@ header {
     font-size: 11px; letter-spacing: 0.12em;
     color: var(--bronze-light); font-weight: 400;
 }
-.m-actions { margin-top: auto; padding-top: 2rem; display: flex; flex-direction: column; gap: 0.75rem; }
 
 /* BUTTONS */
 .btn {
@@ -211,21 +208,11 @@ header {
     border: none;
     border-radius: 2px;
     cursor: pointer;
-    transition: background-color 0.4s var(--ease), color 0.4s var(--ease), transform 0.2s var(--ease), box-shadow 0.4s var(--ease);
-    touch-action: manipulation;
+    transition: all 0.4s var(--ease);
 }
 .btn:hover { transform: translateY(-2px); }
 .btn .arrow { display: inline-block; transition: transform 0.4s var(--ease); opacity: 0.85; }
 .btn:hover .arrow { transform: translateX(6px); opacity: 1; }
-.btn-ivory { background: var(--ivory); color: var(--ink); }
-.btn-ivory:hover { background: var(--bronze); color: var(--ivory); }
-.btn-outline {
-    background: transparent;
-    color: var(--ivory);
-    border: 1px solid rgba(248,245,239,0.4);
-}
-.btn-outline:hover { border-color: var(--ivory); background: var(--ivory); color: var(--ink); }
-.btn-pill { border-radius: 999px; }
 .btn-block { width: 100%; }
 
 /* PAGE HERO */
@@ -272,6 +259,17 @@ header {
     color: rgba(248,245,239,0.78);
     font-weight: 300;
 }
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 13px;
+    color: var(--champagne);
+    margin-bottom: 1.5rem;
+    transition: color 0.3s, gap 0.3s var(--ease);
+}
+.back-link:hover { color: var(--ivory); gap: 0.75rem; }
+.back-link i { font-size: 11px; }
 
 /* SECTION */
 .section { padding: 6rem 1.5rem; }
@@ -279,7 +277,7 @@ header {
 @media (min-width: 1280px) { .section { padding: 8rem 5rem; } }
 .container { max-width: 1280px; margin: 0 auto; }
 
-/* BOOKING CARDS */
+/* PLATFORM CARDS */
 .platforms {
     display: grid;
     gap: 1.5rem;
@@ -311,7 +309,6 @@ header {
     height: 3px;
     background: linear-gradient(90deg, var(--champagne), var(--bronze), var(--champagne));
 }
-
 .platform-logo {
     display: flex;
     align-items: center;
@@ -339,7 +336,6 @@ header {
     font-family: 'Noto Serif Display', Georgia, serif;
     font-size: 1.375rem;
     font-weight: 500;
-    letter-spacing: -0.01em;
     line-height: 1;
     color: var(--ink);
 }
@@ -350,7 +346,6 @@ header {
     color: var(--stone);
     font-weight: 500;
 }
-
 .platform h3 {
     font-family: 'Noto Serif Display', Georgia, serif;
     font-size: 1.5rem;
@@ -396,7 +391,7 @@ header {
     font-size: 14px;
     font-weight: 500;
     border-radius: 999px;
-    transition: transform 0.3s var(--ease), box-shadow 0.4s var(--ease), background-color 0.3s;
+    transition: transform 0.3s var(--ease), box-shadow 0.4s var(--ease);
     color: #fff;
     width: 100%;
 }
@@ -413,7 +408,7 @@ header {
 }
 .platform-cta:hover .arrow { transform: translateX(6px); }
 
-/* DIRECT CONTACT CARD */
+/* DIRECT CARD */
 .direct-card {
     margin-top: 4rem;
     padding: 3rem 2.5rem;
@@ -447,7 +442,7 @@ header {
     gap: 0.75rem;
 }
 
-/* NOTE / INFO BOX — ΣΗΜΕΙΩΣΗ ΓΙΑ LIVE ΣΥΣΤΗΜΑ */
+/* NOTE BOX */
 .note-box {
     margin-top: 4rem;
     padding: 2.5rem;
@@ -560,20 +555,6 @@ footer {
     font-weight: 500;
 }
 
-/* BACK LINK */
-.back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 13px;
-    color: var(--champagne);
-    margin-bottom: 1.5rem;
-    letter-spacing: 0.01em;
-    transition: color 0.3s, gap 0.3s var(--ease);
-}
-.back-link:hover { color: var(--ivory); gap: 0.75rem; }
-.back-link i { font-size: 11px; }
-
 /* REVEAL */
 .reveal { opacity: 0; transform: translate3d(0, 20px, 0); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
 .reveal.in { opacity: 1; transform: translate3d(0, 0, 0); }
@@ -586,12 +567,12 @@ footer {
 
 <header>
     <div class="header-inner">
-        <a href="index.html" class="brand" aria-label="Aetheria home">
+        <a href="index.html" class="brand">
             <span class="brand-mark">Aetheria</span>
             <span class="brand-suffix">Kyklades</span>
         </a>
 
-        <nav class="nav-desk" aria-label="Primary">
+        <nav class="nav-desk">
             <a href="index.html#about">Η Βίλα</a>
             <a href="index.html#amenities">Παροχές</a>
             <a href="index.html#gallery">Συλλογή</a>
@@ -604,18 +585,18 @@ footer {
             <span class="arrow">→</span>
         </a>
 
-        <button class="menu-btn" id="menuBtn" aria-label="Άνοιγμα μενού">
+        <button class="menu-btn" id="menuBtn" aria-label="Menu">
             <i class="fa-solid fa-bars"></i>
         </button>
     </div>
 </header>
 
-<div id="mmenu" aria-hidden="true">
-    <button class="m-close" id="menuClose" aria-label="Κλείσιμο">
+<div id="mmenu">
+    <button class="m-close" id="menuClose" aria-label="Close">
         <i class="fa-solid fa-xmark"></i>
     </button>
     <div class="m-brand">AETHERIA — KYKLADES</div>
-    <nav aria-label="Mobile">
+    <nav>
         <a href="index.html#about" data-i="01">Η Βίλα</a>
         <a href="index.html#amenities" data-i="02">Παροχές</a>
         <a href="index.html#gallery" data-i="03">Συλλογή</a>
@@ -625,11 +606,10 @@ footer {
     </nav>
 </div>
 
-<!-- ============ PAGE HERO ============ -->
 <section class="page-hero">
     <div class="page-hero-inner">
         <a href="index.html" class="back-link">
-            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+            <i class="fa-solid fa-arrow-left"></i>
             <span>Πίσω στην αρχική</span>
         </a>
         <span class="eyebrow with-rule">Κρατήσεις</span>
@@ -642,7 +622,6 @@ footer {
     </div>
 </section>
 
-<!-- ============ PLATFORMS ============ -->
 <section class="section" style="background: var(--ivory);">
     <div class="container">
 
@@ -652,7 +631,7 @@ footer {
             <article class="platform reveal">
                 <div class="platform-logo">
                     <div class="platform-logo-mark booking">
-                        <i class="fa-solid fa-bed" aria-hidden="true"></i>
+                        <i class="fa-solid fa-bed"></i>
                     </div>
                     <div class="platform-logo-text">
                         <strong>Booking.com</strong>
@@ -664,9 +643,9 @@ footer {
                     Δείτε πραγματικές διαθεσιμότητες, τιμές και αξιολογήσεις επισκεπτών. Δωρεάν ακύρωση σε πολλές ημερομηνίες.
                 </p>
                 <ul class="platform-features">
-                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Άμεση επιβεβαίωση</li>
-                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Ασφαλής πληρωμή</li>
-                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> 24/7 υποστήριξη πελατών</li>
+                    <li><i class="fa-solid fa-check"></i> Άμεση επιβεβαίωση</li>
+                    <li><i class="fa-solid fa-check"></i> Ασφαλής πληρωμή</li>
+                    <li><i class="fa-solid fa-check"></i> 24/7 υποστήριξη πελατών</li>
                 </ul>
                 <!-- ΑΛΛΑΞΕ το href με το πραγματικό σου listing URL στο Booking -->
                 <a href="https://www.booking.com/" target="_blank" rel="noopener" class="platform-cta booking">
@@ -679,7 +658,7 @@ footer {
             <article class="platform reveal d1">
                 <div class="platform-logo">
                     <div class="platform-logo-mark airbnb">
-                        <i class="fa-brands fa-airbnb" aria-hidden="true"></i>
+                        <i class="fa-brands fa-airbnb"></i>
                     </div>
                     <div class="platform-logo-text">
                         <strong>Airbnb</strong>
@@ -691,9 +670,9 @@ footer {
                     Για επισκέπτες που προτιμούν την εμπειρία και την προστασία του Airbnb — με όλες τις πληροφορίες, φωτογραφίες και κριτικές.
                 </p>
                 <ul class="platform-features">
-                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Verified listing</li>
-                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Ασφαλείς πληρωμές</li>
-                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Πολιτική ακύρωσης Airbnb</li>
+                    <li><i class="fa-solid fa-check"></i> Verified listing</li>
+                    <li><i class="fa-solid fa-check"></i> Ασφαλείς πληρωμές</li>
+                    <li><i class="fa-solid fa-check"></i> Πολιτική ακύρωσης Airbnb</li>
                 </ul>
                 <!-- ΑΛΛΑΞΕ το href με το πραγματικό σου listing URL στο Airbnb -->
                 <a href="https://www.airbnb.com/" target="_blank" rel="noopener" class="platform-cta airbnb">
@@ -714,22 +693,19 @@ footer {
             </div>
             <div class="actions">
                 <a href="tel:2310000000" class="btn btn-block" style="background: var(--ink); color: var(--ivory);">
-                    <i class="fa-solid fa-phone" aria-hidden="true"></i>
+                    <i class="fa-solid fa-phone"></i>
                     <span>2310 000 000</span>
                 </a>
                 <a href="https://wa.me/302310000000" target="_blank" rel="noopener" class="btn btn-block" style="background:#25D366;color:#fff;">
-                    <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                    <i class="fa-brands fa-whatsapp"></i>
                     <span>WhatsApp</span>
                 </a>
             </div>
         </div>
 
-        <!-- =====================================================
-             ΣΗΜΕΙΩΣΗ ΓΙΑ LIVE ΣΥΣΤΗΜΑ ΚΡΑΤΗΣΕΩΝ
-             ΠΡΟΑΙΡΕΤΙΚΟ — μπορεί να αφαιρεθεί πριν το live
-             ===================================================== -->
+        <!-- ΣΗΜΕΙΩΣΗ ΓΙΑ LIVE ΣΥΣΤΗΜΑ -->
         <div class="note-box reveal d3">
-            <i class="fa-solid fa-circle-info note-box-icon" aria-hidden="true"></i>
+            <i class="fa-solid fa-circle-info note-box-icon"></i>
             <div class="note-box-content">
                 <h4>Σημείωση σχετικά με το σύστημα κρατήσεων</h4>
                 <p>
@@ -747,7 +723,6 @@ footer {
     </div>
 </section>
 
-<!-- ============ FOOTER ============ -->
 <footer>
     <div class="footer-cols">
         <div class="f-brand">
@@ -767,18 +742,18 @@ footer {
         <div>
             <div class="f-title">Επικοινωνία</div>
             <ul class="f-list">
-                <li><a href="tel:2310000000"><i class="fa-solid fa-phone" aria-hidden="true"></i> 2310 000 000</a></li>
-                <li><a href="mailto:reservations@aetheria-residence.gr"><i class="fa-regular fa-envelope" aria-hidden="true"></i> Email</a></li>
-                <li><a href="https://wa.me/302310000000" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp</a></li>
-                <li><span><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Κυκλάδες, Ελλάδα</span></li>
+                <li><a href="tel:2310000000"><i class="fa-solid fa-phone"></i> 2310 000 000</a></li>
+                <li><a href="mailto:reservations@aetheria-residence.gr"><i class="fa-regular fa-envelope"></i> Email</a></li>
+                <li><a href="https://wa.me/302310000000" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a></li>
+                <li><span><i class="fa-solid fa-location-dot"></i> Κυκλάδες, Ελλάδα</span></li>
             </ul>
         </div>
         <div>
             <div class="f-title">Social</div>
             <div class="f-socials">
-                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
-                <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
-                <a href="#" aria-label="Pinterest"><i class="fa-brands fa-pinterest-p" aria-hidden="true"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" aria-label="Pinterest"><i class="fa-brands fa-pinterest-p"></i></a>
             </div>
         </div>
     </div>
@@ -798,17 +773,14 @@ footer {
     var menuClose = document.getElementById('menuClose');
     var mmenu = document.getElementById('mmenu');
 
-    function openMenu() {
+    menuBtn.addEventListener('click', function() {
         mmenu.classList.add('open');
-        mmenu.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
-    }
+    });
     function closeMenu() {
         mmenu.classList.remove('open');
-        mmenu.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
     }
-    menuBtn.addEventListener('click', openMenu);
     menuClose.addEventListener('click', closeMenu);
     var mlinks = mmenu.querySelectorAll('a');
     for (var i = 0; i < mlinks.length; i++) mlinks[i].addEventListener('click', closeMenu);
@@ -823,15 +795,11 @@ footer {
                     obs.unobserve(entries[i].target);
                 }
             }
-        }, { rootMargin: '0px 0px -30px 0px', threshold: 0.05 });
+        }, { rootMargin: '0px 0px -40px 0px', threshold: 0.05 });
         for (var i = 0; i < reveals.length; i++) obs.observe(reveals[i]);
     } else {
         for (var i = 0; i < reveals.length; i++) reveals[i].classList.add('in');
     }
-
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && mmenu.classList.contains('open')) closeMenu();
-    });
 })();
 </script>
 
