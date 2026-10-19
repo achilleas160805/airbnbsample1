@@ -7,7 +7,7 @@
 <title>Aetheria — Ιδιωτική Βίλα | Κυκλάδες</title>
 <meta name="description" content="Aetheria — Ιδιωτική βίλα πολυτελείας στις Κυκλάδες με infinity pool και πανοραμική θέα στο Αιγαίο.">
 
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230A0E0C'/%3E%3Cpath d='M10 54V16h26v14h18v24z' fill='%23C9A961'/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230A0E0C'/%3E%3Cpath d='M32 16L12 54M32 16L52 54M18 42H46' stroke='%23C9A961' stroke-width='5' fill='none' stroke-linecap='butt' stroke-linejoin='miter' stroke-miterlimit='10'/%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -66,9 +66,6 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 ul { list-style: none; }
 ::selection { background: var(--gold); color: var(--ink); }
 
-/* =========================================================
-   GRAIN
-   ========================================================= */
 .grain {
     position: fixed;
     inset: 0;
@@ -79,9 +76,6 @@ ul { list-style: none; }
 }
 @media (max-width: 768px) { .grain { display: none; } }
 
-/* =========================================================
-   CURSOR
-   ========================================================= */
 .cursor, .cursor-ring {
     position: fixed;
     top: 0; left: 0;
@@ -129,9 +123,6 @@ ul { list-style: none; }
     .cursor, .cursor-ring { display: none; }
 }
 
-/* =========================================================
-   TYPOGRAPHY — QUIET EDITORIAL
-   ========================================================= */
 .h1,
 .h2,
 .serif {
@@ -206,9 +197,6 @@ h3 em, .h3 em, p em, li em {
 }
 @media (min-width: 768px) { .lead { font-size: 16.5px; } }
 
-/* =========================================================
-   TEXT SPLIT REVEAL
-   ========================================================= */
 .split-line {
     display: inline-block;
     overflow: hidden;
@@ -225,9 +213,6 @@ h3 em, .h3 em, p em, li em {
 .split-ready .split-line > span { transform: translateY(0); }
 html:not(.js-ready) .split-line > span { transform: none !important; }
 
-/* =========================================================
-   REVEAL
-   ========================================================= */
 .reveal {
     transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
 }
@@ -245,9 +230,6 @@ html.js-ready .reveal.d4 { transition-delay: 0.24s; }
 html:not(.js-ready) .clip-reveal { clip-path: none; }
 .clip-reveal.in { clip-path: inset(0 0 0 0); }
 
-/* =========================================================
-   SVG ICON BASE
-   ========================================================= */
 .icon {
     width: 1em;
     height: 1em;
@@ -261,9 +243,6 @@ html:not(.js-ready) .clip-reveal { clip-path: none; }
     flex-shrink: 0;
 }
 
-/* =========================================================
-   HEADER
-   ========================================================= */
 header {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -405,9 +384,6 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 @media (min-width: 1024px) { .menu-btn { display: none; } }
 .menu-btn .icon { width: 22px; height: 22px; stroke-width: 1; }
 
-/* =========================================================
-   MOBILE MENU
-   ========================================================= */
 #mmenu {
     position: fixed; inset: 0;
     z-index: 200;
@@ -472,9 +448,6 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     gap: 0.75rem;
 }
 
-/* =========================================================
-   BUTTONS
-   ========================================================= */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -545,9 +518,6 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 .btn-round .icon { width: 18px; height: 18px; stroke-width: 1.2; }
 .btn-round:hover { background: var(--ink); color: var(--gold); }
 
-/* =========================================================
-   LAYOUT
-   ========================================================= */
 .section { padding: 6rem 1.5rem; position: relative; }
 @media (min-width: 768px) { .section { padding: 7.5rem 3rem; } }
 @media (min-width: 1280px) { .section { padding: 9rem 5rem; } }
@@ -566,9 +536,6 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 @media (min-width: 1280px) { .sec-num { right: 5rem; } }
 .sec-num.light { color: rgba(228, 213, 171, 0.55); }
 
-/* =========================================================
-   PROGRESS BAR
-   ========================================================= */
 #progress {
     position: fixed;
     top: 0; left: 0;
@@ -579,9 +546,6 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     transition: width 0.08s linear;
 }
 
-/* =========================================================
-   HERO
-   ========================================================= */
 .hero {
     position: relative;
     min-height: 100vh;
@@ -792,9 +756,6 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     50% { transform: translateY(5px); opacity: 1; }
 }
 
-/* =========================================================
-   MARQUEE
-   ========================================================= */
 .marquee {
     background: var(--ink);
     color: var(--champagne);
@@ -833,9 +794,6 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     to { transform: translate3d(-50%,0,0); }
 }
 
-/* =========================================================
-   INTRO
-   ========================================================= */
 .intro { background: var(--ivory); overflow: hidden; content-visibility: auto; contain-intrinsic-size: auto 800px; }
 .intro-grid {
     display: grid;
@@ -941,9 +899,6 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     .badge strong { font-size: 1.125rem; }
 }
 
-/* =========================================================
-   AMENITIES
-   ========================================================= */
 .amenities { background: var(--ink); color: var(--ivory); position: relative; overflow: hidden; content-visibility: auto; contain-intrinsic-size: auto 900px; }
 .amenities::before {
     content: '';
@@ -1051,9 +1006,6 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     letter-spacing: -0.003em;
 }
 
-/* =========================================================
-   GALLERY
-   ========================================================= */
 .gallery { background: var(--cream); content-visibility: auto; contain-intrinsic-size: auto 1200px; }
 .gallery-head {
     display: flex;
@@ -1196,9 +1148,6 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 .lb-close:hover { color: var(--gold); transform: rotate(90deg); }
 .lb-close .icon { width: 22px; height: 22px; stroke-width: 1; }
 
-/* =========================================================
-   EXPERIENCES
-   ========================================================= */
 .experiences { background: var(--ivory); content-visibility: auto; contain-intrinsic-size: auto 800px; }
 .exp-head { text-align: center; margin-bottom: 4rem; }
 .exp-head .eyebrow { justify-content: center; }
@@ -1263,9 +1212,6 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     letter-spacing: -0.003em;
 }
 
-/* =========================================================
-   REVIEWS
-   ========================================================= */
 .reviews { background: var(--cream); content-visibility: auto; contain-intrinsic-size: auto 600px; }
 .reviews-head { text-align: center; margin-bottom: 4rem; }
 .reviews-head .eyebrow { justify-content: center; }
@@ -1332,9 +1278,6 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     font-weight: 400;
 }
 
-/* =========================================================
-   RESERVATIONS
-   ========================================================= */
 .reservations {
     background: var(--ink);
     color: var(--ivory);
@@ -1481,9 +1424,6 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 .contact-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; }
 
-/* =========================================================
-   PLATFORM NOTE — demo info for client
-   ========================================================= */
 .platform-note {
     margin-top: 2rem;
     padding: 1.75rem 2rem;
@@ -1526,9 +1466,6 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     color: var(--champagne);
 }
 
-/* =========================================================
-   FAQ
-   ========================================================= */
 .faq { background: var(--ivory); content-visibility: auto; contain-intrinsic-size: auto 500px; }
 .faq-head { text-align: center; margin-bottom: 4rem; }
 .faq-head .eyebrow { justify-content: center; }
@@ -1583,9 +1520,6 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
     letter-spacing: -0.003em;
 }
 
-/* =========================================================
-   LOCATION
-   ========================================================= */
 .location-grid { display: grid; gap: 3.5rem; }
 @media (min-width: 1024px) {
     .location-grid { grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: center; }
@@ -1659,9 +1593,6 @@ header.scrolled .menu-btn { color: var(--ink); text-shadow: none; }
 }
 .map-overlay .icon { color: var(--gold); width: 12px; height: 12px; stroke-width: 1; }
 
-/* =========================================================
-   FOOTER
-   ========================================================= */
 footer {
     background: var(--ink);
     color: var(--ivory);
@@ -1793,9 +1724,6 @@ footer {
     z-index: 1;
 }
 
-/* =========================================================
-   FLOATING
-   ========================================================= */
 .float-reserve {
     position: fixed;
     bottom: 1.25rem;
@@ -1824,9 +1752,6 @@ footer {
 @media (min-width: 768px) { .float-reserve .floating-phone { display: inline-flex; } }
 .float-reserve .floating-phone:hover { background: var(--gold); color: var(--ink); transform: translateY(-3px); border-color: var(--gold); }
 
-/* =========================================================
-   RESPONSIVE PERF / REDUCED MOTION
-   ========================================================= */
 @media (max-width: 768px) {
     .intro-visual .frame:hover img { transform: none; }
     .g-item:hover img { transform: none; }
@@ -1851,7 +1776,6 @@ footer {
 </head>
 <body>
 
-<!-- SVG SPRITE -->
 <svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
     <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16M13 5l7 7-7 7"/></symbol>
     <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></symbol>
@@ -1893,7 +1817,6 @@ footer {
             <span class="brand-mark">Aetheria</span>
             <span class="brand-suffix">Kyklades · Aegean</span>
         </a>
-
         <nav class="nav-desk" aria-label="Primary">
             <a href="#intro">Η Βίλα</a>
             <a href="#amenities">Παροχές</a>
@@ -1901,12 +1824,10 @@ footer {
             <a href="#reservations">Κρατήσεις</a>
             <a href="#location">Τοποθεσία</a>
         </nav>
-
         <a href="#reservations" class="cta-reserve" data-magnetic>
             <span class="dot"></span>
             <span>Άμεση Κράτηση</span>
         </a>
-
         <button class="menu-btn" id="menuBtn" aria-label="Άνοιγμα μενού">
             <svg class="icon"><use href="#i-menu"/></svg>
         </button>
@@ -1938,37 +1859,27 @@ footer {
     </div>
 </div>
 
-<!-- HERO -->
 <section class="hero" id="hero">
     <div class="hero-bg">
         <div class="hero-slide">
-            <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1920&q=80&auto=format&fit=crop"
-                 alt="Aetheria Villa" fetchpriority="high" decoding="async">
+            <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1920&q=80&auto=format&fit=crop" alt="Aetheria Villa" fetchpriority="high" decoding="async">
         </div>
         <div class="hero-slide">
-            <img src="https://images.unsplash.com/photo-1602002418082-a4443e081dd1?w=1920&q=80&auto=format&fit=crop"
-                 alt="Infinity pool at sunset" loading="lazy" decoding="async">
+            <img src="https://images.unsplash.com/photo-1602002418082-a4443e081dd1?w=1920&q=80&auto=format&fit=crop" alt="Infinity pool at sunset" loading="lazy" decoding="async">
         </div>
         <div class="hero-slide">
-            <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=1920&q=80&auto=format&fit=crop"
-                 alt="Cycladic villa" loading="lazy" decoding="async">
+            <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=1920&q=80&auto=format&fit=crop" alt="Cycladic villa" loading="lazy" decoding="async">
         </div>
     </div>
     <div class="hero-veil"></div>
 
     <div class="hero-seal" aria-hidden="true">
         <svg viewBox="0 0 130 130">
-            <defs>
-                <path id="sealPath" d="M 65, 65 m -48, 0 a 48,48 0 1,1 96,0 a 48,48 0 1,1 -96,0"/>
-            </defs>
-            <text><textPath href="#sealPath" startOffset="0%">
-                AETHERIA · KYKLADES · AEGEAN · EST. 2019 ·
-            </textPath></text>
+            <defs><path id="sealPath" d="M 65, 65 m -48, 0 a 48,48 0 1,1 96,0 a 48,48 0 1,1 -96,0"/></defs>
+            <text><textPath href="#sealPath" startOffset="0%">AETHERIA · KYKLADES · AEGEAN · EST. 2019 ·</textPath></text>
             <circle class="seal-ring" cx="65" cy="65" r="62"/>
         </svg>
-        <span class="seal-center">
-            <svg class="icon"><use href="#i-anchor"/></svg>
-        </span>
+        <span class="seal-center"><svg class="icon"><use href="#i-anchor"/></svg></span>
     </div>
 
     <div class="hero-content">
@@ -1976,16 +1887,13 @@ footer {
             <div class="hero-tag"><span>Ιδιωτική Βίλα · Αιγαίο</span></div>
             <div class="hero-coords">37°26'N &nbsp;·&nbsp; 25°19'E</div>
         </div>
-
         <h1 class="hero-title" data-split>
             Ένα καταφύγιο πάνω από το <em>απέραντο γαλάζιο</em>
         </h1>
-
         <div class="hero-bottom">
             <p class="hero-desc">
                 Μια απομονωμένη βίλα με infinity pool, ιδιωτικούς κήπους και απαράμιλλη θέα στο Αιγαίο — σχεδιασμένη για εκείνους που γνωρίζουν τη διαφορά.
             </p>
-
             <div class="hero-actions">
                 <a href="#reservations" class="btn btn-gold" data-magnetic>
                     <span class="btn-text">Διαθεσιμότητα</span>
@@ -2005,7 +1913,6 @@ footer {
     </div>
 </section>
 
-<!-- MARQUEE -->
 <div class="marquee">
     <div class="marquee-track">
         <span>Aetheria <em>·</em> Kyklades <em>·</em> Infinity Pool <em>·</em> Private Chef <em>·</em> Aegean Views <em>·</em> Est. 2019 <em>·</em> Starlink <em>·</em> In-Villa Spa <em>·</em></span>
@@ -2013,7 +1920,6 @@ footer {
     </div>
 </div>
 
-<!-- INTRO -->
 <section id="intro" class="section intro">
     <span class="sec-num">01 / 08</span>
     <div class="container">
@@ -2029,7 +1935,6 @@ footer {
                 <p class="lead reveal d3">
                     Οι ασβεστωμένοι τοίχοι, τα ξύλινα δοκάρια και τα λινά υφάσματα δημιουργούν μια ατμόσφαιρα που θυμίζει κυκλαδίτικο μοναστήρι, αλλά με όλες τις σύγχρονες ανέσεις.
                 </p>
-
                 <div class="intro-stats">
                     <div class="stat reveal">
                         <span class="stat-v"><span class="num" data-count="240">0</span><sup>m²</sup></span>
@@ -2045,15 +1950,12 @@ footer {
                     </div>
                 </div>
             </div>
-
             <div class="intro-visual reveal d2">
                 <div class="frame frame-1 clip-reveal">
-                    <img src="https://images.unsplash.com/photo-1615529182904-14819c35db37?w=800&q=80&auto=format&fit=crop"
-                         alt="Interior" loading="lazy" decoding="async">
+                    <img src="https://images.unsplash.com/photo-1615529182904-14819c35db37?w=800&q=80&auto=format&fit=crop" alt="Interior" loading="lazy" decoding="async">
                 </div>
                 <div class="frame frame-2 clip-reveal">
-                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=640&q=80&auto=format&fit=crop"
-                         alt="Stone detail" loading="lazy" decoding="async">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=640&q=80&auto=format&fit=crop" alt="Stone detail" loading="lazy" decoding="async">
                 </div>
                 <div class="badge">
                     <strong>2019</strong>
@@ -2064,7 +1966,6 @@ footer {
     </div>
 </section>
 
-<!-- AMENITIES -->
 <section id="amenities" class="section amenities">
     <span class="sec-num light">02 / 08</span>
     <div class="container">
@@ -2079,7 +1980,6 @@ footer {
                 Από την πρώτη στιγμή που θα διαβείτε το κατώφλι, όλα έχουν τακτοποιηθεί με μοναδική προσοχή στη λεπτομέρεια.
             </p>
         </div>
-
         <div class="amenities-grid">
             <article class="amenity reveal">
                 <span class="amenity-num">I</span>
@@ -2139,7 +2039,6 @@ footer {
     </div>
 </section>
 
-<!-- GALLERY -->
 <section id="gallery" class="section gallery">
     <span class="sec-num">03 / 08</span>
     <div class="container">
@@ -2155,84 +2054,47 @@ footer {
                 <button data-filter="views">Θέα</button>
             </div>
         </div>
-
         <div class="gallery-grid" id="galleryGrid">
-            <div class="g-item reveal" data-cat="pool"
-                 data-full="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=1920&q=85&auto=format">
-                <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=1200&q=80&auto=format&fit=crop"
-                     alt="Infinity Pool" loading="lazy" decoding="async">
+            <div class="g-item reveal" data-cat="pool" data-full="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=1920&q=85&auto=format">
+                <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=1200&q=80&auto=format&fit=crop" alt="Infinity Pool" loading="lazy" decoding="async">
                 <div class="g-item-veil"></div>
                 <div class="g-item-plus"><svg class="icon"><use href="#i-plus"/></svg></div>
-                <div class="g-item-info">
-                    <small>i · Πισίνα</small>
-                    <h3>Infinity Pool</h3>
-                </div>
+                <div class="g-item-info"><small>i · Πισίνα</small><h3>Infinity Pool</h3></div>
             </div>
-
-            <div class="g-item reveal d1" data-cat="interior"
-                 data-full="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920&q=85&auto=format">
-                <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1200&q=80&auto=format&fit=crop"
-                     alt="Living Room" loading="lazy" decoding="async">
+            <div class="g-item reveal d1" data-cat="interior" data-full="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920&q=85&auto=format">
+                <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1200&q=80&auto=format&fit=crop" alt="Living Room" loading="lazy" decoding="async">
                 <div class="g-item-veil"></div>
                 <div class="g-item-plus"><svg class="icon"><use href="#i-plus"/></svg></div>
-                <div class="g-item-info">
-                    <small>ii · Σαλόνι</small>
-                    <h3>Living Room</h3>
-                </div>
+                <div class="g-item-info"><small>ii · Σαλόνι</small><h3>Living Room</h3></div>
             </div>
-
-            <div class="g-item reveal" data-cat="interior"
-                 data-full="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=1920&q=85&auto=format">
-                <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=1200&q=80&auto=format&fit=crop"
-                     alt="Master Suite" loading="lazy" decoding="async">
+            <div class="g-item reveal" data-cat="interior" data-full="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=1920&q=85&auto=format">
+                <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=1200&q=80&auto=format&fit=crop" alt="Master Suite" loading="lazy" decoding="async">
                 <div class="g-item-veil"></div>
                 <div class="g-item-plus"><svg class="icon"><use href="#i-plus"/></svg></div>
-                <div class="g-item-info">
-                    <small>iii · Υπνοδωμάτιο</small>
-                    <h3>Master Suite</h3>
-                </div>
+                <div class="g-item-info"><small>iii · Υπνοδωμάτιο</small><h3>Master Suite</h3></div>
             </div>
-
-            <div class="g-item reveal d1" data-cat="views"
-                 data-full="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=1920&q=85&auto=format">
-                <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=1200&q=80&auto=format&fit=crop"
-                     alt="Sunset Terrace" loading="lazy" decoding="async">
+            <div class="g-item reveal d1" data-cat="views" data-full="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=1920&q=85&auto=format">
+                <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=1200&q=80&auto=format&fit=crop" alt="Sunset Terrace" loading="lazy" decoding="async">
                 <div class="g-item-veil"></div>
                 <div class="g-item-plus"><svg class="icon"><use href="#i-plus"/></svg></div>
-                <div class="g-item-info">
-                    <small>iv · Θέα</small>
-                    <h3>Sunset Terrace</h3>
-                </div>
+                <div class="g-item-info"><small>iv · Θέα</small><h3>Sunset Terrace</h3></div>
             </div>
-
-            <div class="g-item reveal d2" data-cat="pool"
-                 data-full="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1920&q=85&auto=format">
-                <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1200&q=80&auto=format&fit=crop"
-                     alt="Sunbeds & Bar" loading="lazy" decoding="async">
+            <div class="g-item reveal d2" data-cat="pool" data-full="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1920&q=85&auto=format">
+                <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1200&q=80&auto=format&fit=crop" alt="Sunbeds & Bar" loading="lazy" decoding="async">
                 <div class="g-item-veil"></div>
                 <div class="g-item-plus"><svg class="icon"><use href="#i-plus"/></svg></div>
-                <div class="g-item-info">
-                    <small>v · Πισίνα</small>
-                    <h3>Sunbeds & Bar</h3>
-                </div>
+                <div class="g-item-info"><small>v · Πισίνα</small><h3>Sunbeds & Bar</h3></div>
             </div>
-
-            <div class="g-item reveal" data-cat="views"
-                 data-full="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1920&q=85&auto=format">
-                <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1600&q=80&auto=format&fit=crop"
-                     alt="Villa Terrace" loading="lazy" decoding="async">
+            <div class="g-item reveal" data-cat="views" data-full="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1920&q=85&auto=format">
+                <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1600&q=80&auto=format&fit=crop" alt="Villa Terrace" loading="lazy" decoding="async">
                 <div class="g-item-veil"></div>
                 <div class="g-item-plus"><svg class="icon"><use href="#i-plus"/></svg></div>
-                <div class="g-item-info">
-                    <small>vi · Εξωτερικός Χώρος</small>
-                    <h3>Βεράντα & Κήπος</h3>
-                </div>
+                <div class="g-item-info"><small>vi · Εξωτερικός Χώρος</small><h3>Βεράντα & Κήπος</h3></div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- EXPERIENCES -->
 <section id="experiences" class="section experiences">
     <span class="sec-num">04 / 08</span>
     <div class="container">
@@ -2240,31 +2102,25 @@ footer {
             <span class="eyebrow reveal">Εμπειρίες</span>
             <h2 class="h1 reveal d1" data-split>Σχεδιασμένες <em>στιγμές</em></h2>
         </div>
-
         <div class="exp-grid">
             <article class="exp-card reveal">
-                <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800&q=80&auto=format&fit=crop"
-                     alt="Private chef preparing food" loading="lazy" decoding="async">
+                <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800&q=80&auto=format&fit=crop" alt="Private chef preparing food" loading="lazy" decoding="async">
                 <div class="exp-overlay">
                     <span class="exp-icon"><svg><use href="#i-chef"/></svg></span>
                     <h3>Private Chef</h3>
                     <p>Πολυτελή γεύματα με τοπικά προϊόντα, σερβιρισμένα στη βεράντα.</p>
                 </div>
             </article>
-
             <article class="exp-card reveal d1">
-                <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80&auto=format&fit=crop"
-                     alt="Spa massage treatment" loading="lazy" decoding="async">
+                <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80&auto=format&fit=crop" alt="Spa massage treatment" loading="lazy" decoding="async">
                 <div class="exp-overlay">
                     <span class="exp-icon"><svg><use href="#i-spa"/></svg></span>
                     <h3>In-Villa Spa</h3>
                     <p>Θεραπείες ευεξίας, μασάζ και yoga στον ιδιωτικό σας χώρο.</p>
                 </div>
             </article>
-
             <article class="exp-card reveal d2">
-                <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80&auto=format&fit=crop"
-                     alt="Wine tasting" loading="lazy" decoding="async">
+                <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80&auto=format&fit=crop" alt="Wine tasting" loading="lazy" decoding="async">
                 <div class="exp-overlay">
                     <span class="exp-icon"><svg><use href="#i-wine"/></svg></span>
                     <h3>Wine Tasting</h3>
@@ -2275,7 +2131,6 @@ footer {
     </div>
 </section>
 
-<!-- REVIEWS -->
 <section id="reviews" class="section reviews">
     <span class="sec-num">05 / 08</span>
     <div class="container">
@@ -2283,60 +2138,35 @@ footer {
             <span class="eyebrow reveal">Μαρτυρίες</span>
             <h2 class="h1 reveal d1" data-split>Από τους <em>επισκέπτες</em> μας</h2>
         </div>
-
         <div class="reviews-grid">
             <article class="review reveal">
                 <div class="review-quote">"</div>
                 <p>Η διαμονή μας στο Aetheria ήταν απλά μαγευτική. Η θέα από την πισίνα την ώρα που δύει ο ήλιος δεν περιγράφεται. Όλα ήταν άψογα.</p>
                 <div class="review-stars">
-                    <svg class="icon"><use href="#i-star"/></svg>
-                    <svg class="icon"><use href="#i-star"/></svg>
-                    <svg class="icon"><use href="#i-star"/></svg>
-                    <svg class="icon"><use href="#i-star"/></svg>
-                    <svg class="icon"><use href="#i-star"/></svg>
+                    <svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg>
                 </div>
-                <div class="review-author">
-                    <span class="name">Ελένη Μ.</span>
-                    <span class="loc">Αθήνα</span>
-                </div>
+                <div class="review-author"><span class="name">Ελένη Μ.</span><span class="loc">Αθήνα</span></div>
             </article>
-
             <article class="review reveal d1">
                 <div class="review-quote">"</div>
                 <p>Absolute perfection — the villa is even better than the photos. Premium finishes, ultra-fast internet, and complete privacy.</p>
                 <div class="review-stars">
-                    <svg class="icon"><use href="#i-star"/></svg>
-                    <svg class="icon"><use href="#i-star"/></svg>
-                    <svg class="icon"><use href="#i-star"/></svg>
-                    <svg class="icon"><use href="#i-star"/></svg>
-                    <svg class="icon"><use href="#i-star"/></svg>
+                    <svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg>
                 </div>
-                <div class="review-author">
-                    <span class="name">David &amp; Sarah</span>
-                    <span class="loc">London</span>
-                </div>
+                <div class="review-author"><span class="name">David &amp; Sarah</span><span class="loc">London</span></div>
             </article>
-
             <article class="review reveal d2">
                 <div class="review-quote">"</div>
                 <p>Εξαιρετική φιλοξενία και απίστευτη προσοχή στη λεπτομέρεια. Νιώσαμε σαν να είμαστε σε ένα πολυτελές boutique ξενοδοχείο.</p>
                 <div class="review-stars">
-                    <svg class="icon"><use href="#i-star"/></svg>
-                    <svg class="icon"><use href="#i-star"/></svg>
-                    <svg class="icon"><use href="#i-star"/></svg>
-                    <svg class="icon"><use href="#i-star"/></svg>
-                    <svg class="icon"><use href="#i-star"/></svg>
+                    <svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg><svg class="icon"><use href="#i-star"/></svg>
                 </div>
-                <div class="review-author">
-                    <span class="name">Γιώργος &amp; Μαρία</span>
-                    <span class="loc">Θεσσαλονίκη</span>
-                </div>
+                <div class="review-author"><span class="name">Γιώργος &amp; Μαρία</span><span class="loc">Θεσσαλονίκη</span></div>
             </article>
         </div>
     </div>
 </section>
 
-<!-- RESERVATIONS -->
 <section id="reservations" class="section reservations">
     <span class="sec-num light">06 / 08</span>
     <div class="container">
@@ -2349,7 +2179,6 @@ footer {
                 <p class="lead reveal d2">
                     Επιλέξτε τον τρόπο κράτησης που σας εξυπηρετεί — μέσω Booking.com, Airbnb ή απευθείας μαζί μας. Όλες οι επιλογές οδηγούν στην ίδια εμπειρία.
                 </p>
-
                 <ul class="reserve-list reveal d3">
                     <li><svg class="icon"><use href="#i-check"/></svg> Έως 6 φιλοξενούμενοι — 3 υπνοδωμάτια</li>
                     <li><svg class="icon"><use href="#i-check"/></svg> Ελάχιστη διαμονή: 3 βράδια (5 το καλοκαίρι)</li>
@@ -2357,7 +2186,6 @@ footer {
                     <li><svg class="icon"><use href="#i-check"/></svg> Δυνατότητα early check-in / late check-out</li>
                 </ul>
             </div>
-
             <div class="booking-cards">
                 <article class="bk-card reveal">
                     <div class="bk-card-head">
@@ -2373,7 +2201,6 @@ footer {
                         <svg class="icon"><use href="#i-arrow-up"/></svg>
                     </a>
                 </article>
-
                 <article class="bk-card reveal d1">
                     <div class="bk-card-head">
                         <div class="bk-logo airbnb"><svg class="icon"><use href="#i-spa"/></svg></div>
@@ -2390,7 +2217,6 @@ footer {
                 </article>
             </div>
         </div>
-
         <div class="contact-strip reveal">
             <div>
                 <h4>Προτιμάτε <em>απευθείας</em> κράτηση;</h4>
@@ -2405,11 +2231,8 @@ footer {
                 <span class="btn-text">WhatsApp</span>
             </a>
         </div>
-
         <div class="platform-note reveal">
-            <div class="platform-note-icon">
-                <svg class="icon"><use href="#i-info"/></svg>
-            </div>
+            <div class="platform-note-icon"><svg class="icon"><use href="#i-info"/></svg></div>
             <div>
                 <h4>Σχετικά με τη διαχείριση των πλατφορμών</h4>
                 <p>
@@ -2420,7 +2243,6 @@ footer {
     </div>
 </section>
 
-<!-- FAQ -->
 <section class="section faq">
     <span class="sec-num">07 / 08</span>
     <div class="container">
@@ -2428,7 +2250,6 @@ footer {
             <span class="eyebrow reveal">Συχνές Ερωτήσεις</span>
             <h2 class="h1 reveal d1" data-split>Χρήσιμες <em>πληροφορίες</em></h2>
         </div>
-
         <div class="faq-wrap">
             <div class="faq-item">
                 <button class="faq-q"><span>Ποιο είναι το ωράριο check-in;</span><svg class="icon"><use href="#i-plus"/></svg></button>
@@ -2436,21 +2257,18 @@ footer {
                     Check-in: από τις 15:00. Check-out: έως τις 11:00. Κατόπιν συνεννόησης, μπορούμε να προσαρμόσουμε το ωράριο στις ανάγκες σας.
                 </div></div>
             </div>
-
             <div class="faq-item">
                 <button class="faq-q"><span>Δέχεστε κατοικίδια;</span><svg class="icon"><use href="#i-plus"/></svg></button>
                 <div class="faq-a"><div class="faq-a-inner">
                     Ναι, κατόπιν προηγούμενης συνεννόησης. Παρακαλούμε ενημερώστε μας κατά την κράτηση.
                 </div></div>
             </div>
-
             <div class="faq-item">
                 <button class="faq-q"><span>Υπάρχει δυνατότητα πρώιμου check-in;</span><svg class="icon"><use href="#i-plus"/></svg></button>
                 <div class="faq-a"><div class="faq-a-inner">
                     Εφόσον δεν υπάρχει προηγούμενη κράτηση, μπορούμε να εξασφαλίσουμε early check-in χωρίς επιπλέον χρέωση.
                 </div></div>
             </div>
-
             <div class="faq-item">
                 <button class="faq-q"><span>Πόσο απέχει από το αεροδρόμιο;</span><svg class="icon"><use href="#i-plus"/></svg></button>
                 <div class="faq-a"><div class="faq-a-inner">
@@ -2461,7 +2279,6 @@ footer {
     </div>
 </section>
 
-<!-- LOCATION -->
 <section id="location" class="section">
     <span class="sec-num">08 / 08</span>
     <div class="container">
@@ -2474,7 +2291,6 @@ footer {
                 <p class="lead reveal d2">
                     Σε μια ήσυχη πλαγιά με θέα το Αιγαίο, η βίλα προσφέρει απόλυτη ιδιωτικότητα, ενώ βρίσκεται μόλις λίγα λεπτά από τις καλύτερες παραλίες.
                 </p>
-
                 <div class="poi-list reveal d3">
                     <div class="poi">
                         <span class="poi-l"><svg class="icon"><use href="#i-pool"/></svg> Παραλία Άγιος Ιωάννης</span>
@@ -2494,7 +2310,6 @@ footer {
                     </div>
                 </div>
             </div>
-
             <div class="map-frame reveal d2">
                 <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3220.4656!2d25.3289!3d37.4467!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzfCsDI2JzQ4LjEiTiAyNcKwMTknNDQuMCJF!5e0!3m2!1sen!2sgr!4v1700000000000&iwloc=near"
@@ -2502,7 +2317,6 @@ footer {
                     referrerpolicy="no-referrer-when-downgrade"
                     allowfullscreen
                     title="Aetheria Location"></iframe>
-
                 <div class="map-overlay">
                     <svg class="icon"><use href="#i-location"/></svg>
                     <span>Κυκλάδες · Αιγαίο</span>
@@ -2512,7 +2326,6 @@ footer {
     </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
     <div class="footer-hero">
         <h2 class="reveal" data-split>
@@ -2529,13 +2342,11 @@ footer {
             </a>
         </div>
     </div>
-
     <div class="footer-cols">
         <div class="f-brand">
             <div class="f-brand-name">Aetheria</div>
             <p>Ιδιωτική βίλα πολυτελείας στις Κυκλάδες, με infinity pool και απαράμιλλη θέα στο Αιγαίο.</p>
         </div>
-
         <div>
             <div class="f-title">Πλοήγηση</div>
             <ul class="f-list">
@@ -2546,7 +2357,6 @@ footer {
                 <li><a href="#location">Τοποθεσία</a></li>
             </ul>
         </div>
-
         <div>
             <div class="f-title">Επικοινωνία</div>
             <ul class="f-list">
@@ -2556,7 +2366,6 @@ footer {
                 <li><span><svg class="icon"><use href="#i-location"/></svg> Κυκλάδες, Ελλάδα</span></li>
             </ul>
         </div>
-
         <div>
             <div class="f-title">Social</div>
             <div class="f-socials">
@@ -2566,7 +2375,6 @@ footer {
             </div>
         </div>
     </div>
-
     <div class="footer-bottom">
         <span>© 2026 Aetheria — All rights reserved</span>
         <span>Privacy · Terms · Cookies</span>
@@ -2591,20 +2399,15 @@ footer {
 <script>
 (function() {
     'use strict';
-
     document.documentElement.classList.add('js-ready');
-
     var fine = window.matchMedia('(pointer: fine)').matches;
     var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    /* ============ TEXT SPLIT ============ */
     var splitTargets = document.querySelectorAll('[data-split]');
     for (var i = 0; i < splitTargets.length; i++) {
         var el = splitTargets[i];
         var html = el.innerHTML.trim();
-        var tokens = html.split(/(\s+|<em>|<\/em>)/).filter(function(t) {
-            return t && !/^\s+$/.test(t);
-        });
+        var tokens = html.split(/(\s+|<em>|<\/em>)/).filter(function(t) { return t && !/^\s+$/.test(t); });
         var out = '';
         var dIndex = 0;
         for (var t = 0; t < tokens.length; t++) {
@@ -2617,33 +2420,25 @@ footer {
         el.innerHTML = out;
     }
 
-    /* ============ INTERSECTION OBSERVER ============ */
     var animated = document.querySelectorAll('.reveal, [data-split], .clip-reveal');
-
     if ('IntersectionObserver' in window && !reducedMotion) {
         var io = new IntersectionObserver(function(entries) {
             for (var i = 0; i < entries.length; i++) {
                 if (!entries[i].isIntersecting) continue;
                 var target = entries[i].target;
                 target.classList.add('in');
-                if (target.hasAttribute('data-split')) {
-                    target.classList.add('split-ready');
-                }
+                if (target.hasAttribute('data-split')) target.classList.add('split-ready');
                 io.unobserve(target);
             }
         }, { rootMargin: '0px 0px -30px 0px', threshold: 0.05 });
-
         for (var i = 0; i < animated.length; i++) io.observe(animated[i]);
     } else {
         for (var i = 0; i < animated.length; i++) {
             animated[i].classList.add('in');
-            if (animated[i].hasAttribute('data-split')) {
-                animated[i].classList.add('split-ready');
-            }
+            if (animated[i].hasAttribute('data-split')) animated[i].classList.add('split-ready');
         }
     }
 
-    /* Counters */
     var counters = document.querySelectorAll('[data-count]');
     if ('IntersectionObserver' in window) {
         var cObs = new IntersectionObserver(function(entries) {
@@ -2670,7 +2465,6 @@ footer {
         for (var i = 0; i < counters.length; i++) cObs.observe(counters[i]);
     }
 
-    /* ============ SCROLL PROGRESS + HEADER ============ */
     var progress = document.getElementById('progress');
     var header = document.getElementById('header');
     var ticking = false;
@@ -2686,12 +2480,10 @@ footer {
     }, { passive: true });
     onScroll();
 
-    /* ============ CUSTOM CURSOR ============ */
     if (fine && !reducedMotion) {
         var dot = document.querySelector('.cursor');
         var ring = document.querySelector('.cursor-ring');
         var cursorActive = false;
-
         document.addEventListener('mousemove', function(e) {
             if (!cursorActive) {
                 cursorActive = true;
@@ -2701,7 +2493,6 @@ footer {
             if (dot) dot.style.transform = 'translate3d(' + e.clientX + 'px,' + e.clientY + 'px,0) translate(-50%,-50%)';
             if (ring) ring.style.transform = 'translate3d(' + e.clientX + 'px,' + e.clientY + 'px,0) translate(-50%,-50%)';
         });
-
         document.addEventListener('mouseover', function(e) {
             if (!ring) return;
             ring.classList.remove('hover', 'text');
@@ -2710,7 +2501,6 @@ footer {
         });
     }
 
-    /* ============ MAGNETIC ============ */
     if (fine && !reducedMotion) {
         var magnets = document.querySelectorAll('[data-magnetic]');
         for (var i = 0; i < magnets.length; i++) {
@@ -2721,18 +2511,14 @@ footer {
                     var y = e.clientY - r.top - r.height / 2;
                     el.style.transform = 'translate3d(' + (x * 0.16) + 'px,' + (y * 0.26) + 'px,0)';
                 });
-                el.addEventListener('mouseleave', function() {
-                    el.style.transform = '';
-                });
+                el.addEventListener('mouseleave', function() { el.style.transform = ''; });
             })(magnets[i]);
         }
     }
 
-    /* ============ MOBILE MENU ============ */
     var menuBtn = document.getElementById('menuBtn');
     var menuClose = document.getElementById('menuClose');
     var mmenu = document.getElementById('mmenu');
-
     if (menuBtn) menuBtn.addEventListener('click', function() {
         mmenu.classList.add('open');
         document.body.style.overflow = 'hidden';
@@ -2745,10 +2531,8 @@ footer {
     var mlinks = mmenu.querySelectorAll('a');
     for (var i = 0; i < mlinks.length; i++) mlinks[i].addEventListener('click', closeMenu);
 
-    /* ============ GALLERY FILTER + LIGHTBOX ============ */
     var filterBtns = document.querySelectorAll('.filters button');
     var gItems = document.querySelectorAll('.g-item');
-
     for (var i = 0; i < filterBtns.length; i++) {
         filterBtns[i].addEventListener('click', function() {
             for (var j = 0; j < filterBtns.length; j++) filterBtns[j].classList.remove('active');
@@ -2763,7 +2547,6 @@ footer {
     var lb = document.getElementById('lightbox');
     var lbImg = document.getElementById('lbImg');
     var lbClose = document.getElementById('lbClose');
-
     for (var i = 0; i < gItems.length; i++) {
         (function(item) {
             item.addEventListener('click', function() {
@@ -2787,7 +2570,6 @@ footer {
         if (e.key === 'Escape' && lb.classList.contains('open')) closeLB();
     });
 
-    /* ============ FAQ ============ */
     var faqQs = document.querySelectorAll('.faq-q');
     for (var i = 0; i < faqQs.length; i++) {
         faqQs[i].addEventListener('click', function() {
@@ -2804,7 +2586,6 @@ footer {
         });
     }
 
-    /* ============ SMOOTH SCROLL ============ */
     var anchors = document.querySelectorAll('a[href^="#"]');
     for (var i = 0; i < anchors.length; i++) {
         anchors[i].addEventListener('click', function(e) {
@@ -2819,7 +2600,6 @@ footer {
             }
         });
     }
-
 })();
 </script>
 
